@@ -106,34 +106,63 @@ class _SelectedScreenState extends State<SelectedScreen> {
       ),
       drawer: Drawer(
         backgroundColor: const Color(0xff251C3A),
-        child: ListView(
-          children: <Widget>[
-            Text('Hola Rafael!',
-                style: GoogleFonts.inter(
-                    color: const Color(0xFFFBE9E7),
-                    fontSize: 60,
-                    fontWeight: FontWeight.w600)),
-            Padding(
-              padding: const EdgeInsets.only(top: 10.0),
-              child: Text(
-                '¿Qué deseas realizar?',
-                style: GoogleFonts.poppins(
-                    color: const Color(0xFFFBE9E7),
-                    fontSize: 22,
-                    fontWeight: FontWeight.w600),
+        child: Padding(
+          padding: const EdgeInsets.all(15.0),
+          child: ListView(
+            children: <Widget>[
+              Text('Hola Rafael!',
+                  style: GoogleFonts.inter(
+                      color: const Color(0xFFFBE9E7),
+                      fontSize: 60,
+                      fontWeight: FontWeight.w600)),
+              Padding(
+                padding: const EdgeInsets.only(top: 10.0),
+                child: Text(
+                  '¿Qué deseas realizar?',
+                  style: GoogleFonts.poppins(
+                      color: const Color(0xFFFBE9E7),
+                      fontSize: 22,
+                      fontWeight: FontWeight.w600),
+                ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 5.0),
-              child: ListTile(
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 5.0),
+                child: ListTile(
+                  onTap: () {
+                    Navigator.pop(context);
+                    setState(() {
+                      indexClicked = 0;
+                    });
+                  },
+                  title: Text(
+                    'Revision de Gastos',
+                    style: GoogleFonts.poppins(
+                      color: const Color(0xffF5F5F5), //382872 //453a88
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 10.0),
+                child: Text(
+                  'Calcular:',
+                  style: GoogleFonts.poppins(
+                      color: const Color(0xFFFBE9E7),
+                      fontSize: 22,
+                      fontWeight: FontWeight.w600),
+                ),
+              ),
+              ListTile(
                 onTap: () {
                   Navigator.pop(context);
                   setState(() {
-                    indexClicked = 0;
+                    indexClicked = 1;
                   });
                 },
                 title: Text(
-                  'Revision de Gastos',
+                  'Pago de una tarjeta de credito',
                   style: GoogleFonts.poppins(
                     color: const Color(0xffF5F5F5), //382872 //453a88
                     fontSize: 18,
@@ -141,44 +170,34 @@ class _SelectedScreenState extends State<SelectedScreen> {
                   ),
                 ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(bottom: 10.0),
-              child: Text(
-                'Calcular:',
-                style: GoogleFonts.poppins(
-                    color: const Color(0xFFFBE9E7),
-                    fontSize: 22,
-                    fontWeight: FontWeight.w600),
-              ),
-            ),
-            ListTile(
-              onTap: () {
-                Navigator.pop(context);
-                setState(() {
-                  indexClicked = 1;
-                });
-              },
-              title: Text(
-                'Pago de una tarjeta de credito',
-                style: GoogleFonts.poppins(
-                  color: const Color(0xffF5F5F5), //382872 //453a88
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600,
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 10.0),
+                child: ListTile(
+                  onTap: () {
+                    Navigator.pop(context);
+                    setState(() {
+                      indexClicked = 2;
+                    });
+                  },
+                  title: Text(
+                    'Pago de un prestamo',
+                    style: GoogleFonts.poppins(
+                      color: const Color(0xffF5F5F5), //382872 //453a88
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
                 ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 10.0),
-              child: ListTile(
+              ListTile(
                 onTap: () {
                   Navigator.pop(context);
                   setState(() {
-                    indexClicked = 2;
+                    indexClicked = 3;
                   });
                 },
                 title: Text(
-                  'Pago de un prestamo',
+                  'Honorarios',
                   style: GoogleFonts.poppins(
                     color: const Color(0xffF5F5F5), //382872 //453a88
                     fontSize: 18,
@@ -186,34 +205,34 @@ class _SelectedScreenState extends State<SelectedScreen> {
                   ),
                 ),
               ),
-            ),
-            ListTile(
-              onTap: () {
-                Navigator.pop(context);
-                setState(() {
-                  indexClicked = 3;
-                });
-              },
-              title: Text(
-                'Honorarios',
-                style: GoogleFonts.poppins(
-                  color: const Color(0xffF5F5F5), //382872 //453a88
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600,
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 10.0),
+                child: ListTile(
+                  onTap: () {
+                    Navigator.pop(context);
+                    setState(() {
+                      indexClicked = 4;
+                    });
+                  },
+                  title: Text(
+                    'Prima Vacacional',
+                    style: GoogleFonts.poppins(
+                      color: const Color(0xffF5F5F5), //382872 //453a88
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
                 ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 10.0),
-              child: ListTile(
+              ListTile(
                 onTap: () {
                   Navigator.pop(context);
                   setState(() {
-                    indexClicked = 4;
+                    indexClicked = 5;
                   });
                 },
                 title: Text(
-                  'Prima Vacacional',
+                  'Impuesto Sobre Renta (ISR)',
                   style: GoogleFonts.poppins(
                     color: const Color(0xffF5F5F5), //382872 //453a88
                     fontSize: 18,
@@ -221,43 +240,27 @@ class _SelectedScreenState extends State<SelectedScreen> {
                   ),
                 ),
               ),
-            ),
-            ListTile(
-              onTap: () {
-                Navigator.pop(context);
-                setState(() {
-                  indexClicked = 5;
-                });
-              },
-              title: Text(
-                'Impuesto Sobre Renta (ISR)',
-                style: GoogleFonts.poppins(
-                  color: const Color(0xffF5F5F5), //382872 //453a88
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 10.0),
-              child: ListTile(
-                onTap: () {
-                  Navigator.pop(context);
-                  setState(() {
-                    indexClicked = 6;
-                  });
-                },
-                title: Text(
-                  'Impuesto al Valor Agregado (IVA)',
-                  style: GoogleFonts.poppins(
-                    color: const Color(0xffF5F5F5), //382872 //453a88
-                    fontSize: 18,
-                    fontWeight: FontWeight.w600,
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 10.0),
+                child: ListTile(
+                  onTap: () {
+                    Navigator.pop(context);
+                    setState(() {
+                      indexClicked = 6;
+                    });
+                  },
+                  title: Text(
+                    'Impuesto al Valor Agregado (IVA)',
+                    style: GoogleFonts.poppins(
+                      color: const Color(0xffF5F5F5), //382872 //453a88
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                 ),
-              ),
-            )
-          ],
+              )
+            ],
+          ),
         ),
       ),
     );

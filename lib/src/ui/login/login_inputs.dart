@@ -19,7 +19,7 @@ class _LogInInputsState extends State<LogInInputs> {
         children: <Widget>[
           Text(
             'Bienvenido De Nuevo!',
-            style: Theme.of(context).textTheme.headline2,
+            style: Theme.of(context).textTheme.displayMedium,
           ),
           buildInputNombreEmail(context),
           buildPasswordInput(context),

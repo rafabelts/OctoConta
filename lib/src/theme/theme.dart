@@ -28,20 +28,30 @@ class OctoAppBarTheme {
 // Tema del texto
 class OctoTextThemes {
   static TextTheme lightTheme = TextTheme(
-    headline1: GoogleFonts.inter(
+    displayLarge: GoogleFonts.inter(
       color: const Color(0xFF2a195d),
       fontWeight: FontWeight.bold,
       fontSize: 58,
     ),
-    headline2: GoogleFonts.inter(
+    displayMedium: GoogleFonts.inter(
       color: const Color(0xFF2a195d),
       fontWeight: FontWeight.bold,
       fontSize: 42,
     ),
-    subtitle1: GoogleFonts.inter(
+    titleMedium: GoogleFonts.inter(
       color: const Color(0xff382A62),
       fontWeight: FontWeight.w500,
       fontSize: 19,
+    ),
+    headlineSmall: GoogleFonts.inter(
+      color: const Color(0xff382A62),
+      fontWeight: FontWeight.w600,
+      fontSize: 28,
+    ),
+    labelLarge: GoogleFonts.inter(
+      color: const Color(0xFF534677),
+      fontWeight: FontWeight.w500,
+      fontSize: 45,
     ),
   );
 }

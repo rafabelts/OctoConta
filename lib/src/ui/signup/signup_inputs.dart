@@ -20,7 +20,7 @@ class _SignUpInputsState extends State<SignUpInputs> {
         children: <Widget>[
           Text(
             'Crear Cuenta',
-            style: Theme.of(context).textTheme.headline2,
+            style: Theme.of(context).textTheme.displayMedium,
           ),
           buildInputNombre(context),
           buildEmailInput(context),

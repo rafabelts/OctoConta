@@ -8,12 +8,7 @@ class CalculoHonorariosScreen extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
-      children: <Widget>[
-        Text(
-          'Calculo de Honorarios',
-          style: Theme.of(context).textTheme.headline1,
-        )
-      ],
+      children: <Widget>[],
     );
   }
 }

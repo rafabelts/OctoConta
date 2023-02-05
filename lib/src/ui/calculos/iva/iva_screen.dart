@@ -8,12 +8,7 @@ class CalculoIVAScreen extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
-      children: <Widget>[
-        Text(
-          'Calculo de IVA',
-          style: Theme.of(context).textTheme.headline1,
-        )
-      ],
+      children: const <Widget>[],
     );
   }
 }
