@@ -62,31 +62,6 @@ class CalculoTarjetaInput extends StatelessWidget {
                         BorderSide(width: 2.0, color: Color(0xFF382A62)))),
           ),
         ),
-        Padding(
-            padding: const EdgeInsets.symmetric(vertical: 20.0),
-            child: Row(
-              children: <Widget>[
-                TextButton(onPressed: () {}, child: Text("Borrar")),
-                ElevatedButton(
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.0)),
-                    backgroundColor: Color(0xFF5E35B1),
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 6.0, horizontal: 12.0),
-                  ),
-                  child: Text(
-                    "Calcular",
-                    style: GoogleFonts.inter(
-                      color: Theme.of(context).scaffoldBackgroundColor,
-                      fontSize: 28,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ),
-              ],
-            ))
       ],
     );
   }
