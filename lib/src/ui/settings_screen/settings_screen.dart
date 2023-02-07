@@ -34,9 +34,9 @@ class SettingsScreen extends StatelessWidget {
               child: Column(
                 children: <Widget>[
                   const CambiarNombreButton(),
-                  const Divider(thickness: 0.5, color: Color(0xff534677)),
+                  const Divider(color: Color(0xff534677)),
                   const CambiarEmailButton(),
-                  const Divider(thickness: 0.5, color: Color(0xff534677)),
+                  const Divider(color: Color(0xff534677)),
                   const CambiarPasswordButton(),
                   Padding(
                     padding: EdgeInsets.only(

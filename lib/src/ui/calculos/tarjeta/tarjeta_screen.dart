@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:octoconta_final/src/ui/calculos/buttons_calculos.dart';
-import 'package:octoconta_final/src/ui/calculos/muestra_resultados.dart';
+import 'package:octoconta_final/src/models/buttons_calculos.dart';
+import 'package:octoconta_final/src/models/muestra_resultados.dart';
 import 'package:octoconta_final/src/ui/calculos/tarjeta/tarjeta_inputs.dart';
 
 class CalculoTarjetaScreen extends StatelessWidget {
@@ -8,14 +8,14 @@ class CalculoTarjetaScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      padding: const EdgeInsets.all(10.0),
+    return Padding(
+      padding: const EdgeInsets.all(5.0),
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 60),
+        padding: const EdgeInsets.symmetric(vertical: 30.0),
         child: Column(
           children: <Widget>[
             const CalculoTarjetaInput(),
-            BotonesCalculos(
+            Botones(
               limpiar: () {},
               calcular: () => mostrarResultados(context),
             ),

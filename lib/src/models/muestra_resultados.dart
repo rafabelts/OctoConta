@@ -13,7 +13,7 @@ void mostrarResultados(BuildContext context) {
                     shape: const RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(10))),
                     backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-                    content: const Text("Amarrillo"),
+                    content: const Text(" "),
                   ),
                 )
               ],

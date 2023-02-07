@@ -6,8 +6,8 @@ class DescripcionTarjeta extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var colorBodyTexto = Theme.of(context).scaffoldBackgroundColor;
-
+    var colorTitulo = const Color(0xFF382A62);
+    var colorBodyTexto = const Color(0xFF534677);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.start,
@@ -15,8 +15,8 @@ class DescripcionTarjeta extends StatelessWidget {
         Text(
           'Tarjetas de crédito:',
           style: GoogleFonts.inter(
-            color: const Color(0xFFffe9f0),
-            fontWeight: FontWeight.w700,
+            color: colorTitulo,
+            fontWeight: FontWeight.bold,
             fontSize: 28.6,
           ),
         ),

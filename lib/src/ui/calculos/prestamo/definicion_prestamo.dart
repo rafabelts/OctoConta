@@ -6,14 +6,15 @@ class DescripcionPrestamo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var colorBodyTexto = Theme.of(context).scaffoldBackgroundColor;
+    var colorTitulo = const Color(0xFF382A62);
+    var colorBodyTexto = const Color(0xFF534677);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Text('¿Qué es un prestamo?',
             style: GoogleFonts.inter(
-              color: const Color(0xFFffe9f0),
+              color: colorTitulo,
               fontWeight: FontWeight.w700,
               fontSize: 28.6,
             ),

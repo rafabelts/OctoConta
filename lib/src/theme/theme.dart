@@ -46,12 +46,12 @@ class OctoTextThemes {
     headlineSmall: GoogleFonts.inter(
       color: const Color(0xff382A62),
       fontWeight: FontWeight.w600,
-      fontSize: 28,
+      fontSize: 32,
     ),
     labelLarge: GoogleFonts.inter(
       color: const Color(0xFF534677),
-      fontWeight: FontWeight.w500,
-      fontSize: 45,
+      fontWeight: FontWeight.w600,
+      fontSize: 54,
     ),
   );
 }
