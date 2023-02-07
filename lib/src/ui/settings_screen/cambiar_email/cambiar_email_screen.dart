@@ -39,7 +39,7 @@ class CambiarEmailButton extends StatelessWidget {
             ],
           ),
           const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 39.8),
+              padding: EdgeInsets.symmetric(horizontal: 37.0),
               child: Icon(
                 Icons.arrow_forward_ios,
                 color: Color(0xff4527A0),

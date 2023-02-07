@@ -12,11 +12,8 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-      systemNavigationBarColor: Color.fromARGB(0, 0, 0, 0),
-      systemNavigationBarIconBrightness: Brightness.dark,
-    ));
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: OctoContaThemes.lightTheme,
       home: const SelectedScreen(),
     );

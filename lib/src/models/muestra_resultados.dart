@@ -1,7 +1,7 @@
 import 'package:adaptive_components/adaptive_components.dart';
 import 'package:flutter/material.dart';
 
-void mostrarResultados(BuildContext context) {
+void mostrarResultados(BuildContext context, Column resultados) {
   showDialog(
       context: context,
       builder: (context) => Center(
@@ -13,7 +13,7 @@ void mostrarResultados(BuildContext context) {
                     shape: const RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(10))),
                     backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-                    content: const Text(" "),
+                    content: resultados,
                   ),
                 )
               ],

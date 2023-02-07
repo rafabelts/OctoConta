@@ -18,7 +18,11 @@ class CalculoPrestamoScreen extends StatelessWidget {
             const CalculoPrestamoInput(),
             Botones(
               limpiar: () {},
-              calcular: () => mostrarResultados(context),
+              calcular: () => mostrarResultados(
+                  context,
+                  Column(
+                    children: [],
+                  )),
             ),
           ],
         ),

@@ -17,7 +17,11 @@ class CalculoHonorariosScreen extends StatelessWidget {
             const CalculoHonorariosInput(),
             Botones(
               limpiar: () {},
-              calcular: () => mostrarResultados(context),
+              calcular: () => mostrarResultados(
+                  context,
+                  Column(
+                    children: [],
+                  )),
             ),
           ],
         ),

@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
 
-class CalculoIvaInput extends StatelessWidget {
-  const CalculoIvaInput({super.key});
+class CalculoIvaInput extends StatefulWidget {
+  final TextEditingController precioArticulo;
+  const CalculoIvaInput({required this.precioArticulo, super.key});
 
+  @override
+  State<CalculoIvaInput> createState() => _CalculoIvaInputState();
+}
+
+class _CalculoIvaInputState extends State<CalculoIvaInput> {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -15,6 +21,9 @@ class CalculoIvaInput extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 10.0),
           child: TextField(
+            controller: widget.precioArticulo,
+            onChanged: (value) {},
+            keyboardType: TextInputType.number,
             style: Theme.of(context).textTheme.labelLarge,
             textAlign: TextAlign.center,
             cursorColor: const Color(0xFF382A62),

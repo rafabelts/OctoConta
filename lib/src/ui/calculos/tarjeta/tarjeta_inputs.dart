@@ -15,6 +15,7 @@ class CalculoTarjetaInput extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 10.0),
           child: TextField(
+            keyboardType: TextInputType.number,
             style: Theme.of(context).textTheme.labelLarge,
             textAlign: TextAlign.center,
             cursorColor: const Color(0xFF382A62),
@@ -43,6 +44,7 @@ class CalculoTarjetaInput extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 10.0),
           child: TextField(
+            keyboardType: TextInputType.number,
             style: Theme.of(context).textTheme.labelLarge,
             textAlign: TextAlign.center,
             cursorColor: const Color(0xFF382A62),

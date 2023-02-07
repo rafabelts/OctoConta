@@ -24,7 +24,11 @@ class CalculoPrimaVacacionalScreen extends StatelessWidget {
             ),
             Botones(
               limpiar: () {},
-              calcular: () => mostrarResultados(context),
+              calcular: () => mostrarResultados(
+                  context,
+                  Column(
+                    children: [],
+                  )),
             ),
           ],
         ),

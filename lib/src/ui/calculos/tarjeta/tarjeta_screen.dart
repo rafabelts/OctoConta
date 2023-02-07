@@ -17,7 +17,11 @@ class CalculoTarjetaScreen extends StatelessWidget {
             const CalculoTarjetaInput(),
             Botones(
               limpiar: () {},
-              calcular: () => mostrarResultados(context),
+              calcular: () => mostrarResultados(
+                  context,
+                  Column(
+                    children: [],
+                  )),
             ),
           ],
         ),

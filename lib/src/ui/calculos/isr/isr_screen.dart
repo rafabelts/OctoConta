@@ -22,7 +22,11 @@ class CalculoISRScreen extends StatelessWidget {
                 periodoActual: periodoActual, periodos: periodosPago),
             Botones(
               limpiar: () {},
-              calcular: () => mostrarResultados(context),
+              calcular: () => mostrarResultados(
+                  context,
+                  Column(
+                    children: [],
+                  )),
             ),
           ],
         ),

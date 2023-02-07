@@ -20,7 +20,7 @@ class TarjetaSaldoMensual extends StatelessWidget {
     );
     return Container(
       width: double.infinity,
-      height: 220,
+      height: 230,
       decoration: decoracion,
       padding: const EdgeInsets.all(25.0),
       child: Column(
