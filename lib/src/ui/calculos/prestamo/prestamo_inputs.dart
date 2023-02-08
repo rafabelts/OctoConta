@@ -1,7 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class CalculoPrestamoInput extends StatelessWidget {
-  const CalculoPrestamoInput({super.key});
+  final TextEditingController monto;
+  final TextEditingController tasaInteres;
+  final TextEditingController meses;
+  final Function(dynamic) onChanged;
+  final bool esNumeroMonto;
+  final bool esNumeroInteres;
+  final bool esNumeroMeses;
+  final VoidCallback onCompleteMonto;
+  final VoidCallback onCompleteInteres;
+  final Function(dynamic) onSubmitted;
+  const CalculoPrestamoInput(
+      {required this.monto,
+      required this.tasaInteres,
+      required this.meses,
+      required this.onCompleteMonto,
+      required this.onCompleteInteres,
+      required this.onSubmitted,
+      required this.onChanged,
+      required this.esNumeroMonto,
+      required this.esNumeroInteres,
+      required this.esNumeroMeses,
+      super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,15 +37,21 @@ class CalculoPrestamoInput extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 10.0),
           child: TextField(
+            controller: monto,
+            onChanged: onChanged,
+            onEditingComplete: onCompleteMonto,
             keyboardType: TextInputType.number,
             style: Theme.of(context).textTheme.labelLarge,
             textAlign: TextAlign.center,
             cursorColor: const Color(0xFF382A62),
             decoration: InputDecoration(
+                errorText: esNumeroMonto ? null : 'Por favor ingrese un número',
+                errorStyle: GoogleFonts.inter(
+                    fontSize: 14, fontWeight: FontWeight.w600),
                 errorBorder: const UnderlineInputBorder(
-                    borderSide: BorderSide(width: 2.0)),
+                    borderSide: BorderSide(color: Colors.red, width: 2.0)),
                 focusedErrorBorder: const UnderlineInputBorder(
-                    borderSide: BorderSide(width: 2.0)),
+                    borderSide: BorderSide(width: 2.0, color: Colors.red)),
                 contentPadding: const EdgeInsets.symmetric(vertical: 2.0),
                 hintText: "0.0",
                 hintStyle: Theme.of(context).textTheme.labelLarge,
@@ -44,15 +72,22 @@ class CalculoPrestamoInput extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 10.0),
           child: TextField(
+            controller: tasaInteres,
+            onChanged: onChanged,
+            onEditingComplete: onCompleteInteres,
             keyboardType: TextInputType.number,
             style: Theme.of(context).textTheme.labelLarge,
             textAlign: TextAlign.center,
             cursorColor: const Color(0xFF382A62),
             decoration: InputDecoration(
+                errorText:
+                    esNumeroInteres ? null : 'Por favor ingrese un número',
+                errorStyle: GoogleFonts.inter(
+                    fontSize: 14, fontWeight: FontWeight.w600),
                 errorBorder: const UnderlineInputBorder(
-                    borderSide: BorderSide(width: 2.0)),
+                    borderSide: BorderSide(color: Colors.red, width: 2.0)),
                 focusedErrorBorder: const UnderlineInputBorder(
-                    borderSide: BorderSide(width: 2.0)),
+                    borderSide: BorderSide(width: 2.0, color: Colors.red)),
                 contentPadding: const EdgeInsets.symmetric(vertical: 2.0),
                 hintText: "0.0",
                 hintStyle: Theme.of(context).textTheme.labelLarge,
@@ -73,15 +108,21 @@ class CalculoPrestamoInput extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 10.0),
           child: TextField(
+            controller: meses,
+            onChanged: onChanged,
+            onSubmitted: onSubmitted,
             keyboardType: TextInputType.number,
             style: Theme.of(context).textTheme.labelLarge,
             textAlign: TextAlign.center,
             cursorColor: const Color(0xFF382A62),
             decoration: InputDecoration(
+                errorText: esNumeroMeses ? null : 'Por favor ingrese un número',
+                errorStyle: GoogleFonts.inter(
+                    fontSize: 14, fontWeight: FontWeight.w600),
                 errorBorder: const UnderlineInputBorder(
-                    borderSide: BorderSide(width: 2.0)),
+                    borderSide: BorderSide(color: Colors.red, width: 2.0)),
                 focusedErrorBorder: const UnderlineInputBorder(
-                    borderSide: BorderSide(width: 2.0)),
+                    borderSide: BorderSide(width: 2.0, color: Colors.red)),
                 contentPadding: const EdgeInsets.symmetric(vertical: 2.0),
                 hintText: "0",
                 hintStyle: Theme.of(context).textTheme.labelLarge,

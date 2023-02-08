@@ -16,7 +16,7 @@ class ScreensAppBar extends StatelessWidget implements PreferredSizeWidget {
         style: GoogleFonts.inter(
             color: const Color(0xFF2a195d),
             fontWeight: FontWeight.bold,
-            fontSize: 28),
+            fontSize: 25),
       ),
       leading: IconButton(
         onPressed: () {

@@ -1,7 +1,7 @@
 import 'package:adaptive_components/adaptive_components.dart';
 import 'package:flutter/material.dart';
 
-void mostrarResultados(BuildContext context, Column resultados) {
+void mostrarResultados(BuildContext context, Widget resultados) {
   showDialog(
       context: context,
       builder: (context) => Center(

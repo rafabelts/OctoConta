@@ -71,7 +71,12 @@ class _CalculoTarjetaScreenState extends State<CalculoTarjetaScreen> {
         padding: const EdgeInsets.symmetric(vertical: 30.0),
         child: Column(
           children: <Widget>[
-            ResultadosTarjetaItems(),
+            // CalculoTarjetaInput(
+            //   deuda: deuda,
+            //   interes: interes,
+            //   onChanged: onChanged(),
+            //   onComplete: onComplete,
+            // ),
             Botones(
               limpiar: () {},
               calcular: () => mostrarResultados(

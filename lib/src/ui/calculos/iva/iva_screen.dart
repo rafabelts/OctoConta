@@ -4,6 +4,7 @@ import 'package:octoconta_final/src/models/buttons_calculos.dart';
 import 'package:octoconta_final/src/models/modal_selecciones.dart';
 import 'package:octoconta_final/src/models/muestra_resultados.dart';
 import 'package:octoconta_final/src/ui/calculos/iva/iva_inputs.dart';
+import 'package:octoconta_final/src/ui/calculos/iva/iva_resultados_items.dart';
 
 class CalculoIVAScreen extends StatefulWidget {
   const CalculoIVAScreen({super.key});
@@ -14,6 +15,7 @@ class CalculoIVAScreen extends StatefulWidget {
 
 class _CalculoIVAScreenState extends State<CalculoIVAScreen> {
   TextEditingController precio = TextEditingController();
+
   @override
   void initState() {
     super.initState();
@@ -23,25 +25,24 @@ class _CalculoIVAScreenState extends State<CalculoIVAScreen> {
   @override
   void dispose() {
     super.dispose();
-    precio;
+    precio.dispose();
   }
 
-  late String precioArticulo = precio.text;
-  String cantidadIvaPrecio = "0";
-  String totalIVA = "0";
-  String opcion = "";
-
-  void calculoIVA() {
+  bool esNumero = true;
+  setValidador(valid) {
     setState(() {
-      double? precio = double.tryParse(precioArticulo);
-      if (opcion == 'agregar') {
-        double cantidad = precio! * 0.16;
-        double total = precio + cantidad;
-
-        cantidadIvaPrecio = cantidad.toStringAsFixed(2);
-        totalIVA = total.toStringAsFixed(2);
-      }
+      esNumero = valid;
     });
+  }
+
+  listo() {
+    FocusScope.of(context).unfocus();
+    if (precio.text.isEmpty) {
+      setValidador(false);
+    } else {
+      setValidador(true);
+      modalBottomSeleciones(context, buildAgregarQuitar());
+    }
   }
 
   @override
@@ -53,12 +54,31 @@ class _CalculoIVAScreenState extends State<CalculoIVAScreen> {
         child: Column(
           children: <Widget>[
             CalculoIvaInput(
+              onChanged: (value) {
+                if (precio.text.isEmpty) {
+                  setValidador(false);
+                } else {
+                  setValidador(true);
+                }
+              },
+              onSubmitted: (value) => listo(),
               precioArticulo: precio,
+              esNumero: esNumero,
             ),
             Botones(
-              limpiar: () {},
-              calcular: () =>
-                  modalBottomSeleciones(context, _buildAgregarQuitar(context)),
+              limpiar: () {
+                setValidador(true);
+                precio.clear();
+                FocusScope.of(context).unfocus();
+              },
+              calcular: () {
+                FocusScope.of(context).unfocus();
+                if (precio.text.isEmpty) {
+                  setValidador(false);
+                } else {
+                  modalBottomSeleciones(context, buildAgregarQuitar());
+                }
+              },
             ),
           ],
         ),
@@ -66,7 +86,30 @@ class _CalculoIVAScreenState extends State<CalculoIVAScreen> {
     );
   }
 
-  Widget _buildAgregarQuitar(BuildContext context) {
+  Widget buildAgregarQuitar() {
+    late String precioArticulo = precio.text;
+    String opcion = '';
+    String cantidadIVARedondeado = '';
+    String precioFinalRedondeado = '';
+
+    calculoIVA() {
+      if (opcion == 'agregar') {
+        double? precio = double.tryParse(precioArticulo);
+
+        double cantidadIVA = precio! * 0.16;
+        cantidadIVARedondeado = cantidadIVA.toStringAsFixed(2);
+        double precioFinal = precio + cantidadIVA;
+        precioFinalRedondeado = precioFinal.toStringAsFixed(2);
+      } else {
+        double? precio = double.tryParse(precioArticulo);
+        double precioFinal = precio! / (1 + .16);
+        precioFinalRedondeado = precioFinal.toStringAsFixed(2);
+
+        double cantidadIVA = precio - precioFinal;
+        cantidadIVARedondeado = cantidadIVA.toStringAsFixed(2);
+      }
+    }
+
     return Padding(
         padding: const EdgeInsets.all(15.0),
         child: Padding(
@@ -74,8 +117,23 @@ class _CalculoIVAScreenState extends State<CalculoIVAScreen> {
               EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.02),
           child: Row(
             children: <Widget>[
+              // Restar IVA
               TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pop(context);
+                  calculoIVA();
+                  print(cantidadIVARedondeado);
+                  print(precioFinalRedondeado);
+
+                  mostrarResultados(
+                      context,
+                      ResultadosIVAItems(
+                        cantidadIVAText:
+                            'La cantidad de IVA que se restara al articulo es de:',
+                        cantidadIVARedondeado: cantidadIVARedondeado,
+                        total: precioFinalRedondeado,
+                      ));
+                },
                 child: Text("Restar IVA",
                     style: GoogleFonts.inter(
                       color: const Color(0xFF5E35B1),
@@ -83,33 +141,23 @@ class _CalculoIVAScreenState extends State<CalculoIVAScreen> {
                       fontSize: 30,
                     )),
               ),
+
+              // Agregar IVA
               ElevatedButton(
                 onPressed: () {
+                  Navigator.pop(context);
                   opcion = "agregar";
                   calculoIVA();
+                  print(cantidadIVARedondeado);
+                  print(precioFinalRedondeado);
+
                   mostrarResultados(
                       context,
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text("La cantidad de IVA del artículo es de:"),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 20.0),
-                            child: Align(
-                              child: Text("\$$cantidadIvaPrecio"),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 20.0),
-                            child: Text("Lo que da un total de:"),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 20.0),
-                            child: Align(
-                              child: Text("\$$totalIVA"),
-                            ),
-                          ),
-                        ],
+                      ResultadosIVAItems(
+                        cantidadIVAText:
+                            'La cantidad de IVA que se agregara al articulo es de:',
+                        cantidadIVARedondeado: cantidadIVARedondeado,
+                        total: precioFinalRedondeado,
                       ));
                 },
                 style: ElevatedButton.styleFrom(
