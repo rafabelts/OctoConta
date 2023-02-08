@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:octoconta_final/src/models/buttons_calculos.dart';
 import 'package:octoconta_final/src/models/muestra_resultados.dart';
 import 'package:octoconta_final/src/ui/calculos/tarjeta/tarjeta_inputs.dart';
+import 'package:octoconta_final/src/ui/calculos/tarjeta/tarjeta_resultados_items.dart';
 
 class CalculoTarjetaScreen extends StatefulWidget {
   const CalculoTarjetaScreen({super.key});
@@ -34,32 +35,37 @@ class _CalculoTarjetaScreenState extends State<CalculoTarjetaScreen> {
   setValidador(valid, valid1) {
     setState(() {
       esNumeroDeuda = valid;
+      esNumeroInteres = valid1;
     });
   }
 
   onChanged() {
     if (deuda.text.isEmpty) {
-      esNumeroDeuda = false;
+      setValidador(false, false);
+    } else if (interes.text.isEmpty) {
+      setValidador(true, false);
     } else {
-      esNumeroDeuda = true;
+      setValidador(true, true);
     }
   }
 
   onComplete() {
     if (deuda.text.isEmpty) {
-      esNumeroDeuda = false;
+      setValidador(false, false);
     } else {
-      esNumeroDeuda = true;
+      setValidador(true, false);
       FocusScope.of(context).nextFocus();
     }
   }
 
   onSubmitted() {
-    FocusScope.of(context).unfocus();
-    if (interes.text.isEmpty) {
-      esNumeroInteres = false;
+    if (deuda.text.isEmpty) {
+      setValidador(false, false);
+    } else if (interes.text.isEmpty) {
+      setValidador(true, false);
     } else {
-      esNumeroInteres = true;
+      setValidador(true, true);
+      mostrarResultados(context, ResultadosTarjetaItems(total: ""));
     }
   }
 
@@ -71,12 +77,14 @@ class _CalculoTarjetaScreenState extends State<CalculoTarjetaScreen> {
         padding: const EdgeInsets.symmetric(vertical: 30.0),
         child: Column(
           children: <Widget>[
-            // CalculoTarjetaInput(
-            //   deuda: deuda,
-            //   interes: interes,
-            //   onChanged: onChanged(),
-            //   onComplete: onComplete,
-            // ),
+            CalculoTarjetaInput(
+                deuda: deuda,
+                interes: interes,
+                onChanged: (value) => onChanged(),
+                esNumeroDeuda: esNumeroDeuda,
+                esNumeroInteres: esNumeroInteres,
+                onComplete: onComplete,
+                onSubmitted: (value) => onSubmitted()),
             Botones(
               limpiar: () {},
               calcular: () => mostrarResultados(

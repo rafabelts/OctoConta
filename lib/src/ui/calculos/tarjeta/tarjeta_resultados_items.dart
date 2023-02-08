@@ -2,12 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ResultadosTarjetaItems extends StatelessWidget {
-  final String cantidadPrimaRedondeado;
-  final String diasVacaciones;
-  const ResultadosTarjetaItems(
-      {required this.diasVacaciones,
-      required this.cantidadPrimaRedondeado,
-      super.key});
+  final String total;
+  const ResultadosTarjetaItems({required this.total, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +11,7 @@ class ResultadosTarjetaItems extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Prima vacacional total:',
+          "Lo que da un total de:",
           style: GoogleFonts.inter(
             fontSize: 26,
             fontWeight: FontWeight.w600,
@@ -25,30 +21,7 @@ class ResultadosTarjetaItems extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 20.0),
           child: Align(
             child: Text(
-              cantidadPrimaRedondeado,
-              style: GoogleFonts.inter(
-                fontSize: 38,
-                fontWeight: FontWeight.bold,
-                color: Color.fromARGB(255, 75, 35, 156),
-              ),
-            ),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(top: 20.0),
-          child: Text(
-            'Días de vacaciones:',
-            style: GoogleFonts.inter(
-              fontSize: 26,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 20.0),
-          child: Align(
-            child: Text(
-              diasVacaciones,
+              "\$ $total",
               style: GoogleFonts.inter(
                 fontSize: 40,
                 fontWeight: FontWeight.bold,
