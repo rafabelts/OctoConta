@@ -69,6 +69,16 @@ flutter:
   assets:
     - images/imageWelcome.png
     - images/googleLogo.png
+    - images/categorias/alimentos.png
+    - images/categorias/salud.png
+    - images/categorias/servicios.png
+    - images/categorias/suscripciones.png
+    - images/categorias/otros.png  
+    - images/categorias/alimentosNoSeleccionado.png
+    - images/categorias/saludNoSeleccionado.png
+    - images/categorias/serviciosNoSeleccionado.png
+    - images/categorias/suscripcionesNoSeleccionado.png
+    - images/categorias/otrosNoSeleccionado.png
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

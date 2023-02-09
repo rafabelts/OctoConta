@@ -52,21 +52,41 @@ class _CalculoTarjetaScreenState extends State<CalculoTarjetaScreen> {
   onComplete() {
     if (deuda.text.isEmpty) {
       setValidador(false, false);
-    } else {
+    } else if (interes.text.isEmpty) {
       setValidador(true, false);
+    } else {
+      setValidador(true, true);
       FocusScope.of(context).nextFocus();
     }
   }
 
-  onSubmitted() {
+  listo() {
+    FocusScope.of(context).unfocus();
     if (deuda.text.isEmpty) {
       setValidador(false, false);
     } else if (interes.text.isEmpty) {
       setValidador(true, false);
     } else {
       setValidador(true, true);
-      mostrarResultados(context, ResultadosTarjetaItems(total: ""));
+      calcularInteres(context);
+      mostrarResultados(
+          context, ResultadosTarjetaItems(total: totalRedondeado));
     }
+  }
+
+  String totalRedondeado = '';
+  void calcularInteres(BuildContext context) {
+    double deudaUsuario = double.parse(deuda.text);
+    double saldosDiario = deudaUsuario / 30;
+
+    double interesAnual = double.parse(interes.text);
+    double interesMensual = (interesAnual / 100) / 12;
+
+    double interesOrdinario = saldosDiario * interesMensual;
+    double interesOrdinarioConIVA = interesOrdinario + (interesOrdinario * .16);
+    setState(() {
+      totalRedondeado = interesOrdinarioConIVA.toStringAsFixed(2);
+    });
   }
 
   @override
@@ -78,21 +98,21 @@ class _CalculoTarjetaScreenState extends State<CalculoTarjetaScreen> {
         child: Column(
           children: <Widget>[
             CalculoTarjetaInput(
-                deuda: deuda,
-                interes: interes,
-                onChanged: (value) => onChanged(),
-                esNumeroDeuda: esNumeroDeuda,
-                esNumeroInteres: esNumeroInteres,
-                onComplete: onComplete,
-                onSubmitted: (value) => onSubmitted()),
-            Botones(
-              limpiar: () {},
-              calcular: () => mostrarResultados(
-                  context,
-                  Column(
-                    children: [],
-                  )),
+              deuda: deuda,
+              interes: interes,
+              onChanged: (value) => onChanged(),
+              esNumeroDeuda: esNumeroDeuda,
+              esNumeroInteres: esNumeroInteres,
+              onComplete: onComplete,
+              onSubmitted: (value) => listo(),
             ),
+            Botones(
+                limpiar: () {
+                  setValidador(true, true);
+                  deuda.clear();
+                  interes.clear();
+                },
+                calcular: () => listo()),
           ],
         ),
       ),

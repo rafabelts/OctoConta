@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:octoconta_final/src/ui/login/login_screen.dart';
-import 'package:octoconta_final/src/ui/screen_seleccionada/selected_screen.dart';
+import 'package:octoconta_final/src/ui/pagina_principal/pagina_principal.dart';
 
 class SignUpButtons extends StatefulWidget {
   const SignUpButtons({super.key});
@@ -25,7 +25,7 @@ class _SignUpButtonsState extends State<SignUpButtons> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const SelectedScreen()));
+                        builder: (context) => const PaginaPrincipal()));
               },
               style: ElevatedButton.styleFrom(
                 shape: RoundedRectangleBorder(

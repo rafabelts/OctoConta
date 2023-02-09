@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../models/dropdown_cantidad.dart';
+import '../../../models/dropdown_cantidad.dart';
 
 class BitacoraGastosInput extends StatelessWidget {
   const BitacoraGastosInput({super.key});
@@ -67,12 +67,12 @@ class BitacoraGastosInput extends StatelessWidget {
             children: <Widget>[
               Container(
                 margin: const EdgeInsets.symmetric(horizontal: 10.0),
-                width: MediaQuery.of(context).size.width * 0.18,
+                width: MediaQuery.of(context).size.width * 0.23,
                 child: DropdownCantidad(
                     cantidadUsuario: cantidadReciente, cantidades: cantidades),
               ),
               SizedBox(
-                width: MediaQuery.of(context).size.width * 0.6,
+                width: MediaQuery.of(context).size.width * 0.56,
                 child: TextField(
                   keyboardType: TextInputType.number,
                   style: GoogleFonts.inter(

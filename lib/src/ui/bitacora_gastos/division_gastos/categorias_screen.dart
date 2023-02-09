@@ -2,8 +2,9 @@ import 'package:adaptive_components/adaptive_components.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:octoconta_final/src/models/modal_selecciones.dart';
-import 'package:octoconta_final/src/ui/bitacora_gastos/bitacora_botones.dart';
-import 'package:octoconta_final/src/ui/bitacora_gastos/bitacora_inputs.dart';
+import 'package:octoconta_final/src/ui/bitacora_gastos/division_gastos/bitacora_botones.dart';
+import 'package:octoconta_final/src/ui/bitacora_gastos/division_gastos/bitacora_inputs.dart';
+import 'package:octoconta_final/src/ui/bitacora_gastos/division_gastos/categoria_eleccion.dart';
 import 'package:octoconta_final/src/ui/bitacora_gastos/division_gastos/items_categorias.dart';
 
 class CategoriasGastosScreen extends StatelessWidget {
@@ -49,7 +50,7 @@ class CategoriasGastosScreen extends StatelessWidget {
                 children: <Widget>[
                   const ItemsCategorias(),
                   Padding(
-                    padding: const EdgeInsets.only(top: 50.0),
+                    padding: const EdgeInsets.only(top: 30.0),
                     child: Column(
                       children: [
                         Text('Este mes ha gastado:',
@@ -77,13 +78,15 @@ class CategoriasGastosScreen extends StatelessWidget {
 
   Widget _buildInputs(BuildContext context) {
     return Padding(
-        padding: const EdgeInsets.all(15.0),
+        padding: const EdgeInsets.all(5.0),
         child: Padding(
-          padding:
-              EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.02),
+          padding: EdgeInsets.only(top: 0.01),
           child: Column(
             children: const <Widget>[
               BitacoraGastosInput(),
+              Padding(
+                  padding: const EdgeInsets.only(top: 40.0),
+                  child: CategoriasEleccion()),
               BotonesBitacora(),
             ],
           ),

@@ -117,28 +117,28 @@ class _CalculoPrimaVacacionalScreenState
               periodoActual: periodoActual,
               periodos: periodosPago,
             ),
-            Botones(
-                limpiar: () {},
-                calcular: () {
-                  FocusScope.of(context).unfocus();
-                  if (year.text.isEmpty) {
-                    setValidator(false, false);
-                  } else if (sueldo.text.isEmpty) {
-                    setValidator(true, false);
-                  } else {
-                    setValidator(true, true);
-                    calculoPrimaVacacional();
-                    diasVacaciones = calculoPrimaVacacional().toString();
-                    mostrarResultados(
-                        context,
-                        ResultadosPrimaVacacionalItems(
-                            diasVacaciones: diasVacaciones,
-                            cantidadPrimaRedondeado:
-                                primaVacacional == 'No aplica'
-                                    ? 'No aplica'
-                                    : '\$$primaVacacional'));
-                  }
-                }),
+            Botones(limpiar: () {
+              year.clear();
+              sueldo.clear();
+            }, calcular: () {
+              FocusScope.of(context).unfocus();
+              if (year.text.isEmpty) {
+                setValidator(false, false);
+              } else if (sueldo.text.isEmpty) {
+                setValidator(true, false);
+              } else {
+                setValidator(true, true);
+                calculoPrimaVacacional();
+                diasVacaciones = calculoPrimaVacacional().toString();
+                mostrarResultados(
+                    context,
+                    ResultadosPrimaVacacionalItems(
+                        diasVacaciones: diasVacaciones,
+                        cantidadPrimaRedondeado: primaVacacional == 'No aplica'
+                            ? 'No aplica'
+                            : '\$$primaVacacional'));
+              }
+            }),
           ],
         ),
       ),

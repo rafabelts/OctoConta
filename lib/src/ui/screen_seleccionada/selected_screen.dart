@@ -1,7 +1,6 @@
 import 'package:adaptive_components/adaptive_components.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:octoconta_final/src/ui/bitacora_gastos/bitacora_gastos_screen.dart';
 import 'package:octoconta_final/src/ui/calculos/honorarios/definicion_honorarios.dart';
 import 'package:octoconta_final/src/ui/calculos/honorarios/honorarios_screen.dart';
 import 'package:octoconta_final/src/ui/calculos/isr/definicion_isr.dart';
@@ -12,6 +11,7 @@ import 'package:octoconta_final/src/ui/calculos/prestamo/prestamo_screen.dart';
 import 'package:octoconta_final/src/ui/calculos/primav/definicion_primav.dart';
 import 'package:octoconta_final/src/ui/calculos/primav/primav_screen.dart';
 import 'package:octoconta_final/src/ui/calculos/tarjeta/tarjeta_screen.dart';
+import 'package:octoconta_final/src/ui/pagina_principal/pagina_principal.dart';
 import 'package:octoconta_final/src/ui/screen_seleccionada/screens_appbar.dart';
 import 'package:octoconta_final/src/ui/settings_screen/settings_screen.dart';
 
@@ -19,17 +19,17 @@ import '../calculos/prestamo/definicion_prestamo.dart';
 import '../calculos/tarjeta/definicion_tarjeta.dart';
 
 class SelectedScreen extends StatefulWidget {
-  const SelectedScreen({super.key});
+  final int indexClicked;
+  const SelectedScreen({required this.indexClicked, super.key});
 
   @override
   State<SelectedScreen> createState() => _SelectedScreenState();
 }
 
 class _SelectedScreenState extends State<SelectedScreen> {
-  int indexClicked = 0;
+  late int indexClicked = widget.indexClicked;
 
   final pages = <Widget>[
-    const BitacoraGastosScreen(),
     const CalculoTarjetaScreen(),
     const CalculoPrestamoScreen(),
     const CalculoHonorariosScreen(),
@@ -37,9 +37,6 @@ class _SelectedScreenState extends State<SelectedScreen> {
     const CalculoISRScreen(),
     const CalculoIVAScreen(),
   ];
-
-  goToSettings() => Navigator.push(
-      context, MaterialPageRoute(builder: (context) => const SettingsScreen()));
 
   info() {
     FocusScope.of(context).unfocus();
@@ -57,15 +54,15 @@ class _SelectedScreenState extends State<SelectedScreen> {
                 ),
                 backgroundColor: Theme.of(context).scaffoldBackgroundColor,
                 insetPadding: const EdgeInsets.all(0.2),
-                content: indexClicked == 1
+                content: indexClicked == 0
                     ? const DescripcionTarjeta()
-                    : indexClicked == 2
+                    : indexClicked == 1
                         ? const DescripcionPrestamo()
-                        : indexClicked == 3
+                        : indexClicked == 2
                             ? const DescripcionHonorarios()
-                            : indexClicked == 4
+                            : indexClicked == 3
                                 ? const DescripcionPrimaVacacional()
-                                : indexClicked == 5
+                                : indexClicked == 4
                                     ? const DescripcionISR()
                                     : const DescripcionIVA(),
               ),
@@ -81,20 +78,33 @@ class _SelectedScreenState extends State<SelectedScreen> {
     return Scaffold(
       appBar: ScreensAppBar(
         titulo: indexClicked == 0
-            ? 'Gastos'
+            ? 'Pago de Tarjeta'
             : indexClicked == 1
-                ? 'Pago de Tarjeta'
+                ? 'Pago de Prestamo'
                 : indexClicked == 2
-                    ? 'Pago de Prestamo'
+                    ? 'Honorarios'
                     : indexClicked == 3
-                        ? 'Honorarios'
+                        ? 'Prima Vacacional'
                         : indexClicked == 4
-                            ? 'Prima Vacacional'
-                            : indexClicked == 5
-                                ? 'Calculo de ISR'
-                                : 'Calculo de IVA',
-        icono: indexClicked == 0 ? Icons.settings_outlined : Icons.info_outline,
-        onPressed: indexClicked == 0 ? goToSettings : info,
+                            ? 'Calculo de ISR'
+                            : 'Calculo de IVA',
+        leadingIcon: Builder(
+          builder: (context) {
+            return IconButton(
+              onPressed: () {
+                final FocusScopeNode currentScope = FocusScope.of(context);
+                if (!currentScope.hasPrimaryFocus && currentScope.hasFocus) {
+                  FocusManager.instance.primaryFocus?.unfocus();
+                }
+                Scaffold.of(context).openDrawer();
+              },
+              icon: const Icon(Icons.sort),
+              iconSize: 40,
+            );
+          },
+        ),
+        icono: Icons.info_outline,
+        onPressed: info,
       ),
       body: SingleChildScrollView(
         child: AdaptiveColumn(
@@ -112,54 +122,19 @@ class _SelectedScreenState extends State<SelectedScreen> {
           padding: const EdgeInsets.all(15.0),
           child: ListView(
             children: <Widget>[
-              Text('Hola Rafael!',
-                  style: GoogleFonts.inter(
-                      color: const Color(0xff2E2B52),
-                      fontSize: 60,
-                      fontWeight: FontWeight.w600)),
-              Padding(
-                padding: const EdgeInsets.only(top: 10.0),
-                child: Text(
-                  '¿Qué deseas realizar?',
-                  style: GoogleFonts.poppins(
-                      color: const Color(0xff2E2B52),
-                      fontSize: 22,
-                      fontWeight: FontWeight.w600),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 5.0),
-                child: ListTile(
-                  onTap: () {
-                    Navigator.pop(context);
-                    setState(() {
-                      indexClicked = 0;
-                    });
-                  },
-                  splashColor: const Color.fromARGB(32, 115, 79, 223),
-                  tileColor: indexClicked == 0
-                      ? const Color.fromARGB(32, 115, 79, 223)
-                      : Colors.transparent,
-                  title: Text(
-                    'Revision de Gastos',
-                    style: GoogleFonts.poppins(
-                      color: const Color(0xff4527A0), //382872 //453a88
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ),
-              ),
-              const Divider(
-                color: Color(0xff2E2B52),
-              ),
+              // Text('Hola Rafael!',
+              //     style: GoogleFonts.inter(
+              //         color: const Color(0xff2E2B52),
+              //         fontSize: 60,
+              //         fontWeight: FontWeight.w600)),
+
               Padding(
                 padding: const EdgeInsets.only(bottom: 10.0),
                 child: Text(
                   'Calcular:',
                   style: GoogleFonts.poppins(
                       color: const Color(0xff2E2B52),
-                      fontSize: 22,
+                      fontSize: 50,
                       fontWeight: FontWeight.w600),
                 ),
               ),
@@ -167,11 +142,11 @@ class _SelectedScreenState extends State<SelectedScreen> {
                 onTap: () {
                   Navigator.pop(context);
                   setState(() {
-                    indexClicked = 1;
+                    indexClicked = 0;
                   });
                 },
                 splashColor: const Color.fromARGB(32, 115, 79, 223),
-                tileColor: indexClicked == 1
+                tileColor: indexClicked == 0
                     ? const Color.fromARGB(32, 115, 79, 223)
                     : Colors.transparent,
                 title: Text(
@@ -179,7 +154,7 @@ class _SelectedScreenState extends State<SelectedScreen> {
                   style: GoogleFonts.poppins(
                     color: const Color(0xff4527A0), //382872 //453a88
                     //382872 //453a88
-                    fontSize: 18,
+                    fontSize: 20,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
@@ -190,18 +165,18 @@ class _SelectedScreenState extends State<SelectedScreen> {
                   onTap: () {
                     Navigator.pop(context);
                     setState(() {
-                      indexClicked = 2;
+                      indexClicked = 1;
                     });
                   },
                   splashColor: const Color.fromARGB(32, 115, 79, 223),
-                  tileColor: indexClicked == 2
+                  tileColor: indexClicked == 1
                       ? const Color.fromARGB(19, 115, 79, 223)
                       : Colors.transparent,
                   title: Text(
                     'Pago de un prestamo',
                     style: GoogleFonts.poppins(
                       color: const Color(0xff4527A0), //382872 //453a88
-                      fontSize: 18,
+                      fontSize: 20,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
@@ -211,18 +186,18 @@ class _SelectedScreenState extends State<SelectedScreen> {
                 onTap: () {
                   Navigator.pop(context);
                   setState(() {
-                    indexClicked = 3;
+                    indexClicked = 2;
                   });
                 },
                 splashColor: const Color.fromARGB(32, 115, 79, 223),
-                tileColor: indexClicked == 3
+                tileColor: indexClicked == 2
                     ? const Color.fromARGB(19, 115, 79, 223)
                     : Colors.transparent,
                 title: Text(
                   'Honorarios',
                   style: GoogleFonts.poppins(
                     color: const Color(0xff4527A0), //382872 //453a88
-                    fontSize: 18,
+                    fontSize: 20,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
@@ -233,18 +208,18 @@ class _SelectedScreenState extends State<SelectedScreen> {
                   onTap: () {
                     Navigator.pop(context);
                     setState(() {
-                      indexClicked = 4;
+                      indexClicked = 3;
                     });
                   },
                   splashColor: const Color.fromARGB(32, 115, 79, 223),
-                  tileColor: indexClicked == 4
+                  tileColor: indexClicked == 3
                       ? const Color.fromARGB(19, 115, 79, 223)
                       : Colors.transparent,
                   title: Text(
                     'Prima Vacacional',
                     style: GoogleFonts.poppins(
                       color: const Color(0xff4527A0), //382872 //453a88
-                      fontSize: 18,
+                      fontSize: 20,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
@@ -254,18 +229,18 @@ class _SelectedScreenState extends State<SelectedScreen> {
                 onTap: () {
                   Navigator.pop(context);
                   setState(() {
-                    indexClicked = 5;
+                    indexClicked = 4;
                   });
                 },
                 splashColor: const Color.fromARGB(32, 115, 79, 223),
-                tileColor: indexClicked == 5
+                tileColor: indexClicked == 4
                     ? const Color.fromARGB(19, 115, 79, 223)
                     : Colors.transparent,
                 title: Text(
                   'Impuesto Sobre Renta (ISR)',
                   style: GoogleFonts.poppins(
                     color: const Color(0xff4527A0), //382872 //453a88
-                    fontSize: 18,
+                    fontSize: 20,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
@@ -276,21 +251,39 @@ class _SelectedScreenState extends State<SelectedScreen> {
                   onTap: () {
                     Navigator.pop(context);
                     setState(() {
-                      indexClicked = 6;
+                      indexClicked = 5;
                     });
                   },
                   splashColor: const Color.fromARGB(32, 115, 79, 223),
-                  tileColor: indexClicked == 6
+                  tileColor: indexClicked == 5
                       ? const Color.fromARGB(19, 115, 79, 223)
                       : Colors.transparent,
                   title: Text(
                     'Impuesto al Valor Agregado (IVA)',
                     style: GoogleFonts.poppins(
                       color: const Color(0xff4527A0), //382872 //453a88
-                      fontSize: 18,
+                      fontSize: 20,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(
+                    top: MediaQuery.of(context).size.height * 0.18),
+                child: ListTile(
+                  title: Text(
+                    'Regresar',
+                    style: GoogleFonts.poppins(
+                      color: const Color(0xff2E2B52), //382872 //453a88
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  onTap: () {
+                    Navigator.pop(context);
+                    Navigator.pop(context);
+                  },
                 ),
               )
             ],

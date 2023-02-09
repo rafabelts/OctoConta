@@ -47,47 +47,41 @@ class _CalculoPrestamoScreenState extends State<CalculoPrestamoScreen> {
     });
   }
 
+  listo() {
+    FocusScope.of(context).unfocus();
+    if (monto.text.isEmpty) {
+      setValidador(false, false, false);
+    } else if (interes.text.isEmpty) {
+      setValidador(true, true, false);
+    } else if (meses.text.isEmpty) {
+      setValidador(true, true, false);
+    } else {
+      setValidador(true, true, true);
+      calculoPrestamo(context);
+      mostrarResultados(
+          context, ResultadosPrestamoItems(total: totalRedondeado));
+    }
+  }
+
   String totalRedondeado = '';
+  calculoPrestamo(BuildContext context) {
+    setState(() {
+      // Realiza el calculo del prestamo
+      double montoUsuario = double.parse(monto.text);
+
+      double interesAnual = double.parse(interes.text);
+      double interesMensual = (interesAnual / 100) / 12;
+
+      int mesesUsuario = -(int.parse(meses.text));
+
+      double pagoMensual = montoUsuario /
+          ((1 - (pow((1 + interesMensual), mesesUsuario))) / interesMensual);
+      totalRedondeado = pagoMensual.toStringAsFixed(2);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    // Calculos prestamo
-    late String montoUsuario = monto.text;
-    late String interesUsuario = interes.text;
-    late String mesesUsuario = meses.text;
-
-    calculoPrestamo() {
-      setState(() {
-        // Realiza el calculo del prestamo
-        double monto = double.parse(montoUsuario);
-
-        double interesAnual = double.parse(interesUsuario);
-        double interesMensual = (interesAnual / 100) / 12;
-
-        int meses = -(int.parse(mesesUsuario));
-
-        double pagoMensual =
-            monto / ((1 - (pow((1 + interesMensual), meses))) / interesMensual);
-        totalRedondeado = pagoMensual.toStringAsFixed(2);
-      });
-    }
-
-    listo() {
-      FocusScope.of(context).unfocus();
-      if (monto.text.isEmpty) {
-        setValidador(false, false, false);
-      } else if (interes.text.isEmpty) {
-        setValidador(true, true, false);
-      } else if (meses.text.isEmpty) {
-        setValidador(true, true, false);
-      } else {
-        setValidador(true, true, true);
-        calculoPrestamo();
-        mostrarResultados(
-            context, ResultadosPrestamoItems(total: totalRedondeado));
-      }
-    }
-
     return Padding(
       padding: const EdgeInsets.all(5.0),
       child: Padding(

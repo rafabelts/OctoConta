@@ -2,30 +2,28 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ScreensAppBar extends StatelessWidget implements PreferredSizeWidget {
-  final IconData? icono;
-  final String? titulo;
+  final IconData icono;
+  final dynamic leadingIcon;
+  final String titulo;
   final VoidCallback onPressed;
   const ScreensAppBar(
-      {required this.onPressed, this.icono, this.titulo, super.key});
+      {required this.onPressed,
+      required this.leadingIcon,
+      required this.icono,
+      required this.titulo,
+      super.key});
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
       title: Text(
-        titulo!,
+        titulo,
         style: GoogleFonts.inter(
             color: const Color(0xFF2a195d),
             fontWeight: FontWeight.bold,
-            fontSize: 25),
+            fontSize: 28),
       ),
-      leading: IconButton(
-        onPressed: () {
-          Scaffold.of(context).openDrawer();
-          FocusScope.of(context).unfocus();
-        },
-        icon: const Icon(Icons.sort),
-        iconSize: 40,
-      ),
+      leading: leadingIcon,
       actions: <Widget>[
         IconButton(
           onPressed: onPressed,
