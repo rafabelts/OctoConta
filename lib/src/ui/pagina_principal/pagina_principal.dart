@@ -38,50 +38,6 @@ class PaginaPrincipal extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      const TarjetaSaldoMensual(),
-                      ListTile(
-                        onTap: goToEditarSaldo,
-                        title: Text(
-                          'Editar saldo',
-                          style: GoogleFonts.inter(
-                            color: const Color(0xFF5E35B1),
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
-                          ),
-                        ),
-                        trailing: const Icon(
-                          Icons.arrow_forward_ios,
-                          size: 17,
-                          color: const Color(0xFF5E35B1),
-                        ),
-                      ),
-                      const Padding(
-                        padding: EdgeInsets.symmetric(vertical: 10.0),
-                        child: Divider(
-                          thickness: 0.5,
-                          color: Color(0xFF2a195d),
-                        ),
-                      ),
-                      Text(
-                        "Categorías de gastos:",
-                        style: GoogleFonts.inter(
-                          color: const Color(0xFF2a195d),
-                          fontWeight: FontWeight.bold,
-                          fontSize: 30,
-                        ),
-                      ),
-                      const Padding(
-                        padding: EdgeInsets.symmetric(
-                            vertical: 30.0, horizontal: 10.0),
-                        child: BotonCategorias(),
-                      ),
-                      const Padding(
-                        padding: EdgeInsets.symmetric(vertical: 10.0),
-                        child: Divider(
-                          thickness: 0.5,
-                          color: Color(0xFF2a195d),
-                        ),
-                      ),
                       Text(
                         "Cálculos contables:",
                         style: GoogleFonts.inter(
@@ -91,10 +47,10 @@ class PaginaPrincipal extends StatelessWidget {
                         ),
                       ),
                       Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 30.0),
+                          padding:
+                              const EdgeInsets.only(top: 30.0, bottom: 10.0),
                           child: Align(
                               child: SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.7,
                             height: MediaQuery.of(context).size.height * 0.06,
                             child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
@@ -115,6 +71,50 @@ class PaginaPrincipal extends StatelessWidget {
                               ),
                             ),
                           ))),
+                      const Padding(
+                        padding: EdgeInsets.symmetric(vertical: 20.0),
+                        child: Divider(
+                          thickness: 0.5,
+                          color: Color(0xFF2a195d),
+                        ),
+                      ),
+                      const TarjetaSaldoMensual(),
+                      ListTile(
+                        onTap: goToEditarSaldo,
+                        title: Text(
+                          'Editar saldo',
+                          style: GoogleFonts.inter(
+                            color: const Color(0xFF5E35B1),
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                          ),
+                        ),
+                        trailing: const Icon(
+                          Icons.arrow_forward_ios,
+                          size: 17,
+                          color: const Color(0xFF5E35B1),
+                        ),
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.symmetric(vertical: 20.0),
+                        child: Divider(
+                          thickness: 0.1,
+                          color: Color(0xFF2a195d),
+                        ),
+                      ),
+                      Text(
+                        "Categorías de gastos:",
+                        style: GoogleFonts.inter(
+                          color: const Color(0xFF2a195d),
+                          fontWeight: FontWeight.bold,
+                          fontSize: 30,
+                        ),
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.symmetric(
+                            vertical: 30.0, horizontal: 10.0),
+                        child: BotonCategorias(),
+                      ),
                     ],
                   ),
                 ),

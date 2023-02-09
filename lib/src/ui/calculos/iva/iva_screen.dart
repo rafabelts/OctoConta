@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:octoconta_final/src/models/agregar_iva.dart';
 import 'package:octoconta_final/src/models/buttons_calculos.dart';
 import 'package:octoconta_final/src/models/modal_selecciones.dart';
 import 'package:octoconta_final/src/models/muestra_resultados.dart';
@@ -89,24 +90,23 @@ class _CalculoIVAScreenState extends State<CalculoIVAScreen> {
   Widget buildAgregarQuitar() {
     late String precioArticulo = precio.text;
     String opcion = '';
-    String cantidadIVARedondeado = '';
-    String precioFinalRedondeado = '';
+    String cantidadIVARedondeado;
+    String precioFinalRedondeado;
 
-    calculoIVA() {
+    List<dynamic> calculoIVA() {
       if (opcion == 'agregar') {
         double? precio = double.tryParse(precioArticulo);
-
-        double cantidadIVA = precio! * 0.16;
-        cantidadIVARedondeado = cantidadIVA.toStringAsFixed(2);
-        double precioFinal = precio + cantidadIVA;
-        precioFinalRedondeado = precioFinal.toStringAsFixed(2);
+        double cantidadIVA = agregarIva(precio!)[0];
+        double total = agregarIva(precio)[1];
+        return [cantidadIVA, total];
       } else {
         double? precio = double.tryParse(precioArticulo);
         double precioFinal = precio! / (1 + .16);
-        precioFinalRedondeado = precioFinal.toStringAsFixed(2);
+        String total = precioFinal.toStringAsFixed(2);
 
         double cantidadIVA = precio - precioFinal;
-        cantidadIVARedondeado = cantidadIVA.toStringAsFixed(2);
+        String cantidadIVARestado = cantidadIVA.toStringAsFixed(2);
+        return [cantidadIVARestado, total];
       }
     }
 
@@ -121,9 +121,8 @@ class _CalculoIVAScreenState extends State<CalculoIVAScreen> {
               TextButton(
                 onPressed: () {
                   Navigator.pop(context);
-                  calculoIVA();
-                  print(cantidadIVARedondeado);
-                  print(precioFinalRedondeado);
+                  cantidadIVARedondeado = calculoIVA()[0];
+                  precioFinalRedondeado = calculoIVA()[1];
 
                   mostrarResultados(
                       context,
@@ -147,9 +146,8 @@ class _CalculoIVAScreenState extends State<CalculoIVAScreen> {
                 onPressed: () {
                   Navigator.pop(context);
                   opcion = "agregar";
-                  calculoIVA();
-                  print(cantidadIVARedondeado);
-                  print(precioFinalRedondeado);
+                  cantidadIVARedondeado = calculoIVA()[0].toStringAsFixed(2);
+                  precioFinalRedondeado = calculoIVA()[1].toStringAsFixed(2);
 
                   mostrarResultados(
                       context,

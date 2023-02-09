@@ -1,10 +1,70 @@
 import 'package:flutter/material.dart';
+import 'package:octoconta_final/src/models/agregar_iva.dart';
 import 'package:octoconta_final/src/models/buttons_calculos.dart';
 import 'package:octoconta_final/src/models/muestra_resultados.dart';
 import 'package:octoconta_final/src/ui/calculos/honorarios/honorarios_inputs.dart';
+import 'package:octoconta_final/src/ui/calculos/honorarios/honorarios_resultados_items.dart';
 
-class CalculoHonorariosScreen extends StatelessWidget {
+class CalculoHonorariosScreen extends StatefulWidget {
   const CalculoHonorariosScreen({super.key});
+
+  @override
+  State<CalculoHonorariosScreen> createState() =>
+      _CalculoHonorariosScreenState();
+}
+
+class _CalculoHonorariosScreenState extends State<CalculoHonorariosScreen> {
+  TextEditingController importe = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    importe;
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    importe.dispose();
+  }
+
+  bool esNumero = true;
+  setValidador(valid) {
+    setState(() {
+      esNumero = valid;
+    });
+  }
+
+  onChanged() {
+    if (importe.text.isEmpty) {
+      setValidador(false);
+    } else {
+      setValidador(true);
+    }
+  }
+
+  listo() {
+    if (importe.text.isEmpty) {
+      setValidador(false);
+    } else {
+      setValidador(true);
+      calculoDeHonorarios(context);
+      mostrarResultados(
+          context, ResultadoHonorariosItems(total: totalRedondeado));
+    }
+  }
+
+  String totalRedondeado = '';
+  calculoDeHonorarios(BuildContext context) {
+    double importeUsuario = double.parse(importe.text);
+    List<double> iva = agregarIva(importeUsuario);
+    double ingresoConIva = importeUsuario + iva[0];
+    double isrResico = ((importeUsuario * .10) / 3) * 2;
+    double total = ingresoConIva - isrResico - importeUsuario;
+    setState(() {
+      totalRedondeado = total.toStringAsFixed(2);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -14,15 +74,19 @@ class CalculoHonorariosScreen extends StatelessWidget {
         padding: const EdgeInsets.symmetric(vertical: 150.0),
         child: Column(
           children: <Widget>[
-            const CalculoHonorariosInput(),
-            Botones(
-              limpiar: () {},
-              calcular: () => mostrarResultados(
-                  context,
-                  Column(
-                    children: [],
-                  )),
+            CalculoHonorariosInput(
+              onChanged: (value) => onChanged(),
+              importe: importe,
+              esNumero: esNumero,
+              onSubmitted: (value) => listo(),
             ),
+            Botones(
+              limpiar: () {
+                FocusScope.of(context).unfocus();
+                importe.clear();
+              },
+              calcular: () => listo(),
+            )
           ],
         ),
       ),

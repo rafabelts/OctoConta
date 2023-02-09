@@ -52,10 +52,8 @@ class _CalculoTarjetaScreenState extends State<CalculoTarjetaScreen> {
   onComplete() {
     if (deuda.text.isEmpty) {
       setValidador(false, false);
-    } else if (interes.text.isEmpty) {
-      setValidador(true, false);
     } else {
-      setValidador(true, true);
+      setValidador(true, false);
       FocusScope.of(context).nextFocus();
     }
   }
@@ -75,7 +73,7 @@ class _CalculoTarjetaScreenState extends State<CalculoTarjetaScreen> {
   }
 
   String totalRedondeado = '';
-  void calcularInteres(BuildContext context) {
+  calcularInteres(BuildContext context) {
     double deudaUsuario = double.parse(deuda.text);
     double saldosDiario = deudaUsuario / 30;
 
