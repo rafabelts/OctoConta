@@ -7,6 +7,8 @@ import 'package:octoconta_final/src/models/muestra_resultados.dart';
 import 'package:octoconta_final/src/ui/calculos/iva/iva_inputs.dart';
 import 'package:octoconta_final/src/ui/calculos/iva/iva_resultados_items.dart';
 
+import '../../../models/error_calculando.dart';
+
 class CalculoIVAScreen extends StatefulWidget {
   const CalculoIVAScreen({super.key});
 
@@ -36,13 +38,74 @@ class _CalculoIVAScreenState extends State<CalculoIVAScreen> {
     });
   }
 
+  onChanged() {
+    showErrorMessage(context, false);
+    if (precio.text.isEmpty) {
+      setValidador(false);
+    } else {
+      setValidador(true);
+    }
+  }
+
   listo() {
     FocusScope.of(context).unfocus();
     if (precio.text.isEmpty) {
       setValidador(false);
     } else {
       setValidador(true);
-      modalBottomSeleciones(context, buildAgregarQuitar());
+      if (precio.text == ',' || precio.text == '.' || precio.text == '-') {
+        showErrorMessage(context, true);
+      } else {
+        modalBottomSeleciones(context, buildAgregarQuitar(context));
+      }
+    }
+  }
+
+  restarIVA() {
+    Navigator.pop(context);
+    calculoIVA(context, 'restar');
+    cantidadIVARedondeado = calculoIVA(context, 'restar')[0].toStringAsFixed(2);
+    precioFinalRedondeado = calculoIVA(context, 'restar')[1].toStringAsFixed(2);
+    mostrarResultados(
+        context,
+        ResultadosIVAItems(
+            cantidadIVAText:
+                'La cantidad de IVA que se restara al articulo es de:',
+            cantidadIVARedondeado: cantidadIVARedondeado,
+            total: precioFinalRedondeado));
+  }
+
+  sumarIVA() {
+    Navigator.pop(context);
+    cantidadIVARedondeado =
+        calculoIVA(context, "agregar")[0].toStringAsFixed(2);
+    precioFinalRedondeado =
+        calculoIVA(context, "agregar")[1].toStringAsFixed(2);
+
+    mostrarResultados(
+        context,
+        ResultadosIVAItems(
+          cantidadIVAText:
+              'La cantidad de IVA que se agregara al articulo es de:',
+          cantidadIVARedondeado: cantidadIVARedondeado,
+          total: precioFinalRedondeado,
+        ));
+  }
+
+  String cantidadIVARedondeado = '';
+  String precioFinalRedondeado = '';
+
+  List<dynamic> calculoIVA(BuildContext context, String opcion) {
+    if (opcion == 'agregar') {
+      double precioUsuario = double.parse(precio.text);
+      double cantidadIVA = agregarIva(precioUsuario)[0];
+      double total = agregarIva(precioUsuario)[1];
+      return [cantidadIVA, total];
+    } else {
+      double precioUsuario = double.parse(precio.text);
+      double precioFinal = precioUsuario / (1 + .16);
+      double cantidadIVA = precioUsuario - precioFinal;
+      return [cantidadIVA, precioFinal];
     }
   }
 
@@ -55,13 +118,7 @@ class _CalculoIVAScreenState extends State<CalculoIVAScreen> {
         child: Column(
           children: <Widget>[
             CalculoIvaInput(
-              onChanged: (value) {
-                if (precio.text.isEmpty) {
-                  setValidador(false);
-                } else {
-                  setValidador(true);
-                }
-              },
+              onChanged: (value) => onChanged(),
               onSubmitted: (value) => listo(),
               precioArticulo: precio,
               esNumero: esNumero,
@@ -72,14 +129,7 @@ class _CalculoIVAScreenState extends State<CalculoIVAScreen> {
                 precio.clear();
                 FocusScope.of(context).unfocus();
               },
-              calcular: () {
-                FocusScope.of(context).unfocus();
-                if (precio.text.isEmpty) {
-                  setValidador(false);
-                } else {
-                  modalBottomSeleciones(context, buildAgregarQuitar());
-                }
-              },
+              calcular: () => listo(),
             ),
           ],
         ),
@@ -87,29 +137,7 @@ class _CalculoIVAScreenState extends State<CalculoIVAScreen> {
     );
   }
 
-  Widget buildAgregarQuitar() {
-    late String precioArticulo = precio.text;
-    String opcion = '';
-    String cantidadIVARedondeado;
-    String precioFinalRedondeado;
-
-    List<dynamic> calculoIVA() {
-      if (opcion == 'agregar') {
-        double? precio = double.tryParse(precioArticulo);
-        double cantidadIVA = agregarIva(precio!)[0];
-        double total = agregarIva(precio)[1];
-        return [cantidadIVA, total];
-      } else {
-        double? precio = double.tryParse(precioArticulo);
-        double precioFinal = precio! / (1 + .16);
-        String total = precioFinal.toStringAsFixed(2);
-
-        double cantidadIVA = precio - precioFinal;
-        String cantidadIVARestado = cantidadIVA.toStringAsFixed(2);
-        return [cantidadIVARestado, total];
-      }
-    }
-
+  Widget buildAgregarQuitar(BuildContext context) {
     return Padding(
         padding: const EdgeInsets.all(15.0),
         child: Padding(
@@ -119,20 +147,7 @@ class _CalculoIVAScreenState extends State<CalculoIVAScreen> {
             children: <Widget>[
               // Restar IVA
               TextButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                  cantidadIVARedondeado = calculoIVA()[0];
-                  precioFinalRedondeado = calculoIVA()[1];
-
-                  mostrarResultados(
-                      context,
-                      ResultadosIVAItems(
-                        cantidadIVAText:
-                            'La cantidad de IVA que se restara al articulo es de:',
-                        cantidadIVARedondeado: cantidadIVARedondeado,
-                        total: precioFinalRedondeado,
-                      ));
-                },
+                onPressed: () => restarIVA(),
                 child: Text("Restar IVA",
                     style: GoogleFonts.inter(
                       color: const Color(0xFF5E35B1),
@@ -143,21 +158,7 @@ class _CalculoIVAScreenState extends State<CalculoIVAScreen> {
 
               // Agregar IVA
               ElevatedButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                  opcion = "agregar";
-                  cantidadIVARedondeado = calculoIVA()[0].toStringAsFixed(2);
-                  precioFinalRedondeado = calculoIVA()[1].toStringAsFixed(2);
-
-                  mostrarResultados(
-                      context,
-                      ResultadosIVAItems(
-                        cantidadIVAText:
-                            'La cantidad de IVA que se agregara al articulo es de:',
-                        cantidadIVARedondeado: cantidadIVARedondeado,
-                        total: precioFinalRedondeado,
-                      ));
-                },
+                onPressed: () => sumarIVA(),
                 style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.0)),

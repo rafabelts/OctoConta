@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:octoconta_final/src/models/agregar_iva.dart';
 import 'package:octoconta_final/src/models/buttons_calculos.dart';
+import 'package:octoconta_final/src/models/error_calculando.dart';
 import 'package:octoconta_final/src/models/muestra_resultados.dart';
 import 'package:octoconta_final/src/ui/calculos/honorarios/honorarios_inputs.dart';
 import 'package:octoconta_final/src/ui/calculos/honorarios/honorarios_resultados_items.dart';
@@ -36,6 +37,7 @@ class _CalculoHonorariosScreenState extends State<CalculoHonorariosScreen> {
   }
 
   onChanged() {
+    showErrorMessage(context, false);
     if (importe.text.isEmpty) {
       setValidador(false);
     } else {
@@ -48,19 +50,29 @@ class _CalculoHonorariosScreenState extends State<CalculoHonorariosScreen> {
       setValidador(false);
     } else {
       setValidador(true);
-      calculoDeHonorarios(context);
-      mostrarResultados(
-          context, ResultadoHonorariosItems(total: totalRedondeado));
+      try {
+        calculoDeHonorarios(context);
+        mostrarResultados(
+            context, ResultadoHonorariosItems(total: totalRedondeado));
+      } catch (e) {
+        showErrorMessage(context, true);
+      }
     }
   }
 
   String totalRedondeado = '';
   calculoDeHonorarios(BuildContext context) {
     double importeUsuario = double.parse(importe.text);
-    List<double> iva = agregarIva(importeUsuario);
+    List<double> iva = agregarIva(
+        importeUsuario); // importo la funcion para conseguir el valor del iva
+
     double ingresoConIva = importeUsuario + iva[0];
-    double isrResico = ((importeUsuario * .10) / 3) * 2;
-    double total = ingresoConIva - isrResico - importeUsuario;
+
+    double diesPorcientoImporte = importeUsuario * .10;
+
+    double isrResico = (iva[0] / 3) * 2;
+
+    double total = ingresoConIva - diesPorcientoImporte - isrResico;
     setState(() {
       totalRedondeado = total.toStringAsFixed(2);
     });

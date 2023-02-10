@@ -6,6 +6,7 @@ import 'package:octoconta_final/src/ui/calculos/prestamo/prestamo_inputs.dart';
 import 'package:octoconta_final/src/ui/calculos/prestamo/prestamo_resultados_items.dart';
 
 import '../../../models/buttons_calculos.dart';
+import '../../../models/error_calculando.dart';
 
 class CalculoPrestamoScreen extends StatefulWidget {
   const CalculoPrestamoScreen({super.key});
@@ -47,19 +48,135 @@ class _CalculoPrestamoScreenState extends State<CalculoPrestamoScreen> {
     });
   }
 
+  onChanged() {
+    showErrorMessage(context, false);
+    if (monto.text.isEmpty) {
+      if (interes.text.isEmpty) {
+        meses.text.isEmpty
+            ? setValidador(false, false, false)
+            : setValidador(false, false, true);
+      } else {
+        meses.text.isEmpty
+            ? setValidador(false, true, false)
+            : setValidador(false, true, true);
+      }
+    } else {
+      if (interes.text.isEmpty) {
+        meses.text.isEmpty
+            ? setValidador(true, false, false)
+            : setValidador(true, false, true);
+      } else {
+        meses.text.isEmpty
+            ? setValidador(true, true, false)
+            : setValidador(true, true, true);
+      }
+    }
+  }
+
+  onCompleteMonto() {
+    if (monto.text.isEmpty) {
+      if (interes.text.isEmpty) {
+        meses.text.isEmpty
+            ? setValidador(false, false, false)
+            : setValidador(false, false, true);
+      } else {
+        meses.text.isEmpty
+            ? setValidador(false, true, false)
+            : setValidador(false, true, true);
+      }
+    } else {
+      if (interes.text.isEmpty) {
+        if (meses.text.isEmpty) {
+          setValidador(true, false, false);
+          FocusScope.of(context).nextFocus();
+        } else {
+          setValidador(true, false, true);
+          FocusScope.of(context).nextFocus();
+        }
+      } else {
+        if (meses.text.isEmpty) {
+          setValidador(true, true, false);
+          FocusScope.of(context).nextFocus();
+        } else {
+          setValidador(true, true, true);
+          FocusScope.of(context).nextFocus();
+        }
+      }
+    }
+  }
+
+  onCompleteInteres() {
+    if (interes.text.isEmpty) {
+      if (monto.text.isEmpty) {
+        meses.text.isEmpty
+            ? setValidador(false, false, false)
+            : setValidador(false, false, true);
+      } else {
+        meses.text.isEmpty
+            ? setValidador(true, false, false)
+            : setValidador(true, false, true);
+      }
+    } else {
+      if (monto.text.isEmpty) {
+        if (meses.text.isEmpty) {
+          setValidador(false, true, false);
+          FocusScope.of(context).nextFocus();
+        } else {
+          setValidador(true, true, true);
+          FocusScope.of(context).nextFocus();
+        }
+      } else {
+        if (meses.text.isEmpty) {
+          setValidador(true, true, false);
+          FocusScope.of(context).nextFocus();
+        } else {
+          setValidador(true, true, true);
+          FocusScope.of(context).nextFocus();
+        }
+      }
+    }
+  }
+
   listo() {
     FocusScope.of(context).unfocus();
-    if (monto.text.isEmpty) {
-      setValidador(false, false, false);
-    } else if (interes.text.isEmpty) {
-      setValidador(true, true, false);
-    } else if (meses.text.isEmpty) {
-      setValidador(true, true, false);
+    if (interes.text.isEmpty) {
+      if (monto.text.isEmpty) {
+        meses.text.isEmpty
+            ? setValidador(false, false, false)
+            : setValidador(false, false, true);
+      } else {
+        meses.text.isEmpty
+            ? setValidador(true, false, false)
+            : setValidador(true, false, true);
+      }
     } else {
-      setValidador(true, true, true);
-      calculoPrestamo(context);
-      mostrarResultados(
-          context, ResultadosPrestamoItems(total: totalRedondeado));
+      if (monto.text.isEmpty) {
+        if (meses.text.isEmpty) {
+          setValidador(false, true, false);
+        } else {
+          setValidador(true, true, true);
+          try {
+            calculoPrestamo(context);
+            mostrarResultados(
+                context, ResultadosPrestamoItems(total: totalRedondeado));
+          } catch (e) {
+            showErrorMessage(context, true);
+          }
+        }
+      } else {
+        if (meses.text.isEmpty) {
+          setValidador(true, true, false);
+        } else {
+          setValidador(true, true, true);
+          try {
+            calculoPrestamo(context);
+            mostrarResultados(
+                context, ResultadosPrestamoItems(total: totalRedondeado));
+          } catch (e) {
+            showErrorMessage(context, true);
+          }
+        }
+      }
     }
   }
 
@@ -95,37 +212,15 @@ class _CalculoPrestamoScreenState extends State<CalculoPrestamoScreen> {
               monto: monto,
               tasaInteres: interes,
               meses: meses,
-              onChanged: (value) {
-                if (monto.text.isEmpty) {
-                  setValidador(false, false, false);
-                } else if (interes.text.isEmpty) {
-                  setValidador(true, true, false);
-                } else if (meses.text.isEmpty) {
-                  setValidador(true, true, false);
-                } else {
-                  setValidador(true, true, true);
-                }
-              },
-              onCompleteMonto: () {
-                if (monto.text.isEmpty) {
-                  setValidador(false, true, false);
-                } else {
-                  setValidador(true, false, false);
-                  FocusScope.of(context).nextFocus();
-                }
-              },
-              onCompleteInteres: () {
-                if (interes.text.isEmpty) {
-                  setValidador(true, false, false);
-                } else {
-                  setValidador(true, true, false);
-                  FocusScope.of(context).nextFocus();
-                }
-              },
+              onChanged: (value) => onChanged(),
+              onCompleteMonto: onCompleteMonto,
+              onCompleteInteres: onCompleteInteres,
               onSubmitted: (value) => listo(),
             ),
             Botones(
               limpiar: () {
+                setValidador(true, true, true);
+                showErrorMessage(context, false);
                 monto.clear();
                 interes.clear();
                 meses.clear();
