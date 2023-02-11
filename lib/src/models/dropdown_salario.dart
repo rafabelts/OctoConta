@@ -52,7 +52,7 @@ class _DropdownPeriodoSalarioState extends State<DropdownPeriodoSalario> {
                     style: GoogleFonts.inter(
                         color: const Color(0xff534677),
                         fontWeight: FontWeight.bold,
-                        fontSize: 30),
+                        fontSize: 24),
                     // fontWeight: FontWeight.w600,
                   ),
                 );

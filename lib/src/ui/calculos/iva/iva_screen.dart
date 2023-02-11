@@ -139,21 +139,27 @@ class _CalculoIVAScreenState extends State<CalculoIVAScreen> {
 
   Widget buildAgregarQuitar(BuildContext context) {
     return Padding(
-        padding: const EdgeInsets.all(15.0),
+        padding: const EdgeInsets.all(10.0),
         child: Padding(
           padding:
               EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.02),
           child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               // Restar IVA
               TextButton(
                 onPressed: () => restarIVA(),
-                child: Text("Restar IVA",
-                    style: GoogleFonts.inter(
-                      color: const Color(0xFF5E35B1),
-                      fontWeight: FontWeight.w700,
-                      fontSize: 30,
-                    )),
+                child: Text(
+                  '''Restar
+IVA''',
+                  style: GoogleFonts.inter(
+                    color: const Color(0xFF5E35B1),
+                    fontWeight: FontWeight.w700,
+                    fontSize: 30,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
               ),
 
               // Agregar IVA
@@ -167,12 +173,14 @@ class _CalculoIVAScreenState extends State<CalculoIVAScreen> {
                       vertical: 6.0, horizontal: 12.0),
                 ),
                 child: Text(
-                  "Agregar IVA",
+                  '''Agregar
+IVA''',
                   style: GoogleFonts.inter(
                     color: Theme.of(context).scaffoldBackgroundColor,
-                    fontSize: 22,
+                    fontSize: 30,
                     fontWeight: FontWeight.w600,
                   ),
+                  textAlign: TextAlign.center,
                 ),
               )
             ],

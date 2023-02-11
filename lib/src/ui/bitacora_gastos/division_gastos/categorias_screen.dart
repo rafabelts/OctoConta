@@ -80,12 +80,12 @@ class CategoriasGastosScreen extends StatelessWidget {
     return Padding(
         padding: const EdgeInsets.all(5.0),
         child: Padding(
-          padding: EdgeInsets.only(top: 0.01),
+          padding: const EdgeInsets.only(top: 0.01),
           child: Column(
             children: const <Widget>[
               BitacoraGastosInput(),
               Padding(
-                  padding: const EdgeInsets.only(top: 40.0),
+                  padding: EdgeInsets.only(top: 40.0),
                   child: CategoriasEleccion()),
               BotonesBitacora(),
             ],

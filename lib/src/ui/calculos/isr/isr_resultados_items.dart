@@ -29,7 +29,7 @@ class ResultadosPrimaVacacionalItems extends StatelessWidget {
               style: GoogleFonts.inter(
                 fontSize: 38,
                 fontWeight: FontWeight.bold,
-                color: Color.fromARGB(255, 75, 35, 156),
+                color: const Color.fromARGB(255, 75, 35, 156),
               ),
             ),
           ),
@@ -52,7 +52,7 @@ class ResultadosPrimaVacacionalItems extends StatelessWidget {
               style: GoogleFonts.inter(
                 fontSize: 40,
                 fontWeight: FontWeight.bold,
-                color: Color.fromARGB(255, 75, 35, 156),
+                color: const Color.fromARGB(255, 75, 35, 156),
               ),
             ),
           ),

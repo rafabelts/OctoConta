@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class EdicionSaldo extends StatelessWidget {
-  const EdicionSaldo({super.key});
+class EdicionSaldoInputs extends StatelessWidget {
+  const EdicionSaldoInputs({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +21,7 @@ class EdicionSaldo extends StatelessWidget {
               fontWeight: FontWeight.w600,
               fontSize: 45,
             ),
+            keyboardType: TextInputType.number,
             textAlign: TextAlign.center,
             cursorColor: const Color(0xFF382A62),
             decoration: InputDecoration(
