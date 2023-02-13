@@ -20,7 +20,7 @@ class TarjetaSaldoMensual extends StatelessWidget {
     );
     return Container(
       width: double.infinity,
-      height: MediaQuery.of(context).size.height * 0.28,
+      height: 220,
       decoration: decoracion,
       padding: const EdgeInsets.all(25.0),
       child: Column(
@@ -31,18 +31,20 @@ class TarjetaSaldoMensual extends StatelessWidget {
             style: GoogleFonts.inter(
                 color: Theme.of(context).scaffoldBackgroundColor,
                 fontWeight: FontWeight.w600,
-                fontSize: 35),
+                fontSize: 34),
           ),
-          Padding(
-            padding: const EdgeInsets.only(top: 20.0, left: 35.0),
-            child: Text(
-              // '\$0',
-              '\$ 1,000',
-              style: GoogleFonts.inter(
-                textStyle: TextStyle(
-                    color: Theme.of(context).scaffoldBackgroundColor,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 60),
+          Center(
+            child: Padding(
+              padding: const EdgeInsets.only(top: 20.0),
+              child: Text(
+                // '\$0',
+                '\$1,000',
+                style: GoogleFonts.inter(
+                  textStyle: TextStyle(
+                      color: Theme.of(context).scaffoldBackgroundColor,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 55),
+                ),
               ),
             ),
           )

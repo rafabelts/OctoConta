@@ -11,9 +11,7 @@ import 'package:octoconta_final/src/ui/calculos/prestamo/prestamo_screen.dart';
 import 'package:octoconta_final/src/ui/calculos/primav/definicion_primav.dart';
 import 'package:octoconta_final/src/ui/calculos/primav/primav_screen.dart';
 import 'package:octoconta_final/src/ui/calculos/tarjeta/tarjeta_screen.dart';
-import 'package:octoconta_final/src/ui/pagina_principal/pagina_principal.dart';
 import 'package:octoconta_final/src/ui/screen_seleccionada/screens_appbar.dart';
-import 'package:octoconta_final/src/ui/settings_screen/settings_screen.dart';
 
 import '../calculos/prestamo/definicion_prestamo.dart';
 import '../calculos/tarjeta/definicion_tarjeta.dart';
@@ -41,36 +39,43 @@ class _SelectedScreenState extends State<SelectedScreen> {
   info() {
     FocusScope.of(context).unfocus();
     showDialog(
-      context: context,
-      builder: (BuildContext context) => Center(
-        child: AdaptiveColumn(
-          children: [
-            AdaptiveContainer(
-              columnSpan: 4,
-              child: AlertDialog(
-                scrollable: true,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(18.0),
-                ),
-                backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-                insetPadding: const EdgeInsets.all(0.2),
-                content: indexClicked == 0
-                    ? const DescripcionTarjeta()
-                    : indexClicked == 1
-                        ? const DescripcionPrestamo()
-                        : indexClicked == 2
-                            ? const DescripcionHonorarios()
-                            : indexClicked == 3
-                                ? const DescripcionPrimaVacacional()
-                                : indexClicked == 4
-                                    ? const DescripcionISR()
-                                    : const DescripcionIVA(),
+        useSafeArea: true,
+        context: context,
+        builder: (BuildContext context) => Center(
+              child: AdaptiveColumn(
+                children: [
+                  AdaptiveContainer(
+                    columnSpan: 4,
+                    child: AlertDialog(
+                      scrollable: true,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(18.0),
+                      ),
+                      backgroundColor:
+                          Theme.of(context).scaffoldBackgroundColor,
+                      insetPadding: const EdgeInsets.all(8.0),
+                      content: indexClicked == 0
+                          ? const DescripcionTarjeta()
+                          : indexClicked == 1
+                              ? const DescripcionPrestamo()
+                              : indexClicked == 2
+                                  ? const DescripcionHonorarios()
+                                  : indexClicked == 3
+                                      ? const DescripcionPrimaVacacional()
+                                      : indexClicked == 4
+                                          ? SizedBox(
+                                              width: double.infinity,
+                                              height: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.85,
+                                              child: const DescripcionISR())
+                                          : const DescripcionIVA(),
+                    ),
+                  ),
+                ],
               ),
-            )
-          ],
-        ),
-      ),
-    );
+            ));
   }
 
   @override
@@ -107,6 +112,7 @@ class _SelectedScreenState extends State<SelectedScreen> {
         onPressed: info,
       ),
       body: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
         child: AdaptiveColumn(
           children: <AdaptiveContainer>[
             AdaptiveContainer(
@@ -121,6 +127,7 @@ class _SelectedScreenState extends State<SelectedScreen> {
         child: Padding(
           padding: const EdgeInsets.all(15.0),
           child: ListView(
+            physics: const BouncingScrollPhysics(),
             children: <Widget>[
               // Text('Hola Rafael!',
               //     style: GoogleFonts.inter(

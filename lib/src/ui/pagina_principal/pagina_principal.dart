@@ -1,7 +1,6 @@
 import 'package:adaptive_components/adaptive_components.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:octoconta_final/src/models/modal_selecciones.dart';
 import 'package:octoconta_final/src/ui/bitacora_gastos/saldo_mensual/tarjeta.dart';
 import 'package:octoconta_final/src/ui/pagina_principal/calculos_contables_items.dart';
 import 'package:octoconta_final/src/ui/screen_seleccionada/screens_appbar.dart';
@@ -28,11 +27,12 @@ class PaginaPrincipal extends StatelessWidget {
           onPressed: goToSettings,
         ),
         body: SingleChildScrollView(
+            controller: ScrollController(
+                keepScrollOffset: true, initialScrollOffset: 0),
+            physics: const BouncingScrollPhysics(),
             child: AdaptiveColumn(children: [
-          AdaptiveContainer(
-              columnSpan: 12,
-              child: Padding(
-                padding: const EdgeInsets.all(5.0),
+              AdaptiveContainer(
+                columnSpan: 12,
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 10.0),
                   child: Column(
@@ -43,39 +43,28 @@ class PaginaPrincipal extends StatelessWidget {
                         style: GoogleFonts.inter(
                           color: const Color(0xFF2a195d),
                           fontWeight: FontWeight.bold,
-                          fontSize: 30,
+                          fontSize: 32,
                         ),
                       ),
-                      Padding(
-                          padding:
-                              const EdgeInsets.only(top: 30.0, bottom: 10.0),
-                          child: Align(
-                              child: SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.06,
-                            child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: const Color(0xFF5E35B1),
-                                shadowColor: const Color(0xff4527A0),
-                                elevation: 15,
-                              ),
-                              onPressed: () => modalBottomSeleciones(
-                                  context, const ItemsCalculosContables()),
-                              child: Text(
-                                "Ir a los disponibles",
-                                style: GoogleFonts.inter(
-                                  color:
-                                      Theme.of(context).scaffoldBackgroundColor,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 26,
-                                ),
-                              ),
-                            ),
-                          ))),
+                      const Padding(
+                          padding: EdgeInsets.only(top: 30.0, bottom: 10.0),
+                          child: ItemsCalculosContables()),
                       const Padding(
                         padding: EdgeInsets.symmetric(vertical: 20.0),
                         child: Divider(
                           thickness: 0.5,
                           color: Color(0xFF2a195d),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 20.0),
+                        child: Text(
+                          "Gastos:",
+                          style: GoogleFonts.inter(
+                            color: const Color(0xFF2a195d),
+                            fontWeight: FontWeight.bold,
+                            fontSize: 32,
+                          ),
                         ),
                       ),
                       const TarjetaSaldoMensual(),
@@ -95,21 +84,9 @@ class PaginaPrincipal extends StatelessWidget {
                           color: const Color(0xFF5E35B1),
                         ),
                       ),
-                      const Padding(
-                        padding: EdgeInsets.symmetric(vertical: 20.0),
-                        child: Divider(
-                          thickness: 0.1,
-                          color: Color(0xFF2a195d),
-                        ),
-                      ),
-                      Text(
-                        "Categorías de gastos:",
-                        style: GoogleFonts.inter(
-                          color: const Color(0xFF2a195d),
-                          fontWeight: FontWeight.bold,
-                          fontSize: 30,
-                        ),
-                      ),
+                      // const Padding(
+                      //   padding: EdgeInsets.symmetric(vertical: 20.0),
+                      // ),
                       const Padding(
                         padding: EdgeInsets.symmetric(
                             vertical: 30.0, horizontal: 10.0),
@@ -118,8 +95,8 @@ class PaginaPrincipal extends StatelessWidget {
                     ],
                   ),
                 ),
-              ))
-        ])));
+              )
+            ])));
   }
 }
 

@@ -98,6 +98,7 @@ class _CalculoHonorariosScreenState extends State<CalculoHonorariosScreen> {
                 importe.clear();
               },
               calcular: () => listo(),
+              numeroAMultiplicar: MediaQuery.of(context).size.height * 0.3,
             )
           ],
         ),

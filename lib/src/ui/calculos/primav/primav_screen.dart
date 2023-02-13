@@ -172,6 +172,7 @@ class _CalculoPrimaVacacionalScreenState
                   year.clear();
                   sueldo.clear();
                 },
+                numeroAMultiplicar: MediaQuery.of(context).size.height * 0.06,
                 calcular: () => listo()),
           ],
         ),

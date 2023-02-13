@@ -112,7 +112,7 @@ class _CalculoTarjetaScreenState extends State<CalculoTarjetaScreen> {
     return Padding(
       padding: const EdgeInsets.all(5.0),
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 30.0),
+        padding: const EdgeInsets.only(top: 30.0),
         child: Column(
           children: <Widget>[
             CalculoTarjetaInput(
@@ -125,13 +125,15 @@ class _CalculoTarjetaScreenState extends State<CalculoTarjetaScreen> {
               onSubmitted: (value) => listo(),
             ),
             Botones(
-                limpiar: () {
-                  setValidador(true, true);
-                  showErrorMessage(context, false);
-                  deuda.clear();
-                  interes.clear();
-                },
-                calcular: () => listo()),
+              limpiar: () {
+                setValidador(true, true);
+                showErrorMessage(context, false);
+                deuda.clear();
+                interes.clear();
+              },
+              calcular: () => listo(),
+              numeroAMultiplicar: MediaQuery.of(context).size.height * 0.12,
+            ),
           ],
         ),
       ),

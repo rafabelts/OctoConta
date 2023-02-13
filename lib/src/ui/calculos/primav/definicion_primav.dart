@@ -43,7 +43,25 @@ class DescripcionPrimaVacacional extends StatelessWidget {
           style: GoogleFonts.inter(
               color: colorBodyTexto, fontWeight: FontWeight.w500, fontSize: 20),
           textAlign: TextAlign.justify,
-        )
+        ),
+        Padding(
+          padding: const EdgeInsets.only(top: 25.0),
+          child: Text(
+            'Sueldo Neto:',
+            style: GoogleFonts.inter(
+                color: colorTitulo, fontWeight: FontWeight.w700, fontSize: 27),
+          ),
+        ),
+        Padding(
+            padding: const EdgeInsets.only(top: 10.0),
+            child: Text(
+              'Es la cantidad de dinero que el empleado recibe todos los meses en la cuenta bancaria y que es el resultado de, justamente, hacer todas las retenciones y deducciones necesarias.',
+              style: GoogleFonts.inter(
+                  color: colorBodyTexto,
+                  fontWeight: FontWeight.w500,
+                  fontSize: 20),
+              textAlign: TextAlign.justify,
+            )),
       ],
     );
   }

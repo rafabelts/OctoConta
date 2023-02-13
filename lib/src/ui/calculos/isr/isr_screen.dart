@@ -114,6 +114,7 @@ class _CalculoISRScreenState extends State<CalculoISRScreen> {
             Botones(
               limpiar: () {},
               calcular: () => listo(),
+              numeroAMultiplicar: MediaQuery.of(context).size.height * 0.24,
             ),
           ],
         ),

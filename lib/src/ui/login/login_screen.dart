@@ -16,6 +16,7 @@ class LogInScreen extends StatelessWidget {
           ),
         ),
         body: SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
             padding: const EdgeInsets.all(2.0),
             child: AdaptiveColumn(
               children: <AdaptiveContainer>[

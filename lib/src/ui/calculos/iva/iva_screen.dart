@@ -130,6 +130,7 @@ class _CalculoIVAScreenState extends State<CalculoIVAScreen> {
                 FocusScope.of(context).unfocus();
               },
               calcular: () => listo(),
+              numeroAMultiplicar: MediaQuery.of(context).size.height * 0.3,
             ),
           ],
         ),

@@ -225,6 +225,7 @@ class _CalculoPrestamoScreenState extends State<CalculoPrestamoScreen> {
                 interes.clear();
                 meses.clear();
               },
+              numeroAMultiplicar: MediaQuery.of(context).size.height * 0.06,
               calcular: listo,
             ),
           ],

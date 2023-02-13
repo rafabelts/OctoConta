@@ -1,9 +1,7 @@
 import 'package:adaptive_components/adaptive_components.dart';
 import 'package:flutter/material.dart';
-import 'package:octoconta_final/src/ui/bitacora_gastos/division_gastos/bitacora_inputs.dart';
 import 'package:octoconta_final/src/ui/bitacora_gastos/saldo_mensual/edicionSaldo/edicion_saldo.dart';
 import 'package:octoconta_final/src/ui/bitacora_gastos/saldo_mensual/edicionSaldo/edicion_saldo_botones.dart';
-import 'package:octoconta_final/src/ui/bitacora_gastos/saldo_mensual/edicionSaldo/gastos_pasados_items.dart';
 
 class EdicionSaldoYVerAhorro extends StatelessWidget {
   const EdicionSaldoYVerAhorro({super.key});
@@ -18,6 +16,7 @@ class EdicionSaldoYVerAhorro extends StatelessWidget {
         ),
       ),
       body: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
         padding: const EdgeInsets.all(5.0),
         child: AdaptiveColumn(children: <AdaptiveContainer>[
           AdaptiveContainer(
@@ -27,7 +26,7 @@ class EdicionSaldoYVerAhorro extends StatelessWidget {
                   vertical: MediaQuery.of(context).size.height * 0.2),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
+                children: const <Widget>[
                   EdicionSaldo(),
                   BotonesEdicionSaldo(),
                 ],

@@ -15,7 +15,7 @@ class ResultadosPrimaVacacionalItems extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Su subsidio sera de:',
+          'Su ISR diario sera de:',
           style: GoogleFonts.inter(
             fontSize: 26,
             fontWeight: FontWeight.w600,
@@ -25,11 +25,11 @@ class ResultadosPrimaVacacionalItems extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 20.0),
           child: Align(
             child: Text(
-              subsidioRedondeado,
+              isrRedondeado,
               style: GoogleFonts.inter(
-                fontSize: 38,
+                fontSize: 44,
                 fontWeight: FontWeight.bold,
-                color: Color.fromARGB(255, 75, 35, 156),
+                color: const Color.fromARGB(255, 75, 35, 156),
               ),
             ),
           ),
@@ -37,7 +37,7 @@ class ResultadosPrimaVacacionalItems extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(top: 20.0),
           child: Text(
-            'Y su ISR diario sera de:',
+            'Y tendra un subsidio de:',
             style: GoogleFonts.inter(
               fontSize: 26,
               fontWeight: FontWeight.w600,
@@ -45,14 +45,14 @@ class ResultadosPrimaVacacionalItems extends StatelessWidget {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.only(top: 20.0, bottom: 10.0),
+          padding: const EdgeInsets.symmetric(vertical: 15.0),
           child: Align(
             child: Text(
-              isrRedondeado,
+              subsidioRedondeado,
               style: GoogleFonts.inter(
-                fontSize: 40,
+                fontSize: 38,
                 fontWeight: FontWeight.bold,
-                color: Color.fromARGB(255, 75, 35, 156),
+                color: const Color.fromARGB(255, 75, 35, 156),
               ),
             ),
           ),
