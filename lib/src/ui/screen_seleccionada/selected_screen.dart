@@ -2,20 +2,17 @@ import 'package:adaptive_components/adaptive_components.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:octoconta_final/src/ui/calculos/honorarios/definicion_honorarios.dart';
-import 'package:octoconta_final/src/ui/calculos/honorarios/honorarios_screen.dart';
 import 'package:octoconta_final/src/ui/calculos/isr/definicion_isr.dart';
-import 'package:octoconta_final/src/ui/calculos/isr/isr_screen.dart';
 import 'package:octoconta_final/src/ui/calculos/iva/definicion_iva.dart';
-import 'package:octoconta_final/src/ui/calculos/iva/iva_screen.dart';
 import 'package:octoconta_final/src/ui/calculos/prestamo/prestamo_screen.dart';
 import 'package:octoconta_final/src/ui/calculos/primav/definicion_primav.dart';
-import 'package:octoconta_final/src/ui/calculos/primav/primav_screen.dart';
 import 'package:octoconta_final/src/ui/calculos/tarjeta/tarjeta_screen.dart';
-import 'package:octoconta_final/src/ui/pagina_principal/pagina_principal.dart';
 import 'package:octoconta_final/src/ui/screen_seleccionada/screens_appbar.dart';
-import 'package:octoconta_final/src/ui/settings_screen/settings_screen.dart';
-
+import '../calculos/honorarios/honorarios_screen.dart';
+import '../calculos/isr/isr_screen.dart';
+import '../calculos/iva/iva_screen.dart';
 import '../calculos/prestamo/definicion_prestamo.dart';
+import '../calculos/primav/primav_screen.dart';
 import '../calculos/tarjeta/definicion_tarjeta.dart';
 
 class SelectedScreen extends StatefulWidget {
