@@ -9,7 +9,7 @@ class ResultadosPrestamoItems extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
+      children: <Widget>[
         Text(
           "Su pago mensual sera de:",
           style: GoogleFonts.inter(
@@ -25,7 +25,7 @@ class ResultadosPrestamoItems extends StatelessWidget {
               style: GoogleFonts.inter(
                 fontSize: 40,
                 fontWeight: FontWeight.bold,
-                color: Color.fromARGB(255, 75, 35, 156),
+                color: const Color.fromARGB(255, 75, 35, 156),
               ),
             ),
           ),

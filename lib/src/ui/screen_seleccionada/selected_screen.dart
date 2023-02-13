@@ -11,7 +11,9 @@ import 'package:octoconta_final/src/ui/calculos/prestamo/prestamo_screen.dart';
 import 'package:octoconta_final/src/ui/calculos/primav/definicion_primav.dart';
 import 'package:octoconta_final/src/ui/calculos/primav/primav_screen.dart';
 import 'package:octoconta_final/src/ui/calculos/tarjeta/tarjeta_screen.dart';
+import 'package:octoconta_final/src/ui/pagina_principal/pagina_principal.dart';
 import 'package:octoconta_final/src/ui/screen_seleccionada/screens_appbar.dart';
+import 'package:octoconta_final/src/ui/settings_screen/settings_screen.dart';
 
 import '../calculos/prestamo/definicion_prestamo.dart';
 import '../calculos/tarjeta/definicion_tarjeta.dart';
@@ -100,6 +102,7 @@ class _SelectedScreenState extends State<SelectedScreen> {
                 final FocusScopeNode currentScope = FocusScope.of(context);
                 if (!currentScope.hasPrimaryFocus && currentScope.hasFocus) {
                   FocusManager.instance.primaryFocus?.unfocus();
+                  FocusScope.of(context).unfocus();
                 }
                 Scaffold.of(context).openDrawer();
               },

@@ -1,6 +1,7 @@
 import 'package:adaptive_components/adaptive_components.dart';
 import 'package:flutter/material.dart';
-import 'package:octoconta_final/src/ui/bitacora_gastos/saldo_mensual/edicionSaldo/edicion_saldo.dart';
+
+import 'package:octoconta_final/src/ui/bitacora_gastos/saldo_mensual/edicionSaldo/edicion_saldo_inputs.dart';
 import 'package:octoconta_final/src/ui/bitacora_gastos/saldo_mensual/edicionSaldo/edicion_saldo_botones.dart';
 
 class EdicionSaldoYVerAhorro extends StatelessWidget {
@@ -27,7 +28,7 @@ class EdicionSaldoYVerAhorro extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: const <Widget>[
-                  EdicionSaldo(),
+                  EdicionSaldoInputs(),
                   BotonesEdicionSaldo(),
                 ],
               ),

@@ -31,7 +31,7 @@ class OctoTextThemes {
     displayLarge: GoogleFonts.inter(
       color: const Color(0xFF2a195d),
       fontWeight: FontWeight.bold,
-      fontSize: 58,
+      fontSize: 56,
     ),
     displayMedium: GoogleFonts.inter(
       color: const Color(0xFF2a195d),

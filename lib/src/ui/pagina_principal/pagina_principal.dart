@@ -13,6 +13,7 @@ class PaginaPrincipal extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    FocusScope.of(context).unfocus();
     goToSettings() => Navigator.push(context,
         MaterialPageRoute(builder: (context) => const SettingsScreen()));
     goToEditarSaldo() => Navigator.push(
@@ -22,7 +23,7 @@ class PaginaPrincipal extends StatelessWidget {
     return Scaffold(
         appBar: ScreensAppBar(
           titulo: '',
-          leadingIcon: null,
+          leadingIcon: const Icon(null),
           icono: Icons.settings_outlined,
           onPressed: goToSettings,
         ),
@@ -81,7 +82,7 @@ class PaginaPrincipal extends StatelessWidget {
                         trailing: const Icon(
                           Icons.arrow_forward_ios,
                           size: 17,
-                          color: const Color(0xFF5E35B1),
+                          color: Color(0xFF5E35B1),
                         ),
                       ),
                       // const Padding(
