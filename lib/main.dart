@@ -14,7 +14,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: OctoContaThemes.lightTheme,
-      home: const WelcomeScreen(),
+      home:
+          const WelcomeScreen(), // Para el inicio de sesion, si el snapshot tiene informacion se mandara a la pantalla principal, de lo contrario mandara a la pantalla de bienvenida.
     );
   }
 }
