@@ -3,7 +3,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:octoconta_final/src/ui/olvido_contra/ingresar_correo/ingresar_correo_veri_screen.dart';
 
 class LogInButtons extends StatelessWidget {
-  const LogInButtons({super.key});
+  final VoidCallback avanzar;
+  const LogInButtons({required this.avanzar, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +35,7 @@ class LogInButtons extends StatelessWidget {
               child: SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: avanzar,
                   style: ElevatedButton.styleFrom(
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12.0)),

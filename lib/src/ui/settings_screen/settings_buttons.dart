@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -24,7 +25,7 @@ class SettingsButton extends StatelessWidget {
                   fontWeight: FontWeight.w700,
                   fontSize: 27),
             ),
-            onPressed: () {},
+            onPressed: () => FirebaseAuth.instance.signOut(),
           ),
         ),
         Padding(

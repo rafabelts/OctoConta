@@ -4,6 +4,7 @@
         android:label="octoconta_final"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+        
         <activity
             android:name=".MainActivity"
             android:screenOrientation='portrait'

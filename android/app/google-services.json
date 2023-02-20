@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "583532087968",
+    "project_id": "octoconta-7e756",
+    "storage_bucket": "octoconta-7e756.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:583532087968:android:466d776a68ad115715d7c5",
+        "android_client_info": {
+          "package_name": "com.example.octoconta_final"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "583532087968-2f4rupgfpfnjglq7u9189o9c60kpv58j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCS1PKKrEZVlxWGlK8ByBr8-gclYPc556w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "583532087968-2f4rupgfpfnjglq7u9189o9c60kpv58j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

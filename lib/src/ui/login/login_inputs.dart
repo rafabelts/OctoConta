@@ -2,7 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class LogInInputs extends StatefulWidget {
-  const LogInInputs({super.key});
+  final TextEditingController correoUser;
+  final dynamic correoError;
+  final Function(dynamic) onChangedCorreo;
+  final TextEditingController passwordUser;
+  final dynamic passwordError;
+  final Function(dynamic) onChangedPassword;
+  const LogInInputs(
+      {required this.correoUser,
+      required this.correoError,
+      required this.onChangedCorreo,
+      required this.passwordUser,
+      required this.passwordError,
+      required this.onChangedPassword,
+      super.key});
 
   @override
   State<LogInInputs> createState() => _LogInInputsState();
@@ -29,19 +42,31 @@ class _LogInInputsState extends State<LogInInputs> {
   }
 
   Widget buildInputNombreEmail(BuildContext context) {
-    // Creo la entrada del nombre del usuario
+    // Creo la entrada del email del usuario
+    TextEditingController correoUser = widget.correoUser;
+    dynamic emailError = widget.correoError;
+    Function(dynamic) onChangedEmail = widget.onChangedCorreo;
     return Padding(
       padding: const EdgeInsets.only(top: 20.0),
       child: TextField(
+        controller: correoUser,
+        onChanged: onChangedEmail,
         style: GoogleFonts.inter(
           color: const Color(0xff534677),
           fontWeight: FontWeight.bold,
           fontSize: 18,
         ),
         decoration: InputDecoration(
+          errorText: emailError,
+          errorStyle:
+              GoogleFonts.inter(fontSize: 14, fontWeight: FontWeight.w600),
+          errorBorder: const OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.red, width: 2.0)),
+          focusedErrorBorder: const OutlineInputBorder(
+              borderSide: BorderSide(width: 2.0, color: Colors.red)),
           label: Container(
               margin: const EdgeInsets.only(top: 3.0),
-              child: const Text('Nombre o Correo Electrónico')),
+              child: const Text('Correo Electrónico')),
           labelStyle: GoogleFonts.inter(
               textStyle: const TextStyle(color: Color(0xff534677)),
               fontSize: 21,
@@ -62,9 +87,15 @@ class _LogInInputsState extends State<LogInInputs> {
   }
 
   Widget buildPasswordInput(BuildContext context) {
+    // Creo la entrada del password del usuario
+    TextEditingController passwordUser = widget.passwordUser;
+    dynamic passwordError = widget.passwordError;
+    Function(dynamic) onChangedPassword = widget.onChangedPassword;
     return Padding(
       padding: const EdgeInsets.only(top: 30.0),
       child: TextField(
+        controller: passwordUser,
+        onChanged: onChangedPassword,
         obscureText: _isPasswordVisible,
         style: GoogleFonts.inter(
           color: const Color(0xff534677),
@@ -72,6 +103,13 @@ class _LogInInputsState extends State<LogInInputs> {
           fontSize: 18,
         ),
         decoration: InputDecoration(
+          errorText: passwordError,
+          errorStyle:
+              GoogleFonts.inter(fontSize: 14, fontWeight: FontWeight.w600),
+          errorBorder: const OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.red, width: 2.0)),
+          focusedErrorBorder: const OutlineInputBorder(
+              borderSide: BorderSide(width: 2.0, color: Colors.red)),
           label: Container(
               margin: const EdgeInsets.only(top: 3.0),
               child: const Text('Contraseña')),

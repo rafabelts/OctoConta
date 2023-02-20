@@ -1,16 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:octoconta_final/src/ui/login/login_screen.dart';
-import 'package:octoconta_final/src/ui/pagina_principal/pagina_principal.dart';
 
-class SignUpButtons extends StatefulWidget {
-  const SignUpButtons({super.key});
+class SignUpButtons extends StatelessWidget {
+  final VoidCallback avanzar;
+  const SignUpButtons({required this.avanzar, super.key});
 
-  @override
-  State<SignUpButtons> createState() => _SignUpButtonsState();
-}
-
-class _SignUpButtonsState extends State<SignUpButtons> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -21,12 +16,7 @@ class _SignUpButtonsState extends State<SignUpButtons> {
           child: SizedBox(
             width: double.infinity,
             child: ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const PaginaPrincipal()));
-              },
+              onPressed: avanzar,
               style: ElevatedButton.styleFrom(
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12.0)),
