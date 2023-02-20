@@ -89,6 +89,9 @@ class _CalculoISRScreenState extends State<CalculoISRScreen> {
         convertirSueldo(sueldo, periodoActual, salarioConvertido);
     double subsidioUsuario = calculoSubsidio(sueldoUsuario);
     double calculoDelIsr = calculoIsr(conversion, subsidioUsuario);
+
+    print(conversion);
+
     setState(() {
       subsidio = subsidioUsuario.toStringAsFixed(2);
       isr = calculoDelIsr.toStringAsFixed(2);

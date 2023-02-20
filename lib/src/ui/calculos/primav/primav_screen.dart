@@ -128,7 +128,7 @@ class _CalculoPrimaVacacionalScreenState
   int calculoPrimaVacacional(BuildContext context) {
     double conversion =
         convertirSueldo(sueldo, periodoActual, salarioConvertido);
-
+    print(conversion);
     String dias = calcularTiempo(year, diasVacaciones);
     double totalPrimaVacacional = (conversion * int.parse(dias)) * 0.25;
 

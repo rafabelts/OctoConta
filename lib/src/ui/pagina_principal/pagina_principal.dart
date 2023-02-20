@@ -14,7 +14,6 @@ class PaginaPrincipal extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final user = FirebaseAuth.instance.currentUser!;
     FocusScope.of(context).unfocus();
     goToSettings() => Navigator.push(context,
         MaterialPageRoute(builder: (context) => const SettingsScreen()));

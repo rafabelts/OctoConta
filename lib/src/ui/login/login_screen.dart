@@ -3,7 +3,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:octoconta_final/src/ui/login/login_buttons.dart';
 import 'package:octoconta_final/src/ui/login/login_inputs.dart';
-import 'package:octoconta_final/src/ui/pagina_principal/pagina_principal.dart';
+
+import '../pagina_principal/pagina_principal.dart';
+// import 'package:octoconta_final/src/ui/pagina_principal/pagina_principal.dart';
 
 class LogInScreen extends StatefulWidget {
   const LogInScreen({super.key});
@@ -17,6 +19,8 @@ class _LogInScreenState extends State<LogInScreen> {
   TextEditingController password = TextEditingController();
 
   Future signIn() async {
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => const PaginaPrincipal()));
     await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: correo.text.trim(), password: password.text.trim());
   }

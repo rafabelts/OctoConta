@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:octoconta_final/src/ui/welcome/welcome_screen.dart';
 
 class SettingsButton extends StatelessWidget {
   const SettingsButton({super.key});
@@ -25,7 +26,13 @@ class SettingsButton extends StatelessWidget {
                   fontWeight: FontWeight.w700,
                   fontSize: 27),
             ),
-            onPressed: () => FirebaseAuth.instance.signOut(),
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const WelcomeScreen()));
+              FirebaseAuth.instance.signOut();
+            },
           ),
         ),
         Padding(

@@ -1,5 +1,4 @@
 import 'package:adaptive_components/adaptive_components.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:octoconta_final/src/ui/signup/signup_buttons.dart';
 import 'package:octoconta_final/src/ui/signup/signup_inputs.dart';
