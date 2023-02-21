@@ -28,4 +28,8 @@ class Auth {
   Future<void> signOut() async {
     await _firebaseAuth.signOut();
   }
+
+  // Future<void>senEmailVeraficationCode(required String email) async{
+  //   await _firebaseAuth.sendSignInLinkToEmail(email: email, actionCodeSettings: actionCodeSettings)
+  // }
 }

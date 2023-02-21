@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:octoconta_final/src/services/auth.dart';
+import 'package:octoconta_final/src/ui/login/login_screen.dart';
 import 'package:octoconta_final/src/ui/pagina_principal/pagina_principal.dart';
 import 'package:octoconta_final/src/ui/welcome/welcome_screen.dart';
 
@@ -23,6 +25,7 @@ class _WidgetTreeState extends State<WidgetTree> {
         } else {
           // Muestra la pantalla de bienvenida y la pantalla de creación de cuenta
           print('Bienvenida');
+          // SystemNavigator.pop();
           return const WelcomeScreen();
         }
       },

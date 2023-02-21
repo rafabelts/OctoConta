@@ -6,8 +6,11 @@ class SettingsButton extends StatelessWidget {
   SettingsButton({super.key});
   final user = Auth().currentUser;
 
-  Future<void> signOut() async {
+  Future<void> signOut(BuildContext context) async {
     await Auth().signOut();
+    Future.microtask(() {
+      Navigator.pop(context);
+    });
   }
 
   @override
@@ -30,7 +33,7 @@ class SettingsButton extends StatelessWidget {
                   fontWeight: FontWeight.w700,
                   fontSize: 27),
             ),
-            onPressed: () => signOut(),
+            onPressed: () => signOut(context),
           ),
         ),
         Padding(

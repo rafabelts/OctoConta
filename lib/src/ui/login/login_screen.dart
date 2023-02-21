@@ -1,10 +1,10 @@
 import 'package:adaptive_components/adaptive_components.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:octoconta_final/src/models/error_conexion.dart';
 import 'package:octoconta_final/src/services/auth.dart';
 import 'package:octoconta_final/src/ui/login/login_buttons.dart';
 import 'package:octoconta_final/src/ui/login/login_inputs.dart';
-import 'package:octoconta_final/src/ui/pagina_principal/pagina_principal.dart';
 
 // import 'package:octoconta_final/src/ui/pagina_principal/pagina_principal.dart';
 
@@ -40,9 +40,16 @@ class _LogInScreenState extends State<LogInScreen> {
   Future<void> signInWithEmailAndPassword() async {
     try {
       await Auth().signInWithEmailAndPassword(
-          email: correo.text.trim(), password: password.text.trim());
+          email: correo.text.toLowerCase().trim(), password: password.text);
+      Future.microtask(() {
+        Navigator.pop(context);
+        Navigator.pop(context);
+      });
     } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found') {
+      if (e.code == 'network-request-failed') {
+        showErrorMessageConexion(
+            context, true, 'No cuenta con conexion a internet');
+      } else if (e.code == 'user-not-found') {
         // El usuario no existe
         mensajeErrorCorreo('''La dirección de correo electrónico 
 ingresada no es válida.''', false);
@@ -55,15 +62,12 @@ ingresada no es válida.''', false);
 ingresada no es válida.''', false);
       }
       // Puedes mostrar un mensaje de error al usuario o realizar otra acción según el error específico
-    } catch (e) {
-      // Otro tipo de excepción ocurrió
-      // Puedes manejar esta excepción de la manera que desees
     }
   }
 
   void registrarse() {
     String correoValor = correo.text.trim();
-    String passwordValor = password.text.trim();
+    String passwordValor = password.text;
 
     if (correoValor.isEmpty) {
       mensajeErrorCorreo('Por favor, ingrese su correo electronico', false);

@@ -1,5 +1,7 @@
 import 'package:adaptive_components/adaptive_components.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:octoconta_final/src/models/error_conexion.dart';
 import 'package:octoconta_final/src/services/auth.dart';
 import 'package:octoconta_final/src/ui/signup/signup_buttons.dart';
 import 'package:octoconta_final/src/ui/signup/signup_inputs.dart';
@@ -20,15 +22,25 @@ class _SignUpScreenState extends State<SignUpScreen> {
   Future<void> createUserWithEmailAndPassword() async {
     try {
       await Auth().createUserWithEmailAndPassword(
-          email: email.text.trim(), password: password.text.trim());
-    } catch (e) {}
+          email: email.text.toLowerCase().trim(), password: password.text);
+      Future.microtask(() => Navigator.pop(context));
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'network-request-failed') {
+        showErrorMessageConexion(
+            context, true, 'No cuenta con conexion a internet');
+      } else if (e.code == 'email-already-in-use') {
+        mensajeErrorEmail('Este correo ya esta registrado', false);
+      } else if (e.code == 'weak-password') {
+        mensajeErrorPassword('Contraseña debil', false);
+      }
+    }
   }
 
   void registrarse() {
     String nombreValor = nombre.text.trim();
     String emailValor = email.text.trim();
-    String passwordValor = password.text.trim();
-    String conffirmedPasswordValor = conffirmedPassword.text.trim();
+    String passwordValor = password.text;
+    String conffirmedPasswordValor = conffirmedPassword.text;
 
     if (nombreValor.isEmpty) {
       mensajeErrorNombre('Por favor, ingrese su nombre', false);
@@ -62,13 +74,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
       } else if (!regExpPassword.hasMatch(passwordValor)) {
         mensajeErrorPassword(
             '''La contraseña debe tener al entre 8 y 16 caracteres,
-al menos un valor especial, un numero, una minúscula 
-y una mayúscula.''', false);
+al menos un valor especial, un numero, una 
+minúscula y una mayúscula.''', false);
         if (!regExpPassword.hasMatch(conffirmedPasswordValor)) {
           mensajeErrorConffirmedPassword(
               '''La contraseña debe tener al entre 8 y 16 caracteres,
-al menos un valor especial, un numero, una minúscula 
-y una mayúscula.''', false);
+al menos un valor especial, un numero, una 
+minúscula y una mayúscula.''', false);
         }
       } else {
         mensajeErrorPassword('', true);
