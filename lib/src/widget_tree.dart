@@ -19,11 +19,11 @@ class _WidgetTreeState extends State<WidgetTree> {
         if (snapshot.hasData) {
           // Si el usuario ha iniciado sesión, redirige directamente a la pantalla principal
           print('principal');
-          return PaginaPrincipal();
+          return const PaginaPrincipal();
         } else {
           // Muestra la pantalla de bienvenida y la pantalla de creación de cuenta
           print('Bienvenida');
-          return WelcomeScreen();
+          return const WelcomeScreen();
         }
       },
     );

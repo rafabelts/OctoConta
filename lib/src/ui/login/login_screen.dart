@@ -37,7 +37,7 @@ class _LogInScreenState extends State<LogInScreen> {
     });
   }
 
-  Future<void> signInWithEmailAndPassword(BuildContext context) async {
+  Future<void> signInWithEmailAndPassword() async {
     try {
       await Auth().signInWithEmailAndPassword(
           email: correo.text.trim(), password: password.text.trim());
@@ -77,7 +77,7 @@ ingresada no es válida.''', false);
       } else {
         mensajeErrorCorreo('', true);
         mensajeErrorPassword('', true);
-        signInWithEmailAndPassword(context);
+        signInWithEmailAndPassword();
       }
     }
   }

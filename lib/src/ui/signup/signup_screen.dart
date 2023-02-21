@@ -1,9 +1,8 @@
 import 'package:adaptive_components/adaptive_components.dart';
 import 'package:flutter/material.dart';
+import 'package:octoconta_final/src/services/auth.dart';
 import 'package:octoconta_final/src/ui/signup/signup_buttons.dart';
 import 'package:octoconta_final/src/ui/signup/signup_inputs.dart';
-
-import '../pagina_principal/pagina_principal.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -17,6 +16,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
   TextEditingController conffirmedPassword = TextEditingController();
+
+  Future<void> createUserWithEmailAndPassword() async {
+    try {
+      await Auth().createUserWithEmailAndPassword(
+          email: email.text.trim(), password: password.text.trim());
+    } catch (e) {}
+  }
 
   void registrarse() {
     String nombreValor = nombre.text.trim();
@@ -77,8 +83,7 @@ y una mayúscula.''', false);
           mensajeErrorNombre('', true);
           mensajeErrorEmail('', true);
 
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => const PaginaPrincipal()));
+          createUserWithEmailAndPassword();
         }
       }
     }
