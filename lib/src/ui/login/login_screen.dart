@@ -1,10 +1,11 @@
 import 'package:adaptive_components/adaptive_components.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:octoconta_final/src/services/auth.dart';
 import 'package:octoconta_final/src/ui/login/login_buttons.dart';
 import 'package:octoconta_final/src/ui/login/login_inputs.dart';
+import 'package:octoconta_final/src/ui/pagina_principal/pagina_principal.dart';
 
-import '../pagina_principal/pagina_principal.dart';
 // import 'package:octoconta_final/src/ui/pagina_principal/pagina_principal.dart';
 
 class LogInScreen extends StatefulWidget {
@@ -17,13 +18,6 @@ class LogInScreen extends StatefulWidget {
 class _LogInScreenState extends State<LogInScreen> {
   TextEditingController correo = TextEditingController();
   TextEditingController password = TextEditingController();
-
-  Future signIn() async {
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => const PaginaPrincipal()));
-    await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: correo.text.trim(), password: password.text.trim());
-  }
 
   String mensajeDeErrorCorreo = '';
   bool errorInCorreo = true;
@@ -43,12 +37,34 @@ class _LogInScreenState extends State<LogInScreen> {
     });
   }
 
+  Future<void> signInWithEmailAndPassword(BuildContext context) async {
+    try {
+      await Auth().signInWithEmailAndPassword(
+          email: correo.text.trim(), password: password.text.trim());
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        // El usuario no existe
+        mensajeErrorCorreo('''La dirección de correo electrónico 
+ingresada no es válida.''', false);
+      } else if (e.code == 'wrong-password') {
+        // La contraseña es incorrecta
+        mensajeErrorPassword('La contraseña ingresada es incorrecta.', false);
+      } else if (e.code == 'invalid-email') {
+        // La dirección de correo electrónico es inválida
+        mensajeErrorCorreo('''La dirección de correo electrónico 
+ingresada no es válida.''', false);
+      }
+      // Puedes mostrar un mensaje de error al usuario o realizar otra acción según el error específico
+    } catch (e) {
+      // Otro tipo de excepción ocurrió
+      // Puedes manejar esta excepción de la manera que desees
+    }
+  }
+
   void registrarse() {
     String correoValor = correo.text.trim();
     String passwordValor = password.text.trim();
-    String emailPattern =
-        r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
-    RegExp regExpEmail = RegExp(emailPattern);
+
     if (correoValor.isEmpty) {
       mensajeErrorCorreo('Por favor, ingrese su correo electronico', false);
     }
@@ -56,12 +72,12 @@ class _LogInScreenState extends State<LogInScreen> {
     if (passwordValor.isEmpty) {
       mensajeErrorPassword('Por favor, ingrese su contraseña', false);
     } else {
-      mensajeErrorCorreo('', true);
-      mensajeErrorPassword('', true);
-      if (!regExpEmail.hasMatch(correoValor)) {
-        mensajeErrorCorreo('Correo Invalido', false);
+      if (correoValor.isEmpty) {
+        mensajeErrorCorreo('Por favor, ingrese su correo electronico', false);
       } else {
-        signIn();
+        mensajeErrorCorreo('', true);
+        mensajeErrorPassword('', true);
+        signInWithEmailAndPassword(context);
       }
     }
   }

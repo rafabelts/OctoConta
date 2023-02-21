@@ -1,5 +1,4 @@
 import 'package:adaptive_components/adaptive_components.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:octoconta_final/src/ui/bitacora_gastos/saldo_mensual/tarjeta.dart';
@@ -14,7 +13,6 @@ class PaginaPrincipal extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    FocusScope.of(context).unfocus();
     goToSettings() => Navigator.push(context,
         MaterialPageRoute(builder: (context) => const SettingsScreen()));
     goToEditarSaldo() => Navigator.push(
@@ -109,9 +107,6 @@ class PaginaPrincipal extends StatelessWidget {
             ])));
   }
 }
-
-
-
 
 //  ListTile(
 //                 onTap: () => modalBottomSeleciones(
