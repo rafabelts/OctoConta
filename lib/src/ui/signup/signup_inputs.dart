@@ -114,6 +114,7 @@ class _SignUpInputsState extends State<SignUpInputs> {
     return Padding(
       padding: const EdgeInsets.only(top: 30.0),
       child: TextField(
+        keyboardType: TextInputType.emailAddress,
         controller: email,
         onChanged: onChangedEmail,
         style: GoogleFonts.inter(

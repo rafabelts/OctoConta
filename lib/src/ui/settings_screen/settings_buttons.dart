@@ -1,17 +1,13 @@
+import 'package:adaptive_components/adaptive_components.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:octoconta_final/src/services/auth.dart';
 
+import 'eliminar_cuenta.dart/eliminar_cuenta_screen.dart';
+
 class SettingsButton extends StatelessWidget {
   SettingsButton({super.key});
   final user = Auth().currentUser;
-
-  Future<void> signOut(BuildContext context) async {
-    await Auth().signOut();
-    Future.microtask(() {
-      Navigator.pop(context);
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,19 +29,45 @@ class SettingsButton extends StatelessWidget {
                   fontWeight: FontWeight.w700,
                   fontSize: 27),
             ),
-            onPressed: () => signOut(context),
+            onPressed: () => Auth().signOut(
+                context: context,
+                navegacionPantallasAlCerrarSesion: (value) {
+                  Navigator.pop(context);
+                  Navigator.pop(context);
+                }),
           ),
         ),
         Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8.0),
+          padding: const EdgeInsets.symmetric(vertical: 20.0),
           child: TextButton(
-            onPressed: () {},
+            onPressed: () => showDialog(
+                useSafeArea: true,
+                context: context,
+                builder: (BuildContext context) => Center(
+                      child: AdaptiveColumn(
+                        children: [
+                          AdaptiveContainer(
+                            columnSpan: 12,
+                            child: AlertDialog(
+                                insetPadding: EdgeInsets.zero,
+                                scrollable: true,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(18.0),
+                                ),
+                                backgroundColor:
+                                    Theme.of(context).scaffoldBackgroundColor,
+                                // insetPadding: const EdgeInsets.all(8.0),
+                                content: const EliminarCuentaScreen()),
+                          )
+                        ],
+                      ),
+                    )),
             child: Text(
               'Eliminar Cuenta',
               style: GoogleFonts.poppins(
                 color: const Color(0xff5e35b1),
                 fontWeight: FontWeight.w700,
-                fontSize: 22,
+                fontSize: 23,
               ),
             ),
           ),

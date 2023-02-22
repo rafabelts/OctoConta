@@ -22,9 +22,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
   Future<void> createUserWithEmailAndPassword() async {
     try {
       await Auth().createUserWithEmailAndPassword(
-          email: email.text.toLowerCase().trim(), password: password.text);
-      Future.microtask(() => Navigator.pop(context));
+        email: email.text.toLowerCase().trim(),
+        password: password.text,
+        context: context,
+      );
     } on FirebaseAuthException catch (e) {
+      Navigator.pop(context);
       if (e.code == 'network-request-failed') {
         showErrorMessageConexion(
             context, true, 'No cuenta con conexion a internet');
@@ -83,8 +86,6 @@ al menos un valor especial, un numero, una
 minúscula y una mayúscula.''', false);
         }
       } else {
-        mensajeErrorPassword('', true);
-        mensajeErrorConffirmedPassword('', true);
         if (nombreValor.isEmpty) {
           mensajeErrorNombre('Por favor, ingrese su nombre', false);
         } else if (emailValor.isEmpty) {
@@ -94,7 +95,9 @@ minúscula y una mayúscula.''', false);
         } else {
           mensajeErrorNombre('', true);
           mensajeErrorEmail('', true);
-
+          mensajeErrorPassword('', true);
+          mensajeErrorConffirmedPassword('', true);
+          FocusScope.of(context).unfocus();
           createUserWithEmailAndPassword();
         }
       }

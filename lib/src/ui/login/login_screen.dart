@@ -40,12 +40,12 @@ class _LogInScreenState extends State<LogInScreen> {
   Future<void> signInWithEmailAndPassword() async {
     try {
       await Auth().signInWithEmailAndPassword(
-          email: correo.text.toLowerCase().trim(), password: password.text);
-      Future.microtask(() {
-        Navigator.pop(context);
-        Navigator.pop(context);
-      });
+        email: correo.text.toLowerCase().trim(),
+        password: password.text,
+        context: context,
+      );
     } on FirebaseAuthException catch (e) {
+      Navigator.pop(context);
       if (e.code == 'network-request-failed') {
         showErrorMessageConexion(
             context, true, 'No cuenta con conexion a internet');
@@ -53,7 +53,7 @@ class _LogInScreenState extends State<LogInScreen> {
         // El usuario no existe
         mensajeErrorCorreo('''La dirección de correo electrónico 
 ingresada no es válida.''', false);
-      } else if (e.code == 'wrong-password') {
+      } else if (e.code == 'wrong-password' || password.text.length < 8) {
         // La contraseña es incorrecta
         mensajeErrorPassword('La contraseña ingresada es incorrecta.', false);
       } else if (e.code == 'invalid-email') {
@@ -81,6 +81,7 @@ ingresada no es válida.''', false);
       } else {
         mensajeErrorCorreo('', true);
         mensajeErrorPassword('', true);
+        FocusScope.of(context).unfocus();
         signInWithEmailAndPassword();
       }
     }

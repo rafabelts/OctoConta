@@ -6,10 +6,10 @@ errorMessage(BuildContext context, String error) {
   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
     content: Text(error,
         style: GoogleFonts.inter(
-            color: const Color(0xff4527A0),
+            color: Theme.of(context).scaffoldBackgroundColor,
             fontSize: 16,
             fontWeight: FontWeight.w500)),
-    backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+    backgroundColor: const Color(0xff4527A0),
     elevation: 10.0,
   ));
 }

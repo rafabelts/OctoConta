@@ -31,7 +31,7 @@ class _LogInInputsState extends State<LogInInputs> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Text(
-            'Bienvenido De Nuevo!',
+            'Bienvenido!',
             style: Theme.of(context).textTheme.displayMedium,
           ),
           buildInputNombreEmail(context),
@@ -47,7 +47,7 @@ class _LogInInputsState extends State<LogInInputs> {
     dynamic emailError = widget.correoError;
     Function(dynamic) onChangedEmail = widget.onChangedCorreo;
     return Padding(
-      padding: const EdgeInsets.only(top: 20.0),
+      padding: const EdgeInsets.only(top: 30.0),
       child: TextField(
         controller: correoUser,
         onChanged: onChangedEmail,

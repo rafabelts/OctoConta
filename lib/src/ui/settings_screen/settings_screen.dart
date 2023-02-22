@@ -1,26 +1,29 @@
 import 'package:adaptive_components/adaptive_components.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:octoconta_final/src/services/auth.dart';
 import 'package:octoconta_final/src/ui/settings_screen/cambiar_email/cambiar_email_screen.dart';
 import 'package:octoconta_final/src/ui/settings_screen/cambiar_nombre/cambiar_nombre_screen.dart';
 import 'package:octoconta_final/src/ui/settings_screen/cambiar_password/cambiar_password_screen.dart';
 import 'package:octoconta_final/src/ui/settings_screen/settings_buttons.dart';
 
-List<dynamic> elementosParaConfigurar = [
-  ['Nombre:', 'Rafael', const CambiarNombreScreen()],
-  [
-    'Correo electrónico:',
-    'rafabeltrans17@gmail.com',
-    const CambiarEmailScreen()
-  ],
-  ['Contraseña:', '********', const CambiarPasswordScreen()],
-];
+// List<dynamic> elementosParaConfigurar = [
+//   ['Nombre:', 'Rafael', const CambiarNombreScreen()],
+//   ['Correo electrónico:', correoUser, const CambiarEmailScreen()],
+//   ['Contraseña:', '********', const CambiarPasswordScreen()],
+// ];
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final String? correoUser = Auth().currentUser?.email;
+    List<dynamic> elementosParaConfigurar = [
+      ['Nombre:', 'Rafael', const CambiarNombreScreen()],
+      ['Correo electrónico:', correoUser, const CambiarEmailScreen()],
+      ['Contraseña:', '********', const CambiarPasswordScreen()],
+    ];
     return Scaffold(
       appBar: AppBar(
         title: Text(

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:octoconta_final/src/cuenta_verificacion_y_saldo/correoVerificacion.dart';
 import 'package:octoconta_final/src/services/auth.dart';
 import 'package:octoconta_final/src/ui/login/login_screen.dart';
+import 'package:octoconta_final/src/ui/olvido_contra/ingresar_correo/ingresar_correo_veri_screen.dart';
 import 'package:octoconta_final/src/ui/pagina_principal/pagina_principal.dart';
 import 'package:octoconta_final/src/ui/welcome/welcome_screen.dart';
 
@@ -21,7 +23,7 @@ class _WidgetTreeState extends State<WidgetTree> {
         if (snapshot.hasData) {
           // Si el usuario ha iniciado sesión, redirige directamente a la pantalla principal
           print('principal');
-          return const PaginaPrincipal();
+          return const VerificacionCorreo();
         } else {
           // Muestra la pantalla de bienvenida y la pantalla de creación de cuenta
           print('Bienvenida');
