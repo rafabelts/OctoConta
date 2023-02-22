@@ -50,18 +50,16 @@ class _EliminarCuentaScreenState extends State<EliminarCuentaScreen> {
 
     Future<void> funElimin() async {
       try {
+        showDialog(
+            context: context,
+            builder: (context) => Center(
+                  child: CircularProgressIndicator(
+                    color: const Color(0xff2A195D),
+                    backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+                  ),
+                ));
         await user?.reauthenticateWithCredential(credentials);
-        Future.microtask(
-          () => showDialog(
-              context: context,
-              builder: (context) => Center(
-                    child: CircularProgressIndicator(
-                      color: const Color(0xff2A195D),
-                      backgroundColor:
-                          Theme.of(context).scaffoldBackgroundColor,
-                    ),
-                  )),
-        );
+
         await user?.delete().then((value) {
           Navigator.pop(context);
           Navigator.pop(context);
@@ -70,9 +68,8 @@ class _EliminarCuentaScreenState extends State<EliminarCuentaScreen> {
         // La cuenta se eliminó correctamente.
       } on FirebaseAuthException catch (e) {
         if (e.code == 'wrong-password') {
+          Navigator.pop(context); // Cerrar diálogo
           mensajeErrorPassword('La contraseña es incorrecta.', true);
-        } else {
-          // Ocurrió un error al eliminar la cuenta.
         }
       }
     }
@@ -83,6 +80,7 @@ class _EliminarCuentaScreenState extends State<EliminarCuentaScreen> {
       } else {
         mensajeErrorPassword('', false);
         print(password.text);
+
         funElimin();
       }
     }
