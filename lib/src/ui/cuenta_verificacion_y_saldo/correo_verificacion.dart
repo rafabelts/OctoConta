@@ -6,7 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:octoconta_final/src/models/error_conexion.dart';
 import 'package:octoconta_final/src/ui/pagina_principal/pagina_principal.dart';
 
-import '../services/auth.dart';
+import '../../services/auth.dart';
 
 class VerificacionCorreo extends StatefulWidget {
   const VerificacionCorreo({super.key});
@@ -80,7 +80,7 @@ class VerificacionCorreoState extends State<VerificacionCorreo> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Padding(
-                      padding: const EdgeInsets.only(top: 100.0),
+                      padding: const EdgeInsets.only(top: 80.0),
                       child: Text(
                         'Verificación de correo.',
                         style: Theme.of(context).textTheme.displayMedium,
@@ -90,7 +90,7 @@ class VerificacionCorreoState extends State<VerificacionCorreo> {
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 40.0),
                       child: Text(
-                        'Encontrara un correo en su bandeja para verificar su usuario.',
+                        'Encontrara un correo en su bandeja para verificar su usuario (en caso de que no aparezca verifique en su bandeja de spam).',
                         style: GoogleFonts.inter(
                           color: const Color(0xff382A62),
                           fontWeight: FontWeight.w600,

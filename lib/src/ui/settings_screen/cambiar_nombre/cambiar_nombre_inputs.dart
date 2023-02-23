@@ -2,7 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CambiarNombreInput extends StatelessWidget {
-  const CambiarNombreInput({super.key});
+  final TextEditingController nombreUser;
+  final Function(dynamic) onChangedNombreUser;
+  final dynamic errorNombreUser;
+  const CambiarNombreInput(
+      {required this.nombreUser,
+      required this.onChangedNombreUser,
+      required this.errorNombreUser,
+      super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -22,15 +29,24 @@ class CambiarNombreInput extends StatelessWidget {
           ),
         ),
         TextField(
+          controller: nombreUser,
+          onChanged: onChangedNombreUser,
           style: GoogleFonts.inter(
             color: const Color(0xff534677),
             fontWeight: FontWeight.bold,
             fontSize: 18,
           ),
           decoration: InputDecoration(
+            errorText: errorNombreUser,
+            errorStyle:
+                GoogleFonts.inter(fontSize: 14, fontWeight: FontWeight.w600),
+            errorBorder: const OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.red, width: 2.0)),
+            focusedErrorBorder: const OutlineInputBorder(
+                borderSide: BorderSide(width: 2.0, color: Colors.red)),
             label: Container(
                 margin: const EdgeInsets.only(top: 3.0),
-                child: const Text('Nombre')),
+                child: const Text('Nuevo Nombre')),
             labelStyle: GoogleFonts.inter(
                 textStyle: const TextStyle(color: Color(0xff534677)),
                 fontSize: 21,
@@ -47,28 +63,6 @@ class CambiarNombreInput extends StatelessWidget {
             ),
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 30.0),
-          child: SizedBox(
-            width: double.infinity,
-            child: ElevatedButton(
-              onPressed: () {},
-              style: ElevatedButton.styleFrom(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12.0)),
-                backgroundColor: const Color(0xff4527A0),
-                padding: const EdgeInsets.symmetric(vertical: 8.0),
-              ),
-              child: Text(
-                'Cambiar',
-                style: GoogleFonts.inter(
-                  fontWeight: FontWeight.w700,
-                  fontSize: 30,
-                ),
-              ),
-            ),
-          ),
-        )
       ],
     );
   }

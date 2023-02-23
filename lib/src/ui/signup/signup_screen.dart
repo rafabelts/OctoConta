@@ -26,6 +26,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
         password: password.text,
         context: context,
       );
+      final User? user = Auth().currentUser;
+      // final AuthCredential userCredential = EmailAuthProvider.credential(email: email.text.toLowerCase().trim(), password: password.text);
+
+      await user?.updateDisplayName(nombre.text);
     } on FirebaseAuthException catch (e) {
       Navigator.pop(context);
       if (e.code == 'network-request-failed') {

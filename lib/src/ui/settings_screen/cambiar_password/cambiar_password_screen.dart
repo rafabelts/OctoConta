@@ -80,69 +80,80 @@ class _CambiarPasswordScreenState extends State<CambiarPasswordScreen> {
     final AuthCredential credentials = EmailAuthProvider.credential(
         email: correoUser!, password: userPassword.text);
 
-    Future<void> verificarPassword() async {
+    Future<void> realizarCambioPassword() async {
+      showDialog(
+          context: context,
+          builder: (context) => Center(
+                child: CircularProgressIndicator(
+                  color: Color.fromARGB(255, 153, 151, 158),
+                  backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+                ),
+              ));
+      String passwordPattern =
+          r'^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{8,16}$';
+      RegExp regExpPassword = RegExp(passwordPattern);
+
       try {
-        showDialog(
-            context: context,
-            builder: (context) => Center(
-                  child: CircularProgressIndicator(
-                    color: Color.fromARGB(255, 153, 151, 158),
-                    backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-                  ),
-                ));
+        if (userPassword.text.isEmpty) {
+          mensajeErrorPassword('Por favor ingrese una contrasena', true);
+        } else if (conffirmedNewPassword.text.isEmpty) {
+          mensajeErrorConffirmedNewPassword(
+              'Por favor ingrese una contrasena', true);
+        } else if (userPassword.text == userNewPassword.text) {
+          mensajeErrorPassword(
+              'No se puede utilizar la misma contraseña', true);
+          mensajeErrorNewPassword(
+              'No se puede utilizar la misma contraseña', true);
+        } else if (userNewPassword.text.length < 8) {
+          mensajeErrorNewPassword('Se necesitan al menos 8 caracteres', true);
+        } else if (conffirmedNewPassword.text.length < 8) {
+          mensajeErrorConffirmedNewPassword(
+              'Se necesitan al menos 8 caracteres', true);
+        } else if (!regExpPassword.hasMatch(userNewPassword.text)) {
+          mensajeErrorNewPassword(
+              '''La contraseña debe tener al entre 8 y 16 caracteres,
+al menos un valor especial, un numero, una 
+minúscula y una mayúscula.''', true);
+        } else if (!regExpPassword.hasMatch(conffirmedNewPassword.text)) {
+          mensajeErrorConffirmedNewPassword(
+              '''La contraseña debe tener al entre 8 y 16 caracteres,
+al menos un valor especial, un numero, una 
+minúscula y una mayúscula.''', true);
+        } else if (userNewPassword.text != conffirmedNewPassword.text) {
+          mensajeErrorNewPassword('Las contraseñas no coinciden', true);
+          mensajeErrorConffirmedNewPassword(
+              'Las contraseñas no coinciden', true);
+        } else {
+          await user?.updatePassword(userNewPassword.text).then((value) {
+            Navigator.pop(context);
+            Navigator.pop(context);
+            showErrorMessageConexion(context, true, 'Contraseña actualizada.');
+          });
+        }
+      } catch (e) {
+        if (e == 'network-request-failed') {
+          Future.microtask(() => showErrorMessageConexion(
+              context, true, 'No cuenta con conexion a internet'));
+        }
+      } finally {
+        Navigator.pop(context);
+      }
+    }
+
+    Future<void> verificarPassword() async {
+      showDialog(
+          context: context,
+          builder: (context) => Center(
+                child: CircularProgressIndicator(
+                  color: Color.fromARGB(255, 153, 151, 158),
+                  backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+                ),
+              ));
+      try {
         await user
             ?.reauthenticateWithCredential(credentials)
             .then((value) => Navigator.pop(context));
-
-        String passwordPattern =
-            r'^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{8,16}$';
-        RegExp regExpPassword = RegExp(passwordPattern);
-
-        if (userNewPassword.text.length < 8) {
-          mensajeErrorNewPassword('Se necesitan al menos 8 caracteres', false);
-          if (conffirmedNewPassword.text.length < 8) {
-            mensajeErrorConffirmedNewPassword(
-                'Se necesitan al menos 8 caracteres', false);
-          }
-        } else if (userNewPassword.text != conffirmedNewPassword.text) {
-          mensajeErrorNewPassword('Las contraseñas no coinciden', false);
-          mensajeErrorConffirmedNewPassword(
-              'Las contraseñas no coinciden', false);
-        } else if (!regExpPassword.hasMatch(userNewPassword.text)) {
-          mensajeErrorPassword(
-              '''La contraseña debe tener al entre 8 y 16 caracteres,
-al menos un valor especial, un numero, una 
-minúscula y una mayúscula.''', false);
-          if (!regExpPassword.hasMatch(conffirmedNewPassword.text)) {
-            mensajeErrorConffirmedNewPassword(
-                '''La contraseña debe tener al entre 8 y 16 caracteres,
-al menos un valor especial, un numero, una 
-minúscula y una mayúscula.''', false);
-          } else {
-            try {
-              Future.microtask(() => showDialog(
-                  context: context,
-                  builder: (context) => Center(
-                        child: CircularProgressIndicator(
-                          color: Color.fromARGB(255, 153, 151, 158),
-                          backgroundColor:
-                              Theme.of(context).scaffoldBackgroundColor,
-                        ),
-                      )));
-              await user!.updatePassword(userNewPassword.text).then((value) {
-                // Navigator.pop(context);
-                print("cambio");
-                showErrorMessageConexion(
-                    context, true, 'Contraseña actualizada.');
-              });
-            } catch (e) {
-              if (e == 'network-request-failed') {
-                Future.microtask(() => showErrorMessageConexion(
-                    context, true, 'No cuenta con conexion a internet'));
-              }
-            }
-          }
-        }
+        await realizarCambioPassword();
       } on FirebaseAuthException catch (e) {
         if (e.code == 'wrong-password') {
           Navigator.pop(context); // Cerrar diálogo

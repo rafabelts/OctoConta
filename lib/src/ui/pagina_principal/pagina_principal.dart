@@ -1,6 +1,7 @@
 import 'package:adaptive_components/adaptive_components.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:octoconta_final/src/services/auth.dart';
 import 'package:octoconta_final/src/ui/bitacora_gastos/saldo_mensual/tarjeta.dart';
 import 'package:octoconta_final/src/ui/pagina_principal/calculos_contables_items.dart';
 import 'package:octoconta_final/src/ui/screen_seleccionada/screens_appbar.dart';
@@ -8,9 +9,14 @@ import '../bitacora_gastos/boton_categorias.dart';
 import '../bitacora_gastos/saldo_mensual/edicionSaldo/saldo_ahorro_screen.dart';
 import '../settings_screen/settings_screen.dart';
 
-class PaginaPrincipal extends StatelessWidget {
+class PaginaPrincipal extends StatefulWidget {
   const PaginaPrincipal({super.key});
 
+  @override
+  State<PaginaPrincipal> createState() => _PaginaPrincipalState();
+}
+
+class _PaginaPrincipalState extends State<PaginaPrincipal> {
   @override
   Widget build(BuildContext context) {
     goToSettings() => Navigator.push(context,
@@ -19,6 +25,7 @@ class PaginaPrincipal extends StatelessWidget {
         context,
         MaterialPageRoute(
             builder: (context) => const EdicionSaldoYVerAhorro()));
+
     return Scaffold(
         appBar: ScreensAppBar(
           titulo: '',
@@ -38,14 +45,6 @@ class PaginaPrincipal extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      // Text(
-                      //   user.email!,
-                      //   style: GoogleFonts.inter(
-                      //     color: const Color(0xFF2a195d),
-                      //     fontWeight: FontWeight.bold,
-                      //     fontSize: 32,
-                      //   ),
-                      // ),
                       Text(
                         "Cálculos contables:",
                         style: GoogleFonts.inter(
