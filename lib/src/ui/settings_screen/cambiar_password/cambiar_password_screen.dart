@@ -94,7 +94,7 @@ class _CambiarPasswordScreenState extends State<CambiarPasswordScreen> {
       RegExp regExpPassword = RegExp(passwordPattern);
 
       try {
-        if (userPassword.text.isEmpty) {
+        if (userNewPassword.text.isEmpty) {
           mensajeErrorPassword('Por favor ingrese una contrasena', true);
         } else if (conffirmedNewPassword.text.isEmpty) {
           mensajeErrorConffirmedNewPassword(
@@ -164,11 +164,9 @@ minúscula y una mayúscula.''', true);
 
     void cambiarPassword() {
       // aracely y rafael
-      if (userPassword.text.isEmpty) {
-        mensajeErrorPassword("Por favor ingrese su contraseña.", true);
-      } else {
-        verificarPassword();
-      }
+      userPassword.text.isEmpty
+          ? mensajeErrorPassword("Por favor ingrese su contraseña.", true)
+          : verificarPassword();
     }
 
     return Scaffold(

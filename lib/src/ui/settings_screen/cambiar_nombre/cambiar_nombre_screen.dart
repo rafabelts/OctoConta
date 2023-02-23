@@ -56,6 +56,7 @@ class _CambiarNombreScreenState extends State<CambiarNombreScreen> {
         await user?.updateDisplayName(nombreUser.text).then((value) {
           showErrorMessageConexion(context, true, 'Nombre actualizado.');
           Navigator.pop(context);
+          // FocusScope.of(context).unfocus();
           Navigator.pop(context);
         });
         await user?.reload();
@@ -76,6 +77,7 @@ class _CambiarNombreScreenState extends State<CambiarNombreScreen> {
         mensajeErrorNombre('''Ingrese un nombre diferente al dado con 
 anterioridad.''', true);
       } else {
+        FocusScope.of(context).unfocus();
         cambioNombre();
       }
     }

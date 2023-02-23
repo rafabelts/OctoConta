@@ -2,7 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CambiarEmailInput extends StatelessWidget {
-  const CambiarEmailInput({super.key});
+  final TextEditingController correoUser;
+  final Function(dynamic) onChangedCorreoUser;
+  final dynamic errorCorreoUser;
+  const CambiarEmailInput(
+      {required this.correoUser,
+      required this.onChangedCorreoUser,
+      required this.errorCorreoUser,
+      super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -22,12 +29,21 @@ class CambiarEmailInput extends StatelessWidget {
           ),
         ),
         TextField(
+          controller: correoUser,
+          onChanged: onChangedCorreoUser,
           style: GoogleFonts.inter(
             color: const Color(0xff534677),
             fontWeight: FontWeight.bold,
             fontSize: 18,
           ),
           decoration: InputDecoration(
+            errorText: errorCorreoUser,
+            errorStyle:
+                GoogleFonts.inter(fontSize: 14, fontWeight: FontWeight.w600),
+            errorBorder: const OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.red, width: 2.0)),
+            focusedErrorBorder: const OutlineInputBorder(
+                borderSide: BorderSide(width: 2.0, color: Colors.red)),
             label: Container(
                 margin: const EdgeInsets.only(top: 3.0),
                 child: const Text('Nuevo Correo Electrónico')),
@@ -47,28 +63,6 @@ class CambiarEmailInput extends StatelessWidget {
             ),
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 30.0),
-          child: SizedBox(
-            width: double.infinity,
-            child: ElevatedButton(
-              onPressed: () {},
-              style: ElevatedButton.styleFrom(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12.0)),
-                backgroundColor: const Color(0xff4527A0),
-                padding: const EdgeInsets.symmetric(vertical: 8.0),
-              ),
-              child: Text(
-                'Cambiar',
-                style: GoogleFonts.inter(
-                  fontWeight: FontWeight.w700,
-                  fontSize: 30,
-                ),
-              ),
-            ),
-          ),
-        )
       ],
     );
   }

@@ -9,7 +9,7 @@ class BotonesEdicionSaldo extends StatelessWidget {
     return Column(
       children: [
         Padding(
-          padding: const EdgeInsets.only(top: 30.0, bottom: 20.0),
+          padding: const EdgeInsets.only(top: 60.0, bottom: 20.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: <Widget>[

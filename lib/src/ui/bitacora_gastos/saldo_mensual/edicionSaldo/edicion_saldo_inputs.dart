@@ -14,12 +14,12 @@ class EdicionSaldoInputs extends StatelessWidget {
           style: Theme.of(context).textTheme.displayMedium,
         ),
         Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10.0),
+          padding: const EdgeInsets.only(top: 30.0),
           child: TextField(
             style: GoogleFonts.inter(
               color: const Color(0xFF534677),
               fontWeight: FontWeight.w600,
-              fontSize: 45,
+              fontSize: 50,
             ),
             keyboardType: TextInputType.number,
             textAlign: TextAlign.center,

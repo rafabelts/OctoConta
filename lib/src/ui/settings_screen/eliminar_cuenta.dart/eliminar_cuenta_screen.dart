@@ -54,7 +54,7 @@ class _EliminarCuentaScreenState extends State<EliminarCuentaScreen> {
             context: context,
             builder: (context) => Center(
                   child: CircularProgressIndicator(
-                    color: Color.fromARGB(255, 153, 151, 158),
+                    color: const Color(0xff2A195D),
                     backgroundColor: Theme.of(context).scaffoldBackgroundColor,
                   ),
                 ));

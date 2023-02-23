@@ -13,29 +13,8 @@ import 'package:octoconta_final/src/ui/settings_screen/settings_buttons.dart';
 //   ['Contraseña:', '********', const CambiarPasswordScreen()],
 // ];
 
-class SettingsScreen extends StatefulWidget {
+class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
-
-  @override
-  State<SettingsScreen> createState() => _SettingsScreenState();
-}
-
-class _SettingsScreenState extends State<SettingsScreen> {
-  String? correoUser;
-  String? userName;
-
-  @override
-  void initState() {
-    super.initState();
-
-    // Recargar los datos del usuario
-    Auth().currentUser!.reload().then((value) {
-      setState(() {
-        correoUser = Auth().currentUser?.email;
-        userName = Auth().currentUser?.displayName;
-      });
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +23,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     // final String? userName= Auth().currentUser?.email;
 
     List<dynamic> elementosParaConfigurar = [
-      ['Nombre:', userName, const CambiarNombreScreen()],
+      ['Nombre:', userName ?? '', const CambiarNombreScreen()],
       ['Correo electrónico:', correoUser, const CambiarEmailScreen()],
       ['Contraseña:', '********', const CambiarPasswordScreen()],
     ];
