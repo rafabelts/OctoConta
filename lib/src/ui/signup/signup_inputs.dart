@@ -41,6 +41,19 @@ class _SignUpInputsState extends State<SignUpInputs> {
   bool _isPasswordVisible = true;
   bool _isConfirmPasswordVisible = true;
 
+  late TextEditingController nombre = widget.nombreUser;
+  late Function(dynamic) onChangedNombre = widget.onChangedNombre;
+
+  late TextEditingController email = widget.emailUser;
+  late Function(dynamic) onChangedEmail = widget.onChangedEmail;
+
+  late TextEditingController password = widget.passwordUser;
+  late Function(dynamic) onChangedPassword = widget.onChangedPassword;
+
+  late TextEditingController conffirmedPassword = widget.conffirmedPasswordUser;
+  late Function(dynamic) onChangedConffirmedPassword =
+      widget.onChangedConffirmedPassword;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -63,9 +76,8 @@ class _SignUpInputsState extends State<SignUpInputs> {
 
   Widget buildInputNombre(BuildContext context) {
     // Creo la entrada del nombre del usuario
-    late TextEditingController nombre = widget.nombreUser;
     late dynamic errorNombre = widget.nombreError;
-    late Function(dynamic) onChangedNombre = widget.onChangedNombre;
+    // late Function(dynamic) onChangedNombre = widget.onChangedNombre;
     return Padding(
       padding: const EdgeInsets.only(top: 20.0),
       child: TextField(
@@ -108,9 +120,9 @@ class _SignUpInputsState extends State<SignUpInputs> {
 
   Widget buildEmailInput(BuildContext context) {
     // Creo la entrada del e-mail del usuario
-    late TextEditingController email = widget.emailUser;
+    // late TextEditingController email = widget.emailUser;
     late dynamic emailError = widget.emailError;
-    late Function(dynamic) onChangedEmail = widget.onChangedEmail;
+    // late Function(dynamic) onChangedEmail = widget.onChangedEmail;
     return Padding(
       padding: const EdgeInsets.only(top: 30.0),
       child: TextField(
@@ -154,9 +166,9 @@ class _SignUpInputsState extends State<SignUpInputs> {
 
   Widget buildPasswordInput(BuildContext context) {
     // Entrada para la contrasena del usuario
-    late TextEditingController password = widget.passwordUser;
+    // late TextEditingController password = widget.passwordUser;
     late dynamic errorPassword = widget.passwordError;
-    late Function(dynamic) onChangedPassword = widget.onChangedPassword;
+    // late Function(dynamic) onChangedPassword = widget.onChangedPassword;
 
     return Padding(
       padding: const EdgeInsets.only(top: 30.0),
@@ -214,11 +226,11 @@ class _SignUpInputsState extends State<SignUpInputs> {
 
   Widget buildCPasswordInput(BuildContext context) {
     // Entrada para la confirmacion de contrasena del usuario
-    late TextEditingController conffirmedPassword =
-        widget.conffirmedPasswordUser;
+    // late TextEditingController conffirmedPassword =
+    // widget.conffirmedPasswordUser;
     late dynamic errorConffirmedPassword = widget.conffirmedPasswordError;
-    late Function(dynamic) onChangedConffirmedPassword =
-        widget.onChangedConffirmedPassword;
+    // late Function(dynamic) onChangedConffirmedPassword =
+    //     widget.onChangedConffirmedPassword;
 
     return Padding(
       padding: const EdgeInsets.only(top: 30.0),

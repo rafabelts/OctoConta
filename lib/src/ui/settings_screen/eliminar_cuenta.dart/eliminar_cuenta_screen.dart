@@ -45,7 +45,7 @@ class _EliminarCuentaScreenState extends State<EliminarCuentaScreen> {
     final User? user = Auth().currentUser;
     final String? correoUser = Auth().currentUser?.email;
 
-    late AuthCredential credentials = EmailAuthProvider.credential(
+    final AuthCredential credentials = EmailAuthProvider.credential(
         email: correoUser!, password: password.text);
 
     Future<void> funElimin() async {
@@ -54,13 +54,14 @@ class _EliminarCuentaScreenState extends State<EliminarCuentaScreen> {
             context: context,
             builder: (context) => Center(
                   child: CircularProgressIndicator(
-                    color: const Color(0xff2A195D),
+                    color: Color.fromARGB(255, 153, 151, 158),
                     backgroundColor: Theme.of(context).scaffoldBackgroundColor,
                   ),
                 ));
         await user?.reauthenticateWithCredential(credentials);
 
         await user?.delete().then((value) {
+          FocusScope.of(context).unfocus();
           Navigator.pop(context);
           Navigator.pop(context);
           Navigator.pop(context);
@@ -94,6 +95,18 @@ class _EliminarCuentaScreenState extends State<EliminarCuentaScreen> {
             color: const Color(0xff382A62),
             fontWeight: FontWeight.w700,
             fontSize: 30,
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(top: 10.0),
+          child: Text(
+            'Para continuar, ingrese su contraseña por favor.',
+            style: GoogleFonts.inter(
+              color: const Color(0xff382A62),
+              fontWeight: FontWeight.w700,
+              fontSize: 20,
+            ),
+            textAlign: TextAlign.justify,
           ),
         ),
         Padding(

@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:octoconta_final/src/cuenta_verificacion_y_saldo/correoVerificacion.dart';
+import 'package:octoconta_final/src/cuenta_verificacion_y_saldo/correo_verificacion.dart';
 import 'package:octoconta_final/src/services/auth.dart';
 import 'package:octoconta_final/src/ui/welcome/welcome_screen.dart';
 

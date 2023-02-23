@@ -2,7 +2,28 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CambiarPasswordInput extends StatefulWidget {
-  const CambiarPasswordInput({super.key});
+  final TextEditingController passwordUser;
+  final dynamic passwordError;
+  final Function(dynamic) onChangedPassword;
+
+  final TextEditingController newPasswordUser;
+  final dynamic newPasswordError;
+  final Function(dynamic) onChangedNewPassword;
+
+  final TextEditingController conffirmedNewPasswordUser;
+  final dynamic conffirmedNewPasswordError;
+  final Function(dynamic) onChangedNewConffirmedPassword;
+  const CambiarPasswordInput(
+      {required this.passwordUser,
+      required this.passwordError,
+      required this.onChangedPassword,
+      required this.newPasswordUser,
+      required this.newPasswordError,
+      required this.onChangedNewPassword,
+      required this.conffirmedNewPasswordUser,
+      required this.conffirmedNewPasswordError,
+      required this.onChangedNewConffirmedPassword,
+      super.key});
 
   @override
   State<CambiarPasswordInput> createState() => _CambiarPasswordInputState();
@@ -13,8 +34,24 @@ class _CambiarPasswordInputState extends State<CambiarPasswordInput> {
   bool isNewPasswordVisible = true;
   bool isConffirmNewPasswordVisible = true;
 
+  late final TextEditingController passwordUser = widget.passwordUser;
+  late final Function(dynamic) onChangedPassword = widget.onChangedPassword;
+
+  late final TextEditingController newPasswordUser = widget.newPasswordUser;
+  late final Function(dynamic) onChangedNewPassword =
+      widget.onChangedNewPassword;
+
+  late final TextEditingController conffirmedNewPassword =
+      widget.conffirmedNewPasswordUser;
+  late final Function(dynamic) onChangedconffirmedNewPassword =
+      widget.onChangedNewConffirmedPassword;
+
   @override
   Widget build(BuildContext context) {
+    final dynamic passwordUserError = widget.passwordError;
+    final dynamic newPasswordUserError = widget.newPasswordError;
+    final dynamic confirmedNewPasswordUserError =
+        widget.conffirmedNewPasswordError;
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -31,6 +68,8 @@ class _CambiarPasswordInputState extends State<CambiarPasswordInput> {
           ),
         ),
         TextField(
+          controller: passwordUser,
+          onChanged: onChangedPassword,
           obscureText: isPasswordVisible,
           style: GoogleFonts.inter(
             color: const Color(0xff534677),
@@ -38,6 +77,13 @@ class _CambiarPasswordInputState extends State<CambiarPasswordInput> {
             fontSize: 18,
           ),
           decoration: InputDecoration(
+            errorText: passwordUserError,
+            errorStyle:
+                GoogleFonts.inter(fontSize: 14, fontWeight: FontWeight.w600),
+            errorBorder: const OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.red, width: 2.0)),
+            focusedErrorBorder: const OutlineInputBorder(
+                borderSide: BorderSide(width: 2.0, color: Colors.red)),
             label: Container(
                 margin: const EdgeInsets.only(top: 3.0),
                 child: const Text('Contraseña')),
@@ -73,6 +119,8 @@ class _CambiarPasswordInputState extends State<CambiarPasswordInput> {
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 30.0),
           child: TextField(
+            controller: newPasswordUser,
+            onChanged: onChangedNewPassword,
             obscureText: isNewPasswordVisible,
             style: GoogleFonts.inter(
               color: const Color(0xff534677),
@@ -80,6 +128,13 @@ class _CambiarPasswordInputState extends State<CambiarPasswordInput> {
               fontSize: 18,
             ),
             decoration: InputDecoration(
+              errorText: newPasswordUserError,
+              errorStyle:
+                  GoogleFonts.inter(fontSize: 14, fontWeight: FontWeight.w600),
+              errorBorder: const OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.red, width: 2.0)),
+              focusedErrorBorder: const OutlineInputBorder(
+                  borderSide: BorderSide(width: 2.0, color: Colors.red)),
               label: Container(
                   margin: const EdgeInsets.only(top: 3.0),
                   child: const Text('Nueva Contraseña')),
@@ -115,6 +170,8 @@ class _CambiarPasswordInputState extends State<CambiarPasswordInput> {
           ),
         ),
         TextField(
+          controller: conffirmedNewPassword,
+          onChanged: onChangedconffirmedNewPassword,
           obscureText: isConffirmNewPasswordVisible,
           style: GoogleFonts.inter(
             color: const Color(0xff534677),
@@ -122,6 +179,13 @@ class _CambiarPasswordInputState extends State<CambiarPasswordInput> {
             fontSize: 18,
           ),
           decoration: InputDecoration(
+            errorText: confirmedNewPasswordUserError,
+            errorStyle:
+                GoogleFonts.inter(fontSize: 14, fontWeight: FontWeight.w600),
+            errorBorder: const OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.red, width: 2.0)),
+            focusedErrorBorder: const OutlineInputBorder(
+                borderSide: BorderSide(width: 2.0, color: Colors.red)),
             label: Container(
                 margin: const EdgeInsets.only(top: 3.0),
                 child: const Text('Confirmar Contraseña')),
@@ -155,28 +219,6 @@ class _CambiarPasswordInputState extends State<CambiarPasswordInput> {
             ),
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 30.0),
-          child: SizedBox(
-            width: double.infinity,
-            child: ElevatedButton(
-              onPressed: () {},
-              style: ElevatedButton.styleFrom(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12.0)),
-                backgroundColor: const Color(0xff4527A0),
-                padding: const EdgeInsets.symmetric(vertical: 8.0),
-              ),
-              child: Text(
-                'Cambiar',
-                style: GoogleFonts.inter(
-                  fontWeight: FontWeight.w700,
-                  fontSize: 30,
-                ),
-              ),
-            ),
-          ),
-        )
       ],
     );
   }
