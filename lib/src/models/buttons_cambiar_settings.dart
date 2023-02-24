@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class CambiarEmailButtons extends StatelessWidget {
-  final VoidCallback cambiarEmail;
+class CambiarSettingsButtons extends StatelessWidget {
+  final String cambio;
+  final VoidCallback cambiar;
 
-  const CambiarEmailButtons({required this.cambiarEmail, super.key});
+  const CambiarSettingsButtons(
+      {required this.cambio, required this.cambiar, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +17,7 @@ class CambiarEmailButtons extends StatelessWidget {
           child: SizedBox(
             width: double.infinity,
             child: ElevatedButton(
-              onPressed: cambiarEmail,
+              onPressed: cambiar,
               style: ElevatedButton.styleFrom(
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12.0)),
@@ -23,7 +25,7 @@ class CambiarEmailButtons extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(vertical: 8.0),
               ),
               child: Text(
-                'Cambiar',
+                'Cambiar $cambio',
                 style: GoogleFonts.inter(
                   fontWeight: FontWeight.w700,
                   fontSize: 30,

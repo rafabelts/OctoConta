@@ -1,9 +1,10 @@
 import 'dart:async';
 
 import 'package:adaptive_components/adaptive_components.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:octoconta_final/src/models/error_conexion.dart';
+import 'package:octoconta_final/src/models/mensaje_cuentas.dart';
 import 'package:octoconta_final/src/ui/pagina_principal/pagina_principal.dart';
 
 import '../../services/auth.dart';
@@ -56,8 +57,19 @@ class VerificacionCorreoState extends State<VerificacionCorreo> {
 
     try {
       await user.sendEmailVerification();
-    } catch (e) {
-      showErrorMessageConexion(context, true, e.toString());
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'network-request-failed') {
+        Future.microtask(() => showMensajeParaUsuario(
+            context, true, 'No cuenta con conexion a internet'));
+      } else if (e.code == 'too-many-requests') {
+        Future.microtask(() => showMensajeParaUsuario(context, true,
+            'Lo sentimos, has excedido el límite de solicitudes permitidas. Por favor, inténtalo de nuevo más tarde'));
+      } else {
+        Future.microtask(() => showMensajeParaUsuario(context, true,
+            'Error desconocido. Por favor, inténtalo de nuevo más tarde'));
+      }
+    } finally {
+      Navigator.pop(context);
     }
   }
 

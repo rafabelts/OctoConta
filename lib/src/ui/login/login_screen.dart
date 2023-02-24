@@ -1,7 +1,7 @@
 import 'package:adaptive_components/adaptive_components.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:octoconta_final/src/models/error_conexion.dart';
+import 'package:octoconta_final/src/models/mensaje_cuentas.dart';
 import 'package:octoconta_final/src/services/auth.dart';
 import 'package:octoconta_final/src/ui/login/login_buttons.dart';
 import 'package:octoconta_final/src/ui/login/login_inputs.dart';
@@ -47,7 +47,7 @@ class _LogInScreenState extends State<LogInScreen> {
     } on FirebaseAuthException catch (e) {
       Navigator.pop(context);
       if (e.code == 'network-request-failed') {
-        showErrorMessageConexion(
+        showMensajeParaUsuario(
             context, true, 'No cuenta con conexion a internet');
       } else if (e.code == 'user-not-found') {
         // El usuario no existe
@@ -60,6 +60,12 @@ ingresada no es válida.''', false);
         // La dirección de correo electrónico es inválida
         mensajeErrorCorreo('''La dirección de correo electrónico 
 ingresada no es válida.''', false);
+      } else if (e.code == 'too-many-requests') {
+        Future.microtask(() => showMensajeParaUsuario(context, true,
+            'Lo sentimos, has excedido el límite de solicitudes permitidas. Por favor, inténtalo de nuevo más tarde'));
+      } else {
+        Future.microtask(() => showMensajeParaUsuario(context, true,
+            'Error desconocido. Por favor, inténtalo de nuevo más tarde'));
       }
       // Puedes mostrar un mensaje de error al usuario o realizar otra acción según el error específico
     }

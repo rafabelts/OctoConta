@@ -1,10 +1,10 @@
 import 'package:adaptive_components/adaptive_components.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:octoconta_final/src/models/error_conexion.dart';
-import 'package:octoconta_final/src/ui/settings_screen/cambiar_email/cambiar_email_buttons.dart';
+import 'package:octoconta_final/src/models/buttons_cambiar_settings.dart';
+import 'package:octoconta_final/src/models/mensaje_cuentas.dart';
+import 'package:octoconta_final/src/ui/cuenta_verificacion_y_saldo/correo_verificacion.dart';
 import 'package:octoconta_final/src/ui/settings_screen/cambiar_email/cambiar_email_inputs.dart';
-import 'package:octoconta_final/src/ui/settings_screen/cambiar_email/contra_para_cambio_email/contra_email_screen.dart';
 
 import '../../../services/auth.dart';
 
@@ -20,7 +20,7 @@ class _CambiarEmailScreenState extends State<CambiarEmailScreen> {
 
   String mensajeDeErroremailUser = '';
   bool errorInEmailUser = false;
-  mensajeErrorConffirmedEmailUser(String mensajeError, bool error) {
+  mensajeErrorEmail(String mensajeError, bool error) {
     setState(() {
       errorInEmailUser = error;
       errorInEmailUser == false
@@ -29,22 +29,20 @@ class _CambiarEmailScreenState extends State<CambiarEmailScreen> {
     });
   }
 
-  bool correoValido = false;
-
   TextEditingController password = TextEditingController();
 
   String mensajeDeErrorPassword = '';
   bool errorInPassword = false;
   mensajeErrorPassword(String mensajeError, bool error) {
     setState(() {
-      errorInEmailUser = error;
-      errorInEmailUser == false
+      errorInPassword = error;
+      errorInPassword == false
           ? false
           : (mensajeDeErrorPassword = mensajeError);
     });
   }
 
-  void onChangedEmailUser() => mensajeErrorConffirmedEmailUser("", false);
+  void onChangedEmailUser() => mensajeErrorEmail("", false);
   void onChangedPassword() => mensajeErrorPassword("", false);
 
   @override
@@ -68,7 +66,36 @@ class _CambiarEmailScreenState extends State<CambiarEmailScreen> {
     final AuthCredential credentials = EmailAuthProvider.credential(
         email: userCorreo!, password: password.text);
 
-    Future<void> verificarPassword() async {
+    Future<void> cambioCorreo() async {
+      try {
+        await user
+            ?.updateEmail(correoUser.text.toLowerCase().trim())
+            .then((value) {
+          Navigator.pop(context);
+          showMensajeParaUsuario(context, true, 'Correo actualizado.');
+        });
+        Future.microtask(() {
+          Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => const VerificacionCorreo()));
+        });
+      } on FirebaseAuthException catch (e) {
+        if (e.code == 'network-request-failed') {
+          showMensajeParaUsuario(
+              context, true, 'No cuenta con conexion a internet');
+        } else if (e.code == 'invalid-email') {
+          mensajeErrorEmail('Correo invalido', true);
+        } else if (e.code == 'email-already-in-use') {
+          mensajeErrorEmail('Correo en uso', true);
+        } else {
+          showMensajeParaUsuario(
+              context, true, 'Error al cambiar correo, intente mas tarde');
+        }
+      }
+    }
+
+    Future<void> validarUser() async {
       showDialog(
           context: context,
           builder: (context) => Center(
@@ -77,16 +104,21 @@ class _CambiarEmailScreenState extends State<CambiarEmailScreen> {
                   backgroundColor: Theme.of(context).scaffoldBackgroundColor,
                 ),
               ));
+
       try {
         await user
             ?.reauthenticateWithCredential(credentials)
             .then((value) => Navigator.pop(context));
-        // await realizarCambioPassword();
+        await cambioCorreo();
       } on FirebaseAuthException catch (e) {
-        if (e.code == 'wrong-password') {
-          Navigator.pop(context); // Cerrar diálogo
+        if (e.code == 'network-request-failed') {
+          showMensajeParaUsuario(
+              context, true, 'No cuenta con conexion a internet');
+        } else if (e.code == 'wrong-password') {
           mensajeErrorPassword('La contraseña es incorrecta.', true);
         }
+      } finally {
+        Navigator.pop(context);
       }
     }
 
@@ -95,52 +127,15 @@ class _CambiarEmailScreenState extends State<CambiarEmailScreen> {
           r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
       RegExp regExpEmail = RegExp(emailPattern);
       if (correoUser.text.isEmpty) {
-        mensajeErrorConffirmedEmailUser("Por favor ingrese un correo.", true);
+        mensajeErrorEmail("Por favor ingrese un correo.", true);
       } else if (!regExpEmail.hasMatch(correoUser.text.toLowerCase().trim())) {
-        mensajeErrorConffirmedEmailUser("Correo invalido", true);
+        mensajeErrorEmail('Correo Invalido', true);
       } else if (userCorreo == correoUser.text.toLowerCase().trim()) {
-        mensajeErrorConffirmedEmailUser(
-            "Ingrese un correo diferente al actual", true);
+        mensajeErrorEmail('Ingrese un correo diferente al actual', true);
+      } else if (password.text.isEmpty) {
+        mensajeErrorPassword('Ingrese su contra', true);
       } else {
-        setState(() {
-          correoValido = true;
-        });
-      }
-    }
-
-    void comprobarPassord() {
-      if (password.text.isEmpty) {
-        mensajeErrorPassword('Por favor ingrese su contrasena', true);
-      } else {
-        showDialog(
-            useSafeArea: true,
-            context: context,
-            builder: (BuildContext context) => Center(
-                  child: AdaptiveColumn(
-                    children: [
-                      AdaptiveContainer(
-                        columnSpan: 12,
-                        child: AlertDialog(
-                          insetPadding: EdgeInsets.zero,
-                          scrollable: true,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(18.0),
-                          ),
-                          backgroundColor:
-                              Theme.of(context).scaffoldBackgroundColor,
-                          // insetPadding: const EdgeInsets.all(8.0),
-                          content: ContraCambiarCorreoScreen(
-                              password: password,
-                              onChangedPassword: (value) => onChangedPassword(),
-                              errorPassword: errorInPassword == false
-                                  ? null
-                                  : mensajeDeErrorPassword,
-                              cambiar: () => verificarPassword()),
-                        ),
-                      )
-                    ],
-                  ),
-                ));
+        validarUser();
       }
     }
 
@@ -165,10 +160,14 @@ class _CambiarEmailScreenState extends State<CambiarEmailScreen> {
                       errorCorreoUser: errorInEmailUser == false
                           ? null
                           : mensajeDeErroremailUser,
+                      passwordUser: password,
+                      onChangedPassword: (value) => onChangedPassword(),
+                      passwordUserError: errorInPassword == false
+                          ? null
+                          : mensajeDeErrorPassword,
                     ),
-                    CambiarEmailButtons(cambiarEmail: () {
-                      cambiarCorreo();
-                    })
+                    CambiarSettingsButtons(
+                        cambio: 'correo', cambiar: () => cambiarCorreo())
                   ],
                 ),
               )

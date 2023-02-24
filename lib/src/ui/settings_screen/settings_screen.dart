@@ -84,14 +84,14 @@ class SettingsScreen extends StatelessWidget {
                                   elementosParaConfigurar[index][1],
                                   style: GoogleFonts.poppins(
                                     color: const Color(0xff4527A0),
-                                    fontSize: 18,
+                                    fontSize: 14,
                                     fontWeight: FontWeight.w500,
                                   ),
                                 ),
                               ],
                             ),
                             const Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 36.8),
+                                padding: EdgeInsets.symmetric(horizontal: 13),
                                 child: Icon(
                                   Icons.arrow_forward_ios,
                                   color: Color(0xff4527A0),

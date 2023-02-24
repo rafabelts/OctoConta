@@ -38,7 +38,7 @@ class TarjetaSaldoMensual extends StatelessWidget {
               padding: const EdgeInsets.only(top: 20.0),
               child: Text(
                 // '\$0',
-                '\$1,000',
+                '\$0',
                 style: GoogleFonts.inter(
                   textStyle: TextStyle(
                       color: Theme.of(context).scaffoldBackgroundColor,

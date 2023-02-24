@@ -2,7 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CorreoParaVerificarInput extends StatelessWidget {
-  const CorreoParaVerificarInput({super.key});
+  final TextEditingController correoUser;
+  final Function(dynamic) onChangedCorreoUser;
+  final dynamic errorInCorreoUser;
+  const CorreoParaVerificarInput(
+      {required this.correoUser,
+      required this.onChangedCorreoUser,
+      required this.errorInCorreoUser,
+      super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -22,12 +29,21 @@ class CorreoParaVerificarInput extends StatelessWidget {
             ),
           ),
           TextField(
+            controller: correoUser,
+            onChanged: onChangedCorreoUser,
             style: GoogleFonts.inter(
               color: const Color(0xff534677),
               fontWeight: FontWeight.bold,
               fontSize: 18,
             ),
             decoration: InputDecoration(
+              errorText: errorInCorreoUser,
+              errorStyle: GoogleFonts.inter(
+                  fontSize: 13.15, fontWeight: FontWeight.w600),
+              errorBorder: const OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.red, width: 2.0)),
+              focusedErrorBorder: const OutlineInputBorder(
+                  borderSide: BorderSide(width: 2.0, color: Colors.red)),
               label: Container(
                   margin: const EdgeInsets.only(top: 3.0),
                   child: const Text('Correo Electrónico')),

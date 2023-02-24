@@ -29,7 +29,7 @@ class BotonCategorias extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(top: 20.0),
               child: Text(
-                'Alimentos: \$ 0',
+                'Alimentos: \$0',
                 style: GoogleFonts.poppins(
                     color: const Color(0xFF4527A0), //0xFF454568
                     fontWeight: FontWeight.w600,
@@ -39,7 +39,7 @@ class BotonCategorias extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 10.0),
               child: Text(
-                'Salud e Higiene: \$ 0',
+                'Salud e Higiene: \$0',
                 style: GoogleFonts.poppins(
                     color: const Color(0xFF4527A0), //0xFF454568
                     fontWeight: FontWeight.w600,
@@ -47,7 +47,7 @@ class BotonCategorias extends StatelessWidget {
               ),
             ),
             Text(
-              'Servicios: \$ 0',
+              'Servicios: \$0',
               style: GoogleFonts.poppins(
                   color: const Color(0xFF4527A0), //0xFF454568
                   fontWeight: FontWeight.w600,
@@ -56,7 +56,7 @@ class BotonCategorias extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 10.0),
               child: Text(
-                'Suscripciones: \$ 0',
+                'Suscripciones: \$0',
                 style: GoogleFonts.poppins(
                     color: const Color(0xFF4527A0), //0xFF454568
                     fontWeight: FontWeight.w600,
@@ -66,7 +66,7 @@ class BotonCategorias extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(bottom: 20.0),
               child: Text(
-                'Otros: \$ 0',
+                'Otros: \$0',
                 style: GoogleFonts.poppins(
                     color: const Color(0xFF4527A0), //0xFF454568
                     fontWeight: FontWeight.w600,

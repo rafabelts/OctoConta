@@ -1,11 +1,11 @@
 import 'package:adaptive_components/adaptive_components.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:octoconta_final/src/models/buttons_cambiar_settings.dart';
 import 'package:octoconta_final/src/services/auth.dart';
-import 'package:octoconta_final/src/ui/settings_screen/cambiar_nombre/cambiar_nombre_buttons.dart';
 import 'package:octoconta_final/src/ui/settings_screen/cambiar_nombre/cambiar_nombre_inputs.dart';
 
-import '../../../models/error_conexion.dart';
+import '../../../models/mensaje_cuentas.dart';
 
 class CambiarNombreScreen extends StatefulWidget {
   const CambiarNombreScreen({super.key});
@@ -15,7 +15,7 @@ class CambiarNombreScreen extends StatefulWidget {
 }
 
 class _CambiarNombreScreenState extends State<CambiarNombreScreen> {
-  final TextEditingController nombreUser = TextEditingController();
+  TextEditingController nombreUser = TextEditingController();
 
   String mensajeDeErrorNombre = '';
   bool errorInNombre = false;
@@ -54,16 +54,22 @@ class _CambiarNombreScreenState extends State<CambiarNombreScreen> {
               ));
       try {
         await user?.updateDisplayName(nombreUser.text).then((value) {
-          showErrorMessageConexion(context, true, 'Nombre actualizado.');
+          showMensajeParaUsuario(context, true, 'Nombre actualizado.');
           Navigator.pop(context);
           // FocusScope.of(context).unfocus();
           Navigator.pop(context);
         });
         await user?.reload();
-      } catch (e) {
-        if (e == 'network-request-failed') {
-          Future.microtask(() => showErrorMessageConexion(
+      } on FirebaseAuthException catch (e) {
+        if (e.code == 'network-request-failed') {
+          Future.microtask(() => showMensajeParaUsuario(
               context, true, 'No cuenta con conexion a internet'));
+        } else if (e.code == 'too-many-requests') {
+          Future.microtask(() => showMensajeParaUsuario(context, true,
+              'Lo sentimos, has excedido el límite de solicitudes permitidas. Por favor, inténtalo de nuevo más tarde'));
+        } else {
+          Future.microtask(() => showMensajeParaUsuario(context, true,
+              'Error desconocido. Por favor, inténtalo de nuevo más tarde'));
         }
       } finally {
         Navigator.pop(context);
@@ -103,8 +109,8 @@ anterioridad.''', true);
                       errorNombreUser:
                           errorInNombre == false ? null : mensajeDeErrorNombre,
                     ),
-                    CambiarNombreButtons(
-                        cambiarnombreUser: () => cambiarNombre())
+                    CambiarSettingsButtons(
+                        cambio: 'nombre', cambiar: () => cambiarNombre())
                   ],
                 ),
               )

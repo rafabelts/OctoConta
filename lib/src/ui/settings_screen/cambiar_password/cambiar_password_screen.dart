@@ -1,9 +1,9 @@
 import 'package:adaptive_components/adaptive_components.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:octoconta_final/src/models/error_conexion.dart';
+import 'package:octoconta_final/src/models/buttons_cambiar_settings.dart';
+import 'package:octoconta_final/src/models/mensaje_cuentas.dart';
 import 'package:octoconta_final/src/services/auth.dart';
-import 'package:octoconta_final/src/ui/settings_screen/cambiar_password/cambiar_password_buttons.dart';
 import 'package:octoconta_final/src/ui/settings_screen/cambiar_password/cambiar_password_inputs.dart';
 
 class CambiarPasswordScreen extends StatefulWidget {
@@ -81,14 +81,6 @@ class _CambiarPasswordScreenState extends State<CambiarPasswordScreen> {
         email: correoUser!, password: userPassword.text);
 
     Future<void> realizarCambioPassword() async {
-      showDialog(
-          context: context,
-          builder: (context) => Center(
-                child: CircularProgressIndicator(
-                  color: Color.fromARGB(255, 153, 151, 158),
-                  backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-                ),
-              ));
       String passwordPattern =
           r'^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{8,16}$';
       RegExp regExpPassword = RegExp(passwordPattern);
@@ -125,15 +117,27 @@ minúscula y una mayúscula.''', true);
               'Las contraseñas no coinciden', true);
         } else {
           await user?.updatePassword(userNewPassword.text).then((value) {
-            Navigator.pop(context);
-            Navigator.pop(context);
-            showErrorMessageConexion(context, true, 'Contraseña actualizada.');
+            showMensajeParaUsuario(context, true, 'Contraseña actualizada.');
+          });
+          await Future.microtask(() {
+            Auth().signOut(
+                context: context,
+                navegacionPantallasAlCerrarSesion: (value) {
+                  Navigator.pop(context);
+                  Navigator.pop(context);
+                });
           });
         }
-      } catch (e) {
-        if (e == 'network-request-failed') {
-          Future.microtask(() => showErrorMessageConexion(
+      } on FirebaseAuthException catch (e) {
+        if (e.code == 'network-request-failed') {
+          Future.microtask(() => showMensajeParaUsuario(
               context, true, 'No cuenta con conexion a internet'));
+        } else if (e.code == 'too-many-requests') {
+          Future.microtask(() => showMensajeParaUsuario(context, true,
+              'Lo sentimos, has excedido el límite de solicitudes permitidas. Por favor, inténtalo de nuevo más tarde'));
+        } else {
+          Future.microtask(() => showMensajeParaUsuario(context, true,
+              'Error desconocido. Por favor, inténtalo de nuevo más tarde'));
         }
       } finally {
         Navigator.pop(context);
@@ -155,7 +159,10 @@ minúscula y una mayúscula.''', true);
             .then((value) => Navigator.pop(context));
         await realizarCambioPassword();
       } on FirebaseAuthException catch (e) {
-        if (e.code == 'wrong-password') {
+        if (e.code == 'network-request-failed') {
+          showMensajeParaUsuario(
+              context, true, 'No cuenta con conexion a internet');
+        } else if (e.code == 'wrong-password') {
           Navigator.pop(context); // Cerrar diálogo
           mensajeErrorPassword('La contraseña es incorrecta.', true);
         }
@@ -203,8 +210,8 @@ minúscula y una mayúscula.''', true);
                               ? null
                               : mensajeDeErrorConffirmedNewPassword,
                     ),
-                    CambiarPasswordButtons(
-                        cambiarPassword: () => cambiarPassword())
+                    CambiarSettingsButtons(
+                        cambio: 'contraseña', cambiar: () => cambiarPassword())
                   ],
                 ),
               )

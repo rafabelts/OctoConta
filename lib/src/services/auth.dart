@@ -18,7 +18,7 @@ class Auth {
         context: context,
         builder: (context) => Center(
               child: CircularProgressIndicator(
-                color: const Color(0xff2A195D),
+                color: const Color.fromARGB(255, 153, 151, 158),
                 backgroundColor: Theme.of(context).scaffoldBackgroundColor,
               ),
             ));
@@ -40,7 +40,7 @@ class Auth {
         context: context,
         builder: (context) => Center(
               child: CircularProgressIndicator(
-                color: const Color(0xff2A195D),
+                color: const Color.fromARGB(255, 153, 151, 158),
                 backgroundColor: Theme.of(context).scaffoldBackgroundColor,
               ),
             ));
@@ -59,13 +59,19 @@ class Auth {
         context: context,
         builder: (context) => Center(
               child: CircularProgressIndicator(
-                color: const Color(0xff2A195D),
+                color: const Color.fromARGB(255, 153, 151, 158),
                 backgroundColor: Theme.of(context).scaffoldBackgroundColor,
               ),
             ));
     await _firebaseAuth.signOut().then(navegacionPantallasAlCerrarSesion);
   }
 
+  Future<void> changePasswordEmail(
+      {required BuildContext context, required email}) async {
+    await _firebaseAuth
+        .sendPasswordResetEmail(email: email)
+        .then((value) => Navigator.pop(context));
+  }
   // Future<void>senEmailVeraficationCode(required String email) async{
   //   await _firebaseAuth.sendSignInLinkToEmail(email: email, actionCodeSettings: actionCodeSettings)
   // }

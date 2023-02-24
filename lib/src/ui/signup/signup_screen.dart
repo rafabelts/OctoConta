@@ -1,7 +1,7 @@
 import 'package:adaptive_components/adaptive_components.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:octoconta_final/src/models/error_conexion.dart';
+import 'package:octoconta_final/src/models/mensaje_cuentas.dart';
 import 'package:octoconta_final/src/services/auth.dart';
 import 'package:octoconta_final/src/ui/signup/signup_buttons.dart';
 import 'package:octoconta_final/src/ui/signup/signup_inputs.dart';
@@ -33,12 +33,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
     } on FirebaseAuthException catch (e) {
       Navigator.pop(context);
       if (e.code == 'network-request-failed') {
-        showErrorMessageConexion(
+        showMensajeParaUsuario(
             context, true, 'No cuenta con conexion a internet');
       } else if (e.code == 'email-already-in-use') {
         mensajeErrorEmail('Este correo ya esta registrado', false);
       } else if (e.code == 'weak-password') {
         mensajeErrorPassword('Contraseña debil', false);
+      } else if (e.code == 'too-many-requests') {
+        Future.microtask(() => showMensajeParaUsuario(context, true,
+            'Lo sentimos, has excedido el límite de solicitudes permitidas. Por favor, inténtalo de nuevo más tarde'));
+      } else {
+        Future.microtask(() => showMensajeParaUsuario(context, true,
+            'Error desconocido. Por favor, inténtalo de nuevo más tarde'));
       }
     }
   }

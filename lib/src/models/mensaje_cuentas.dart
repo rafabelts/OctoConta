@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-errorMessage(BuildContext context, String error) {
+message(BuildContext context, String error) {
   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
     content: Text(error,
         style: GoogleFonts.inter(
@@ -14,6 +13,6 @@ errorMessage(BuildContext context, String error) {
   ));
 }
 
-showErrorMessageConexion(BuildContext context, bool show, String error) {
-  show == true ? errorMessage(context, error) : null;
+showMensajeParaUsuario(BuildContext context, bool show, String error) {
+  show == true ? message(context, error) : null;
 }

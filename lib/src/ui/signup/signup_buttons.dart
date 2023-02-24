@@ -1,6 +1,9 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:octoconta_final/src/ui/login/login_screen.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class SignUpButtons extends StatelessWidget {
   final VoidCallback avanzar;
@@ -12,16 +15,36 @@ class SignUpButtons extends StatelessWidget {
       padding: const EdgeInsets.all(5.0),
       child: Column(children: [
         Padding(
-          padding: const EdgeInsets.only(top: 50.0),
-          child: SizedBox(
-            width: double.infinity,
-            child: Text(
-              'Al crear ',
+          padding: const EdgeInsets.only(top: 10.0),
+          child: RichText(
+            text: TextSpan(
+              text: 'Al continuar, acepta nuestro ',
               style: GoogleFonts.inter(
+                color: Colors.black,
                 // color: lightBackround,
                 fontWeight: FontWeight.w700,
                 fontSize: 27,
               ),
+              children: <TextSpan>[
+                TextSpan(
+                    text: 'Acuerdo de Usuario',
+                    style: TextStyle(decoration: TextDecoration.underline),
+                    recognizer: TapGestureRecognizer()
+                      ..onTap = () {
+                        // Al presionar manda a la pagina
+                        launchUrlString(
+                            'https://rafabelts.github.io/acuerdoypolitica/acuerdoUsuario/acuerdoDeUsuario.html');
+                      }),
+                TextSpan(text: ' y reconoce que comprende la '),
+                TextSpan(
+                    text: 'Política de Privacidad',
+                    style: TextStyle(decoration: TextDecoration.underline),
+                    recognizer: TapGestureRecognizer()
+                      ..onTap = () {
+                        launchUrlString(
+                            'https://rafabelts.github.io/acuerdoypolitica/politicaPrivacidad/politicaPrivacidad.html');
+                      }),
+              ],
             ),
           ),
         ),

@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:octoconta_final/src/models/mensaje_cuentas.dart';
 import 'package:octoconta_final/src/services/auth.dart';
 import 'package:octoconta_final/src/ui/settings_screen/eliminar_cuenta.dart/eliminar_cuenta_buttons.dart';
 import 'package:octoconta_final/src/ui/settings_screen/eliminar_cuenta.dart/eliminar_cuenta_input.dart';
@@ -45,9 +46,6 @@ class _EliminarCuentaScreenState extends State<EliminarCuentaScreen> {
     final User? user = Auth().currentUser;
     final String? correoUser = Auth().currentUser?.email;
 
-    final AuthCredential credentials = EmailAuthProvider.credential(
-        email: correoUser!, password: password.text);
-
     Future<void> funElimin() async {
       try {
         showDialog(
@@ -58,6 +56,9 @@ class _EliminarCuentaScreenState extends State<EliminarCuentaScreen> {
                     backgroundColor: Theme.of(context).scaffoldBackgroundColor,
                   ),
                 ));
+
+        final AuthCredential credentials = EmailAuthProvider.credential(
+            email: correoUser!, password: password.text);
         await user?.reauthenticateWithCredential(credentials);
 
         await user?.delete().then((value) {
@@ -68,9 +69,15 @@ class _EliminarCuentaScreenState extends State<EliminarCuentaScreen> {
         });
         // La cuenta se eliminó correctamente.
       } on FirebaseAuthException catch (e) {
-        if (e.code == 'wrong-password') {
+        if (e.code == 'network-request-failed') {
+          Future.microtask(() => showMensajeParaUsuario(
+              context, true, 'No cuenta con conexion a internet'));
+        } else if (e.code == 'wrong-password') {
           Navigator.pop(context); // Cerrar diálogo
           mensajeErrorPassword('La contraseña es incorrecta.', true);
+        } else {
+          Future.microtask(() => showMensajeParaUsuario(context, true,
+              'Error desconocido. Por favor, inténtalo de nuevo más tarde'));
         }
       }
     }

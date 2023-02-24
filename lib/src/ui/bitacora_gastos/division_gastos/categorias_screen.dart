@@ -2,6 +2,7 @@ import 'package:adaptive_components/adaptive_components.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:octoconta_final/src/models/modal_selecciones.dart';
+import 'package:octoconta_final/src/services/auth.dart';
 import 'package:octoconta_final/src/ui/bitacora_gastos/division_gastos/bitacora_botones.dart';
 import 'package:octoconta_final/src/ui/bitacora_gastos/division_gastos/bitacora_inputs.dart';
 import 'package:octoconta_final/src/ui/bitacora_gastos/division_gastos/categoria_eleccion.dart';
@@ -12,6 +13,8 @@ class CategoriasGastosScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final String? userName = Auth().currentUser?.displayName;
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -54,12 +57,15 @@ class CategoriasGastosScreen extends StatelessWidget {
                     padding: const EdgeInsets.only(top: 30.0),
                     child: Column(
                       children: [
-                        Text('Este mes ha gastado:',
-                            style: GoogleFonts.poppins(
-                                color: const Color.fromARGB(
-                                    232, 42, 25, 93), //0xFF2a195d
-                                fontSize: 30,
-                                fontWeight: FontWeight.w600)),
+                        Text(
+                          '$userName este mes ha gastado:',
+                          style: GoogleFonts.poppins(
+                              color: const Color.fromARGB(
+                                  232, 42, 25, 93), //0xFF2a195d
+                              fontSize: 30,
+                              fontWeight: FontWeight.w600),
+                          textAlign: TextAlign.center,
+                        ),
                         Text('\$0',
                             style: GoogleFonts.poppins(
                                 color: const Color(0xFF2a195d), //0xFF2a195d

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class ContraCambioEmailBotones extends StatelessWidget {
-  final VoidCallback cambiar;
-  const ContraCambioEmailBotones({required this.cambiar, super.key});
+class CerrarSesionButtons extends StatelessWidget {
+  final VoidCallback eliminarCuenta;
+  const CerrarSesionButtons({required this.eliminarCuenta, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -31,9 +31,9 @@ class ContraCambioEmailBotones extends StatelessWidget {
               padding:
                   const EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
             ),
-            onPressed: cambiar,
+            onPressed: () => eliminarCuenta(),
             child: Text(
-              'Cambiar correo',
+              'Si, cerrar sesión',
               style: GoogleFonts.inter(
                 color: Theme.of(context).scaffoldBackgroundColor,
                 fontWeight: FontWeight.bold,
