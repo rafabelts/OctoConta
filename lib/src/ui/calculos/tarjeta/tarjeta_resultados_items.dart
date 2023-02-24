@@ -11,9 +11,9 @@ class ResultadosTarjetaItems extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Text(
-          "Su pago mensual sera de:",
+          "Su interés mensual sera de:",
           style: GoogleFonts.inter(
-            fontSize: 26,
+            fontSize: 28,
             fontWeight: FontWeight.w600,
           ),
         ),

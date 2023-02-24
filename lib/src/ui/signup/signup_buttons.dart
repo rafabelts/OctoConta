@@ -14,42 +14,46 @@ class SignUpButtons extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(5.0),
       child: Column(children: [
-        Padding(
-          padding: const EdgeInsets.only(top: 10.0),
-          child: RichText(
-            text: TextSpan(
-              text: 'Al continuar, acepta nuestro ',
-              style: GoogleFonts.inter(
-                color: Colors.black,
-                // color: lightBackround,
-                fontWeight: FontWeight.w700,
-                fontSize: 27,
+        RichText(
+          text: TextSpan(
+            text: 'Al continuar, acepta nuestro ',
+            style: Theme.of(context).textTheme.titleMedium,
+            children: <TextSpan>[
+              TextSpan(
+                  text: 'Acuerdo de Usuario',
+                  style: GoogleFonts.inter(
+                    color: const Color(0xFF5E35B1),
+                    fontWeight: FontWeight.w500,
+                    fontSize: 19,
+                  ),
+                  recognizer: TapGestureRecognizer()
+                    ..onTap = () {
+                      // Al presionar manda a la pagina
+                      launchUrlString(
+                          'https://rafabelts.github.io/acuerdoypolitica/acuerdoUsuario/acuerdoDeUsuario.html');
+                    }),
+              TextSpan(
+                text: ' y reconoce que comprende la ',
+                style: Theme.of(context).textTheme.titleMedium,
               ),
-              children: <TextSpan>[
-                TextSpan(
-                    text: 'Acuerdo de Usuario',
-                    style: TextStyle(decoration: TextDecoration.underline),
-                    recognizer: TapGestureRecognizer()
-                      ..onTap = () {
-                        // Al presionar manda a la pagina
-                        launchUrlString(
-                            'https://rafabelts.github.io/acuerdoypolitica/acuerdoUsuario/acuerdoDeUsuario.html');
-                      }),
-                TextSpan(text: ' y reconoce que comprende la '),
-                TextSpan(
-                    text: 'Política de Privacidad',
-                    style: TextStyle(decoration: TextDecoration.underline),
-                    recognizer: TapGestureRecognizer()
-                      ..onTap = () {
-                        launchUrlString(
-                            'https://rafabelts.github.io/acuerdoypolitica/politicaPrivacidad/politicaPrivacidad.html');
-                      }),
-              ],
-            ),
+              TextSpan(
+                  text: 'Política de Privacidad.',
+                  style: GoogleFonts.inter(
+                    color: const Color(0xFF5E35B1),
+                    fontWeight: FontWeight.w500,
+                    fontSize: 19,
+                  ),
+                  recognizer: TapGestureRecognizer()
+                    ..onTap = () {
+                      launchUrlString(
+                          'https://rafabelts.github.io/acuerdoypolitica/politicaPrivacidad/politicaPrivacidad.html');
+                    }),
+            ],
           ),
         ),
+
         Padding(
-          padding: const EdgeInsets.only(top: 50.0),
+          padding: const EdgeInsets.only(top: 30.0),
           child: SizedBox(
             width: double.infinity,
             child: ElevatedButton(

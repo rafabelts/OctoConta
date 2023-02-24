@@ -62,7 +62,7 @@ class _SignUpInputsState extends State<SignUpInputs> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Text(
-            'Crear Cuenta',
+            'Crear cuenta',
             style: Theme.of(context).textTheme.displayMedium,
           ),
           buildInputNombre(context),
@@ -144,7 +144,7 @@ class _SignUpInputsState extends State<SignUpInputs> {
               borderSide: BorderSide(width: 2.0, color: Colors.red)),
           label: Container(
               margin: const EdgeInsets.only(top: 3.0),
-              child: const Text('Correo Electrónico')),
+              child: const Text('Correo electrónico')),
           labelStyle: GoogleFonts.inter(
               textStyle: const TextStyle(color: Color(0xff534677)),
               fontSize: 21,
@@ -253,7 +253,7 @@ class _SignUpInputsState extends State<SignUpInputs> {
               borderSide: BorderSide(width: 2.0, color: Colors.red)),
           label: Container(
               margin: const EdgeInsets.only(top: 3.0),
-              child: const Text('Confirmar Contraseña')),
+              child: const Text('Confirmar contraseña')),
           labelStyle: GoogleFonts.inter(
               textStyle: const TextStyle(color: Color(0xff534677)),
               fontSize: 21,

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:octoconta_final/src/ui/olvido_contra/ingresar_correo/ingresar_correo_veri_screen.dart';
+import 'package:octoconta_final/src/ui/login/olvido_contra/ingresar_correo/ingresar_correo_veri_screen.dart';
 
 class LogInButtons extends StatelessWidget {
   final VoidCallback avanzar;

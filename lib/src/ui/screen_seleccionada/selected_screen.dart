@@ -84,7 +84,7 @@ class _SelectedScreenState extends State<SelectedScreen> {
         titulo: indexClicked == 0
             ? 'Pago de Tarjeta'
             : indexClicked == 1
-                ? 'Pago de Prestamo'
+                ? 'Pago de Préstamo'
                 : indexClicked == 2
                     ? 'Honorarios'
                     : indexClicked == 3
@@ -157,7 +157,7 @@ class _SelectedScreenState extends State<SelectedScreen> {
                     ? const Color.fromARGB(32, 115, 79, 223)
                     : Colors.transparent,
                 title: Text(
-                  'Pago de una tarjeta de credito',
+                  'Pago de una tarjeta de crédito',
                   style: GoogleFonts.poppins(
                     color: const Color(0xff4527A0), //382872 //453a88
                     //382872 //453a88
@@ -180,7 +180,7 @@ class _SelectedScreenState extends State<SelectedScreen> {
                       ? const Color.fromARGB(19, 115, 79, 223)
                       : Colors.transparent,
                   title: Text(
-                    'Pago de un prestamo',
+                    'Pago de un préstamo',
                     style: GoogleFonts.poppins(
                       color: const Color(0xff4527A0), //382872 //453a88
                       fontSize: 20,

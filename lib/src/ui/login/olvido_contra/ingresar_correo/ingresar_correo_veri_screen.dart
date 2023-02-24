@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:octoconta_final/src/models/buttons_recuperacion.dart';
 import 'package:octoconta_final/src/models/mensaje_cuentas.dart';
 import 'package:octoconta_final/src/services/auth.dart';
-import 'package:octoconta_final/src/ui/olvido_contra/ingresar_correo/ingresar_correo_veri_inputs.dart';
+import 'package:octoconta_final/src/ui/login/olvido_contra/ingresar_correo/ingresar_correo_veri_inputs.dart';
 
 class CorreoParaVerificar extends StatefulWidget {
   const CorreoParaVerificar({super.key});

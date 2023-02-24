@@ -3,8 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:octoconta_final/src/models/buttons_cambiar_settings.dart';
 import 'package:octoconta_final/src/models/mensaje_cuentas.dart';
-import 'package:octoconta_final/src/ui/cuenta_verificacion_y_saldo/correo_verificacion.dart';
 import 'package:octoconta_final/src/ui/settings_screen/cambiar_email/cambiar_email_inputs.dart';
+import 'package:octoconta_final/src/ui/signup/verificacion_correo/verificacion_de_correo.dart';
 
 import '../../../services/auth.dart';
 
@@ -78,7 +78,7 @@ class _CambiarEmailScreenState extends State<CambiarEmailScreen> {
           Navigator.pushReplacement(
               context,
               MaterialPageRoute(
-                  builder: (context) => const VerificacionCorreo()));
+                  builder: (context) => const VerificacionDeCorreo()));
         });
       } on FirebaseAuthException catch (e) {
         if (e.code == 'network-request-failed') {

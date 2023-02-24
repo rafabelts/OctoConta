@@ -32,7 +32,7 @@ class DescripcionTarjeta extends StatelessWidget {
           ),
         ),
         Text(
-          'Cuando la entidad financiera te proporciona una tarjeta de crédito, también te asigna una fecha de corte y una fecha de pago; de esta forma, mes a mes la entidad financiera hace las cuentas de lo que has gastado de tu cupo y a cuantas cuotas lo has diferido, así calcula tu pago mínimo.',
+          'Cuando la entidad financiera te proporciona una tarjeta de crédito, también te asigna una fecha de corte y una fecha de pago; de esta forma, mes a mes la entidad financiera hace las cuentas de lo que has gastado de tu cupo y a cuantas cuotas lo has diferido.',
           style: GoogleFonts.inter(
               color: colorBodyTexto, fontWeight: FontWeight.w500, fontSize: 20),
           textAlign: TextAlign.justify,

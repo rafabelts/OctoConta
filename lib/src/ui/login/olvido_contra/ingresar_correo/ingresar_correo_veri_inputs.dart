@@ -46,7 +46,7 @@ class CorreoParaVerificarInput extends StatelessWidget {
                   borderSide: BorderSide(width: 2.0, color: Colors.red)),
               label: Container(
                   margin: const EdgeInsets.only(top: 3.0),
-                  child: const Text('Correo Electrónico')),
+                  child: const Text('Correo electrónico')),
               labelStyle: GoogleFonts.inter(
                   textStyle: const TextStyle(color: Color(0xff534677)),
                   fontSize: 21,
@@ -66,7 +66,7 @@ class CorreoParaVerificarInput extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(top: 25.0),
             child: Text(
-              '* Le enviaremos un correo para establecer su nueva contraseña',
+              '* Le enviaremos un correo para establecer su nueva contraseña.',
               style: GoogleFonts.inter(
                 color: const Color(0xff4527A0),
                 fontWeight: FontWeight.w400,
