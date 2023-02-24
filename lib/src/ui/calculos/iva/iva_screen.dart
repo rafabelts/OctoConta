@@ -70,7 +70,7 @@ class _CalculoIVAScreenState extends State<CalculoIVAScreen> {
         context,
         ResultadosIVAItems(
             cantidadIVAText:
-                'La cantidad de IVA que se restara al articulo es de:',
+                'La cantidad de IVA que se restará al artículo es de:',
             cantidadIVARedondeado: cantidadIVARedondeado,
             total: precioFinalRedondeado));
   }
@@ -86,7 +86,7 @@ class _CalculoIVAScreenState extends State<CalculoIVAScreen> {
         context,
         ResultadosIVAItems(
           cantidadIVAText:
-              'La cantidad de IVA que se agregara al articulo es de:',
+              'La cantidad de IVA que se agregará al artículo es de:',
           cantidadIVARedondeado: cantidadIVARedondeado,
           total: precioFinalRedondeado,
         ));

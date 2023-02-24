@@ -22,6 +22,7 @@ class ResultadosIVAItems extends StatelessWidget {
             fontSize: 26,
             fontWeight: FontWeight.w600,
           ),
+          textAlign: TextAlign.justify,
         ),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 20.0),
@@ -44,6 +45,7 @@ class ResultadosIVAItems extends StatelessWidget {
               fontSize: 26,
               fontWeight: FontWeight.w600,
             ),
+            textAlign: TextAlign.justify,
           ),
         ),
         Padding(

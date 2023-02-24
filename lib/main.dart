@@ -9,7 +9,7 @@ import 'package:octoconta_final/src/widget_tree.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  //  Statusbar transparent
+  //  Statusbar transparente
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarColor: Colors.transparent,
     statusBarIconBrightness: Brightness.dark,

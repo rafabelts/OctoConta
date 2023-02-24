@@ -11,7 +11,7 @@ class ResultadoHonorariosItems extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          "Su total a recibir sera de:",
+          "Su total a recibir será de:",
           style: GoogleFonts.inter(
             fontSize: 26,
             fontWeight: FontWeight.w600,

@@ -21,6 +21,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   Future<void> createUserWithEmailAndPassword() async {
     try {
+      print("Usuario Creados");
       await Auth().createUserWithEmailAndPassword(
         email: email.text.toLowerCase().trim(),
         password: password.text,

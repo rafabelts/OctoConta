@@ -6,7 +6,12 @@ class CalculoIvaInput extends StatelessWidget {
   final Function(dynamic) onChanged;
   final bool esNumero;
   final Function(dynamic) onSubmitted;
-  const CalculoIvaInput({required this.onSubmitted, required this.esNumero, required this.onChanged,required this.precioArticulo, super.key});
+  const CalculoIvaInput(
+      {required this.onSubmitted,
+      required this.esNumero,
+      required this.onChanged,
+      required this.precioArticulo,
+      super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +19,7 @@ class CalculoIvaInput extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Text(
-          "Precio del articulo: (\$)",
+          "Precio del artículo: (\$)",
           style: Theme.of(context).textTheme.headlineSmall,
         ),
         Padding(
@@ -32,7 +37,7 @@ class CalculoIvaInput extends StatelessWidget {
                 errorStyle: GoogleFonts.inter(
                     fontSize: 14, fontWeight: FontWeight.w600),
                 errorBorder: const UnderlineInputBorder(
-                  borderSide: BorderSide(color: Colors.red, width: 2.0)),
+                    borderSide: BorderSide(color: Colors.red, width: 2.0)),
                 focusedErrorBorder: const UnderlineInputBorder(
                     borderSide: BorderSide(width: 2.0, color: Colors.red)),
                 contentPadding: const EdgeInsets.symmetric(vertical: 2.0),

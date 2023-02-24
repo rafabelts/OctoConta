@@ -22,7 +22,7 @@ class _DropdownPeriodoSalarioState extends State<DropdownPeriodoSalario> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Text(
-            "Periodo pago:",
+            "Período de pago:",
             style: Theme.of(context).textTheme.headlineSmall,
           ),
           Padding(

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:octoconta_final/src/ui/screen_seleccionada/selected_screen.dart';
-import 'package:flutter/animation.dart';
 
 void navegarPantalla(BuildContext context, int indexClicked) {
   Navigator.push(
@@ -12,7 +11,7 @@ void navegarPantalla(BuildContext context, int indexClicked) {
 
 List<dynamic> listaCalculos = [
   ['Pago de una tarjeta de crédito', 0],
-  ['Pago de un prestamo', 1],
+  ['Pago de un préstamo', 1],
   ['Honorarios', 2],
   ['Prima vacacional', 3],
   ['Impuesto Sobre Renta (ISR)', 4],
