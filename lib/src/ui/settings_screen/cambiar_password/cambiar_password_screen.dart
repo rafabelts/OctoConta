@@ -5,6 +5,7 @@ import 'package:octoconta_final/src/models/buttons_cambiar_settings.dart';
 import 'package:octoconta_final/src/models/mensaje_cuentas.dart';
 import 'package:octoconta_final/src/services/auth.dart';
 import 'package:octoconta_final/src/ui/settings_screen/cambiar_password/cambiar_password_inputs.dart';
+import 'package:octoconta_final/src/ui/welcome/welcome_screen.dart';
 
 class CambiarPasswordScreen extends StatefulWidget {
   const CambiarPasswordScreen({super.key});
@@ -81,63 +82,28 @@ class _CambiarPasswordScreenState extends State<CambiarPasswordScreen> {
         email: correoUser!, password: userPassword.text);
 
     Future<void> realizarCambioPassword() async {
-      String passwordPattern =
-          r'^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{8,16}$';
-      RegExp regExpPassword = RegExp(passwordPattern);
-
       try {
-        if (userNewPassword.text.isEmpty) {
-          mensajeErrorPassword('Por favor ingrese una contrasena', true);
-        } else if (conffirmedNewPassword.text.isEmpty) {
-          mensajeErrorConffirmedNewPassword(
-              'Por favor ingrese una contrasena', true);
-        } else if (userPassword.text == userNewPassword.text) {
-          mensajeErrorPassword(
-              'No se puede utilizar la misma contraseña', true);
-          mensajeErrorNewPassword(
-              'No se puede utilizar la misma contraseña', true);
-        } else if (userNewPassword.text.length < 8) {
-          mensajeErrorNewPassword('Se necesitan al menos 8 caracteres', true);
-        } else if (conffirmedNewPassword.text.length < 8) {
-          mensajeErrorConffirmedNewPassword(
-              'Se necesitan al menos 8 caracteres', true);
-        } else if (!regExpPassword.hasMatch(userNewPassword.text)) {
-          mensajeErrorNewPassword(
-              '''La contraseña debe tener al entre 8 y 16 caracteres,
-al menos un valor especial, un numero, una 
-minúscula y una mayúscula.''', true);
-        } else if (!regExpPassword.hasMatch(conffirmedNewPassword.text)) {
-          mensajeErrorConffirmedNewPassword(
-              '''La contraseña debe tener al entre 8 y 16 caracteres,
-al menos un valor especial, un numero, una 
-minúscula y una mayúscula.''', true);
-        } else if (userNewPassword.text != conffirmedNewPassword.text) {
-          mensajeErrorNewPassword('Las contraseñas no coinciden', true);
-          mensajeErrorConffirmedNewPassword(
-              'Las contraseñas no coinciden', true);
-        } else {
-          await user?.updatePassword(userNewPassword.text).then((value) {
-            showMensajeParaUsuario(context, true, 'Contraseña actualizada.');
-          });
-          await Future.microtask(() {
-            Auth().signOut(
-                context: context,
-                navegacionPantallasAlCerrarSesion: (value) {
-                  Navigator.pop(context);
-                  Navigator.pop(context);
-                });
-          });
-        }
+        await user?.updatePassword(userNewPassword.text).then((value) {
+          showMensajeParaUsuario(context, true, 'Contraseña actualizada.');
+        });
+        await Future.microtask(() {
+          Auth().signOut(
+              context: context,
+              navegacionPantallasAlCerrarSesion: (value) {
+                Navigator.pop(context);
+                Navigator.pop(context);
+              });
+        });
       } on FirebaseAuthException catch (e) {
         if (e.code == 'network-request-failed') {
-          Future.microtask(() => showMensajeParaUsuario(
-              context, true, 'No cuenta con conexion a internet'));
+          Future.microtask(() => showMensajeParaUsuario(context, true,
+              'Error de solicitud de red: la solicitud no se pudo completar. Por favor, compruebe su conexión a Internet e inténtelo de nuevo.'));
         } else if (e.code == 'too-many-requests') {
           Future.microtask(() => showMensajeParaUsuario(context, true,
-              'Lo sentimos, has excedido el límite de solicitudes permitidas. Por favor, inténtalo de nuevo más tarde'));
+              'Lo sentimos, has excedido el límite de solicitudes permitidas. Por favor, inténtalo de nuevo más tarde.'));
         } else {
           Future.microtask(() => showMensajeParaUsuario(context, true,
-              'Error desconocido. Por favor, inténtalo de nuevo más tarde'));
+              'Error desconocido. Por favor, intente de nuevo más tarde.'));
         }
       } finally {
         Navigator.pop(context);
@@ -145,11 +111,14 @@ minúscula y una mayúscula.''', true);
     }
 
     Future<void> verificarPassword() async {
+      String passwordPattern =
+          r'^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{8,16}$';
+      RegExp regExpPassword = RegExp(passwordPattern);
       showDialog(
           context: context,
           builder: (context) => Center(
                 child: CircularProgressIndicator(
-                  color: Color.fromARGB(255, 153, 151, 158),
+                  color: const Color.fromARGB(255, 153, 151, 158),
                   backgroundColor: Theme.of(context).scaffoldBackgroundColor,
                 ),
               ));
@@ -157,22 +126,103 @@ minúscula y una mayúscula.''', true);
         await user
             ?.reauthenticateWithCredential(credentials)
             .then((value) => Navigator.pop(context));
-        await realizarCambioPassword();
+        if (userNewPassword.text.isEmpty) {
+          mensajeErrorNewPassword(
+              'Por favor, ingrese su nueva contraseña.', true);
+        } else if (conffirmedNewPassword.text.isEmpty) {
+          mensajeErrorConffirmedNewPassword(
+              '''Por favor, ingrese su nueva contraseña de nuevo  
+para confirmar.''', true);
+        } else if (userNewPassword.text.length < 8) {
+          mensajeErrorNewPassword('Se necesitan al menos 8 caracteres', true);
+        } else if (!regExpPassword.hasMatch(userNewPassword.text)) {
+          mensajeErrorNewPassword(
+              '''La contraseña debe tener al entre 8 y 16 caracteres,
+al menos un valor especial, un numero, una 
+minúscula y una mayúscula.''', true);
+        } else if (userPassword.text == userNewPassword.text) {
+          mensajeErrorNewPassword(
+              '''Por favor, ingrese una contraseña diferente a la 
+actual.''', true);
+        } else if (userNewPassword.text != conffirmedNewPassword.text) {
+          mensajeErrorNewPassword('Error: Las contraseñas no coinciden.', true);
+          mensajeErrorConffirmedNewPassword(
+              'Error: Las contraseñas no coinciden.', true);
+        } else {
+          await realizarCambioPassword();
+        }
       } on FirebaseAuthException catch (e) {
         if (e.code == 'network-request-failed') {
-          showMensajeParaUsuario(
-              context, true, 'No cuenta con conexion a internet');
+          showMensajeParaUsuario(context, true,
+              'Error de solicitud de red: la solicitud no se pudo completar. Por favor, compruebe su conexión a Internet e inténtelo de nuevo.');
         } else if (e.code == 'wrong-password') {
           Navigator.pop(context); // Cerrar diálogo
-          mensajeErrorPassword('La contraseña es incorrecta.', true);
+          mensajeErrorPassword(
+              '''Error: contraseña incorrecta. Por favor ingrese su 
+contraseña correctamente.''', true);
+        } else if (e.code == 'too-many-requests') {
+          Future.microtask(() => showMensajeParaUsuario(context, true,
+              'Lo sentimos, has excedido el límite de solicitudes permitidas. Por favor, inténtalo de nuevo más tarde.'));
+        } else {
+          Future.microtask(() => showMensajeParaUsuario(context, true,
+              'Error desconocido. Por favor, intente de nuevo más tarde.'));
         }
+      }
+    }
+
+    onSubmittedPassword() async {
+      if (userPassword.text.isEmpty) {
+        mensajeErrorPassword("Por favor, ingrese su contraseña.", true);
+      } else {
+        FocusScope.of(context).nextFocus();
+        FocusScope.of(context).nextFocus();
+      }
+    }
+
+    void onSubmittedNewPassword() {
+      String passwordPattern =
+          r'^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{8,16}$';
+      RegExp regExpPassword = RegExp(passwordPattern);
+      if (userNewPassword.text.isEmpty) {
+        mensajeErrorNewPassword(
+            'Por favor, ingrese su nueva contraseña.', true);
+      } else if (userNewPassword.text.length < 8) {
+        mensajeErrorNewPassword('Se necesitan al menos 8 caracteres', true);
+      } else if (!regExpPassword.hasMatch(userNewPassword.text)) {
+        mensajeErrorNewPassword(
+            '''La contraseña debe tener al entre 8 y 16 caracteres,
+al menos un valor especial, un numero, una 
+minúscula y una mayúscula.''', true);
+      } else if (userPassword.text == userNewPassword.text) {
+        mensajeErrorNewPassword(
+            '''Por favor, ingrese una contraseña diferente a la 
+actual.''', true);
+      } else {
+        FocusScope.of(context).nextFocus();
+        FocusScope.of(context).nextFocus();
+      }
+    }
+
+    void onSubmittedConffirmedNewPassword() {
+      if (conffirmedNewPassword.text.isEmpty) {
+        mensajeErrorConffirmedNewPassword(
+            '''Por favor, ingrese su nueva contraseña de nuevo  
+para confirmar.''', true);
+      } else if (userNewPassword.text != conffirmedNewPassword.text) {
+        mensajeErrorNewPassword('Error: Las contraseñas no coinciden.', true);
+        mensajeErrorConffirmedNewPassword(
+            'Error: Las contraseñas no coinciden.', true);
+      } else {
+        userPassword.text.isEmpty
+            ? mensajeErrorPassword("Por favor, ingrese su contraseña.", true)
+            : verificarPassword();
       }
     }
 
     void cambiarPassword() {
       // aracely y rafael
       userPassword.text.isEmpty
-          ? mensajeErrorPassword("Por favor ingrese su contraseña.", true)
+          ? mensajeErrorPassword("Por favor, ingrese su contraseña.", true)
           : verificarPassword();
     }
 
@@ -197,11 +247,13 @@ minúscula y una mayúscula.''', true);
                       passwordError: errorInPasswordUser == false
                           ? null
                           : mensajeDeErrorPassword,
+                      onSubmmitedPassword: onSubmittedPassword,
                       newPasswordUser: userNewPassword,
                       onChangedNewPassword: (value) => onChangedNewPassword(),
                       newPasswordError: errorInNewPasswordUser == false
                           ? null
                           : mensajeDeErrorNewPassword,
+                      onSubmittedNewPassword: onSubmittedNewPassword,
                       conffirmedNewPasswordUser: conffirmedNewPassword,
                       onChangedNewConffirmedPassword: (value) =>
                           onChangedConffirmedNewPassword(),
@@ -209,6 +261,8 @@ minúscula y una mayúscula.''', true);
                           errorInConffirmedNewPasswordUser == false
                               ? null
                               : mensajeDeErrorConffirmedNewPassword,
+                      onSubmittedNewConffirmedPassword:
+                          onSubmittedConffirmedNewPassword,
                     ),
                     CambiarSettingsButtons(
                         cambio: 'contraseña', cambiar: () => cambiarPassword())

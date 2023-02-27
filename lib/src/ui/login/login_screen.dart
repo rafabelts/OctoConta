@@ -47,49 +47,59 @@ class _LogInScreenState extends State<LogInScreen> {
     } on FirebaseAuthException catch (e) {
       Navigator.pop(context);
       if (e.code == 'network-request-failed') {
-        showMensajeParaUsuario(
-            context, true, 'No cuenta con conexion a internet');
+        showMensajeParaUsuario(context, true,
+            'Error de solicitud de red: la solicitud no se pudo completar. Por favor, compruebe su conexión a Internet e inténtelo de nuevo.');
       } else if (e.code == 'user-not-found') {
         // El usuario no existe
-        mensajeErrorCorreo('''La dirección de correo electrónico 
-ingresada no es válida.''', false);
-      } else if (e.code == 'wrong-password' || password.text.length < 8) {
+        mensajeErrorCorreo('''Error: la cuenta de usuario no se ha encontrado. 
+Por favor, compruebe su dirección de correo 
+electrónico e intente de nuevo.''', false);
+      } else if (e.code == 'wrong-password') {
         // La contraseña es incorrecta
-        mensajeErrorPassword('La contraseña ingresada es incorrecta.', false);
+        mensajeErrorPassword(
+            '''Error: contraseña incorrecta. Por favor ingrese su 
+contraseña correctamente.''', false);
       } else if (e.code == 'invalid-email') {
         // La dirección de correo electrónico es inválida
-        mensajeErrorCorreo('''La dirección de correo electrónico 
-ingresada no es válida.''', false);
+        mensajeErrorCorreo('''Error: correo electrónico inválido. Por favor, 
+ingrese un correo electrónico válido.''', false);
       } else if (e.code == 'too-many-requests') {
         Future.microtask(() => showMensajeParaUsuario(context, true,
-            'Lo sentimos, has excedido el límite de solicitudes permitidas. Por favor, inténtalo de nuevo más tarde'));
+            'Lo sentimos, has excedido el límite de solicitudes permitidas. Por favor, inténtalo de nuevo más tarde.'));
       } else {
         Future.microtask(() => showMensajeParaUsuario(context, true,
-            'Error desconocido. Por favor, inténtalo de nuevo más tarde'));
+            'Error desconocido. Por favor, intente de nuevo más tarde.'));
       }
-      // Puedes mostrar un mensaje de error al usuario o realizar otra acción según el error específico
     }
   }
 
   void registrarse() {
-    String correoValor = correo.text.trim();
+    String correoValor = correo.text.trim().toLowerCase();
     String passwordValor = password.text;
 
     if (correoValor.isEmpty) {
-      mensajeErrorCorreo('Por favor, ingrese su correo electronico', false);
+      mensajeErrorCorreo('Por favor, ingrese su correo electrónico.', false);
     }
 
     if (passwordValor.isEmpty) {
-      mensajeErrorPassword('Por favor, ingrese su contraseña', false);
+      mensajeErrorPassword('Por favor, ingrese su contraseña.', false);
     } else {
       if (correoValor.isEmpty) {
-        mensajeErrorCorreo('Por favor, ingrese su correo electronico', false);
+        mensajeErrorCorreo('Por favor, ingrese su correo electrónico.', false);
       } else {
         mensajeErrorCorreo('', true);
         mensajeErrorPassword('', true);
         FocusScope.of(context).unfocus();
         signInWithEmailAndPassword();
       }
+    }
+  }
+
+  void onSubmittedCorreo() {
+    if (correo.text.isEmpty) {
+      mensajeErrorCorreo('Por favor, ingrese su correo electrónico.', false);
+    } else {
+      FocusScope.of(context).nextFocus();
     }
   }
 
@@ -136,10 +146,12 @@ ingresada no es válida.''', false);
                         onChangedCorreo: (value) => onChangedCorreo(),
                         correoError:
                             errorInCorreo ? null : mensajeDeErrorCorreo,
+                        onSubmittedCorreo: onSubmittedCorreo,
                         passwordUser: password,
                         passwordError:
                             errorInPassword ? null : mensajeDeErrorPassword,
                         onChangedPassword: (value) => onChangedPassword(),
+                        onSubmittedPassword: registrarse,
                       ),
                       const Padding(
                         padding: EdgeInsets.only(top: 10.0),

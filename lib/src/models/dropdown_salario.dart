@@ -4,8 +4,12 @@ import 'package:google_fonts/google_fonts.dart';
 class DropdownPeriodoSalario extends StatefulWidget {
   final String periodoActual;
   final List<String> periodos;
+  final Function(String?) cambiarPeriodo;
   const DropdownPeriodoSalario(
-      {required this.periodoActual, required this.periodos, super.key});
+      {required this.periodoActual,
+      required this.periodos,
+      required this.cambiarPeriodo,
+      super.key});
 
   @override
   State<DropdownPeriodoSalario> createState() => _DropdownPeriodoSalarioState();
@@ -14,8 +18,6 @@ class DropdownPeriodoSalario extends StatefulWidget {
 class _DropdownPeriodoSalarioState extends State<DropdownPeriodoSalario> {
   @override
   Widget build(BuildContext context) {
-    String periodoActual = widget.periodoActual;
-    List<String> periodos = widget.periodos;
     return Padding(
       padding: const EdgeInsets.only(top: 70.0),
       child: Column(
@@ -44,7 +46,7 @@ class _DropdownPeriodoSalarioState extends State<DropdownPeriodoSalario> {
                 color: Color(0xff534677),
               ),
               //
-              items: periodos.map((String? periodos) {
+              items: widget.periodos.map((String? periodos) {
                 return DropdownMenuItem(
                   value: periodos,
                   child: Text(
@@ -57,13 +59,8 @@ class _DropdownPeriodoSalarioState extends State<DropdownPeriodoSalario> {
                   ),
                 );
               }).toList(),
-              value: periodoActual,
-              onChanged: (String? diferentePeriodo) {
-                setState(() {
-                  periodoActual = diferentePeriodo!;
-                  print(periodoActual);
-                });
-              },
+              onChanged: widget.cambiarPeriodo,
+              value: widget.periodoActual,
             ),
           )
         ],

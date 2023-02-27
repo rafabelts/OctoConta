@@ -5,16 +5,22 @@ class CambiarEmailInput extends StatefulWidget {
   final TextEditingController correoUser;
   final Function(dynamic) onChangedCorreoUser;
   final dynamic errorCorreoUser;
+  final VoidCallback onSubmittedCorreo;
+
   final TextEditingController passwordUser;
   final Function(dynamic) onChangedPassword;
   final dynamic passwordUserError;
+  final VoidCallback onSubmittedPassword;
+
   const CambiarEmailInput(
       {required this.correoUser,
       required this.onChangedCorreoUser,
       required this.errorCorreoUser,
+      required this.onSubmittedCorreo,
       required this.passwordUser,
       required this.onChangedPassword,
       required this.passwordUserError,
+      required this.onSubmittedPassword,
       super.key});
 
   @override
@@ -44,6 +50,8 @@ class _CambiarEmailInputState extends State<CambiarEmailInput> {
         TextField(
           controller: widget.correoUser,
           onChanged: widget.onChangedCorreoUser,
+          onEditingComplete: widget.onSubmittedCorreo,
+          keyboardType: TextInputType.emailAddress,
           style: GoogleFonts.inter(
             color: const Color(0xff534677),
             fontWeight: FontWeight.bold,
@@ -91,6 +99,7 @@ class _CambiarEmailInputState extends State<CambiarEmailInput> {
           child: TextField(
             controller: widget.passwordUser,
             onChanged: widget.onChangedPassword,
+            onEditingComplete: widget.onSubmittedPassword,
             obscureText: isPasswordVisible,
             style: GoogleFonts.inter(
               color: const Color(0xff534677),

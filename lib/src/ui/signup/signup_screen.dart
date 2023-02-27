@@ -21,7 +21,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   Future<void> createUserWithEmailAndPassword() async {
     try {
-      print("Usuario Creados");
+      print("Usuario Creado");
       await Auth().createUserWithEmailAndPassword(
         email: email.text.toLowerCase().trim(),
         password: password.text,
@@ -34,39 +34,43 @@ class _SignUpScreenState extends State<SignUpScreen> {
     } on FirebaseAuthException catch (e) {
       Navigator.pop(context);
       if (e.code == 'network-request-failed') {
-        showMensajeParaUsuario(
-            context, true, 'No cuenta con conexion a internet');
+        showMensajeParaUsuario(context, true,
+            'Error de solicitud de red: la solicitud no se pudo completar. Por favor, compruebe su conexión a Internet e inténtelo de nuevo.');
       } else if (e.code == 'email-already-in-use') {
-        mensajeErrorEmail('Este correo ya esta registrado', false);
+        mensajeErrorEmail('''Error: esta dirección de correo electrónico 
+ya está en uso. Por favor, intente con una diferente.''', false);
       } else if (e.code == 'weak-password') {
-        mensajeErrorPassword('Contraseña debil', false);
+        mensajeErrorPassword('''La contraseña ingresada es demasiado débil. 
+Por favor intente crear una contraseña más segura''', false);
       } else if (e.code == 'too-many-requests') {
         Future.microtask(() => showMensajeParaUsuario(context, true,
-            'Lo sentimos, has excedido el límite de solicitudes permitidas. Por favor, inténtalo de nuevo más tarde'));
+            'Lo sentimos, has excedido el límite de solicitudes permitidas. Por favor, inténtalo de nuevo más tarde.'));
       } else {
         Future.microtask(() => showMensajeParaUsuario(context, true,
-            'Error desconocido. Por favor, inténtalo de nuevo más tarde'));
+            'Error desconocido. Por favor, intente de nuevo más tarde.'));
       }
     }
   }
 
   void registrarse() {
-    String nombreValor = nombre.text.trim();
-    String emailValor = email.text.trim();
+    String nombreValor = nombre.text;
+    String emailValor = email.text.toLowerCase().trim();
     String passwordValor = password.text;
     String conffirmedPasswordValor = conffirmedPassword.text;
 
     if (nombreValor.isEmpty) {
-      mensajeErrorNombre('Por favor, ingrese su nombre', false);
+      mensajeErrorNombre('Por favor, ingrese su nombre.', false);
     }
     if (emailValor.isEmpty) {
-      mensajeErrorEmail('Por favor, ingrese su correo electronico', false);
+      mensajeErrorEmail('Por favor, ingrese su correo electrónico.', false);
     }
     if (passwordValor.isEmpty) {
       mensajeErrorPassword('Por favor, ingrese su contraseña', false);
     }
     if (conffirmedPasswordValor.isEmpty) {
-      mensajeErrorConffirmedPassword('Por favor, ingrese su contraseña', false);
+      mensajeErrorConffirmedPassword(
+          '''Por favor, ingrese su contraseña de nuevo para 
+confirmar.''', false);
     } else {
       String emailPattern =
           r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
@@ -77,32 +81,25 @@ class _SignUpScreenState extends State<SignUpScreen> {
       RegExp regExpPassword = RegExp(passwordPattern);
 
       if (passwordValor.length < 8) {
-        mensajeErrorPassword('Se necesitan al menos 8 caracteres', false);
-        if (conffirmedPasswordValor.length < 8) {
-          mensajeErrorConffirmedPassword(
-              'Se necesitan al menos 8 caracteres', false);
-        }
+        mensajeErrorPassword(
+            'La contraseña debe tener al menos 8 caracteres.', false);
       } else if (passwordValor != conffirmedPasswordValor) {
-        mensajeErrorPassword('Las contraseñas no coinciden', false);
-        mensajeErrorConffirmedPassword('Las contraseñas no coinciden', false);
+        mensajeErrorPassword('Error: contraseñas no coinciden.', false);
+        mensajeErrorConffirmedPassword(
+            'Error: contraseñas no coinciden.', false);
       } else if (!regExpPassword.hasMatch(passwordValor)) {
         mensajeErrorPassword(
             '''La contraseña debe tener al entre 8 y 16 caracteres,
-al menos un valor especial, un numero, una 
+al menos un valor especial, un número, una 
 minúscula y una mayúscula.''', false);
-        if (!regExpPassword.hasMatch(conffirmedPasswordValor)) {
-          mensajeErrorConffirmedPassword(
-              '''La contraseña debe tener al entre 8 y 16 caracteres,
-al menos un valor especial, un numero, una 
-minúscula y una mayúscula.''', false);
-        }
       } else {
         if (nombreValor.isEmpty) {
-          mensajeErrorNombre('Por favor, ingrese su nombre', false);
+          mensajeErrorNombre('Por favor, ingrese su nombre.', false);
         } else if (emailValor.isEmpty) {
-          mensajeErrorEmail('Por favor, ingrese su correo electronico', false);
+          mensajeErrorEmail('Por favor, ingrese su correo electrónico.', false);
         } else if (!regExpEmail.hasMatch(emailValor)) {
-          mensajeErrorEmail('Correo Invalido', false);
+          mensajeErrorEmail('''Error: correo electrónico inválido. Por favor, 
+ingrese un correo electrónico válido.''', false);
         } else {
           mensajeErrorNombre('', true);
           mensajeErrorEmail('', true);
@@ -112,6 +109,62 @@ minúscula y una mayúscula.''', false);
           createUserWithEmailAndPassword();
         }
       }
+    }
+  }
+
+  void onSubmittedNombre() {
+    if (nombre.text.isEmpty) {
+      mensajeErrorNombre('Por favor, ingrese su nombre.', false);
+    } else {
+      mensajeErrorNombre("", true);
+      FocusScope.of(context).nextFocus();
+    }
+  }
+
+  void onSubmittedEmail() {
+    String emailPattern =
+        r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+    RegExp regExpEmail = RegExp(emailPattern);
+    if (email.text.trim().toLowerCase().isEmpty) {
+      mensajeErrorEmail('Por favor, ingrese su correo electrónico.', false);
+    } else if (!regExpEmail.hasMatch(email.text.trim().toLowerCase())) {
+      mensajeErrorEmail('''Error: correo electrónico inválido. Por favor, 
+ingrese un correo electrónico válido.''', false);
+    } else {
+      mensajeErrorEmail("", true);
+      FocusScope.of(context).nextFocus();
+    }
+  }
+
+  void onSubmittedPassword() {
+    String passwordPattern =
+        r'^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{8,16}$';
+    RegExp regExpPassword = RegExp(passwordPattern);
+    if (password.text.isEmpty) {
+      mensajeErrorPassword('Por favor, ingrese su contraseña', false);
+    } else if (password.text.length < 8) {
+      mensajeErrorPassword(
+          'La contraseña debe tener al menos 8 caracteres.', false);
+    } else if (!regExpPassword.hasMatch(password.text)) {
+      mensajeErrorPassword(
+          '''La contraseña debe tener al entre 8 y 16 caracteres,
+al menos un valor especial, un número, una
+minúscula y una mayúscula.''', false);
+    } else {
+      mensajeErrorPassword("", true);
+      FocusScope.of(context).nextFocus();
+      FocusScope.of(context).nextFocus();
+    }
+  }
+
+  void onSubmittedConffirmedPassword() {
+    if (conffirmedPassword.text.isEmpty) {
+      mensajeErrorConffirmedPassword('Por favor, ingrese su contraseña', false);
+    } else if (conffirmedPassword.text != password.text) {
+      mensajeErrorConffirmedPassword('Las contraseñas no coinciden.', false);
+    } else {
+      mensajeErrorConffirmedPassword("", true);
+      createUserWithEmailAndPassword();
     }
   }
 
@@ -200,19 +253,24 @@ minúscula y una mayúscula.''', false);
                     nombreUser: nombre,
                     onChangedNombre: (value) => onChangedNombre(),
                     nombreError: errorInNombre ? null : mensajeErrorDeNombre,
+                    onSubmittedNombre: onSubmittedNombre,
                     emailUser: email,
                     onChangedEmail: (value) => onChangedEmail(),
+                    onSubmittedEmail: onSubmittedEmail,
                     emailError: errorInEmail ? null : mensajeErrorDeEmail,
                     passwordUser: password,
                     onChangedPassword: (value) => onChangedPassword(),
                     passwordError:
                         errorInPassword ? null : mensajeErrorDePassword,
+                    onSubmittedPassword: onSubmittedPassword,
                     conffirmedPasswordUser: conffirmedPassword,
                     onChangedConffirmedPassword: (value) =>
                         onChangedConffirmedPassword(),
                     conffirmedPasswordError: errorInConffirmedPassword
                         ? null
                         : mensajeErrorDeConffirmedPassword,
+                    onSubmittedConffirmedPassword:
+                        onSubmittedConffirmedPassword,
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 15.0),

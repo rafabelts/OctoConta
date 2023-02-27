@@ -1,12 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:octoconta_final/src/ui/bitacora_gastos/division_gastos/categorias/alimentos/alimentos_items.dart';
+import 'package:octoconta_final/src/ui/bitacora_gastos/division_gastos/categorias/gastos.dart';
 
-class GastosAlimentosScreen extends StatelessWidget {
-  const GastosAlimentosScreen({super.key});
+class AlimentosScreen extends StatelessWidget {
+  const AlimentosScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    List<dynamic> alimentosGastos = [
+      ['Hamburgesa', '\$200'],
+      ['Hamburgesa', '\$200'],
+      ['Hamburgesa', '\$200'],
+      ['Hamburgesa', '\$200'],
+      ['Hamburgesa', '\$200'],
+      ['Hamburgesa', '\$200'],
+      ['Hamburgesa', '\$200'],
+      ['Hamburgesa', '\$200'],
+      ['Hamburgesa', '\$200'],
+    ];
+
     return Scaffold(
         appBar: AppBar(
           title: Text(
@@ -26,7 +38,7 @@ class GastosAlimentosScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const GastosAlimentosItems(),
+              GastosItems(compras: alimentosGastos),
               Padding(
                 padding: EdgeInsets.only(
                     top: MediaQuery.of(context).size.height * 0.18),
@@ -35,7 +47,7 @@ class GastosAlimentosScreen extends StatelessWidget {
                   style: GoogleFonts.inter(
                     color: const Color(0xFF2a195d),
                     fontWeight: FontWeight.w600,
-                    fontSize: 28,
+                    fontSize: 24.2,
                   ),
                 ),
               ),

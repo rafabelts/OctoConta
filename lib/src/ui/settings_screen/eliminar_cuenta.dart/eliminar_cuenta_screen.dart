@@ -52,7 +52,7 @@ class _EliminarCuentaScreenState extends State<EliminarCuentaScreen> {
             context: context,
             builder: (context) => Center(
                   child: CircularProgressIndicator(
-                    color: const Color(0xff2A195D),
+                    color: const Color.fromARGB(255, 153, 151, 158),
                     backgroundColor: Theme.of(context).scaffoldBackgroundColor,
                   ),
                 ));
@@ -70,21 +70,23 @@ class _EliminarCuentaScreenState extends State<EliminarCuentaScreen> {
         // La cuenta se eliminó correctamente.
       } on FirebaseAuthException catch (e) {
         if (e.code == 'network-request-failed') {
-          Future.microtask(() => showMensajeParaUsuario(
-              context, true, 'No cuenta con conexion a internet'));
+          Future.microtask(() => showMensajeParaUsuario(context, true,
+              'Error de solicitud de red: la solicitud no se pudo completar. Por favor, compruebe su conexión a Internet e inténtelo de nuevo.'));
         } else if (e.code == 'wrong-password') {
           Navigator.pop(context); // Cerrar diálogo
-          mensajeErrorPassword('La contraseña es incorrecta.', true);
+          mensajeErrorPassword(
+              '''Error: contraseña incorrecta. Por favor ingrese su 
+contraseña correctamente.''', true);
         } else {
           Future.microtask(() => showMensajeParaUsuario(context, true,
-              'Error desconocido. Por favor, inténtalo de nuevo más tarde'));
+              'Error desconocido. Por favor, intente de nuevo más tarde.'));
         }
       }
     }
 
     void eliminar() {
       if (password.text.isEmpty) {
-        mensajeErrorPassword('Por favor, ingrese su contraseña.', true);
+        mensajeErrorPassword("Por favor, ingrese su contraseña.", true);
       } else {
         mensajeErrorPassword('', false);
         print(password.text);
@@ -123,6 +125,7 @@ class _EliminarCuentaScreenState extends State<EliminarCuentaScreen> {
             onChangedPassword: (value) => onChangedPassword(),
             passwordError:
                 errorInPassword == false ? null : mensajeDeErrorPassword,
+            onSubmmitedPassword: eliminar,
           ),
         ),
         Padding(

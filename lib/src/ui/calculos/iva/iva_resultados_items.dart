@@ -19,7 +19,7 @@ class ResultadosIVAItems extends StatelessWidget {
         Text(
           cantidadIVAText,
           style: GoogleFonts.inter(
-            fontSize: 26,
+            fontSize: 22,
             fontWeight: FontWeight.w600,
           ),
           textAlign: TextAlign.justify,
@@ -28,9 +28,9 @@ class ResultadosIVAItems extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 20.0),
           child: Align(
             child: Text(
-              "\$ $cantidadIVARedondeado",
+              "\$$cantidadIVARedondeado",
               style: GoogleFonts.inter(
-                fontSize: 38,
+                fontSize: 32,
                 fontWeight: FontWeight.bold,
                 color: const Color.fromARGB(255, 75, 35, 156),
               ),
@@ -42,7 +42,7 @@ class ResultadosIVAItems extends StatelessWidget {
           child: Text(
             "Lo que da un total de:",
             style: GoogleFonts.inter(
-              fontSize: 26,
+              fontSize: 22,
               fontWeight: FontWeight.w600,
             ),
             textAlign: TextAlign.justify,
@@ -52,9 +52,9 @@ class ResultadosIVAItems extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 20.0),
           child: Align(
             child: Text(
-              "\$ $total",
+              "\$$total",
               style: GoogleFonts.inter(
-                fontSize: 40,
+                fontSize: 30,
                 fontWeight: FontWeight.bold,
                 color: const Color.fromARGB(255, 75, 35, 156),
               ),

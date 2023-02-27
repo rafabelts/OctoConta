@@ -2,19 +2,21 @@ import 'package:adaptive_components/adaptive_components.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:octoconta_final/src/services/auth.dart';
-import 'package:octoconta_final/src/ui/bitacora_gastos/division_gastos/categorias_items.dart';
+import 'package:octoconta_final/src/ui/bitacora_gastos/ingresos/ingreso_items.dart';
 
-class CategoriasGastosScreen extends StatelessWidget {
-  const CategoriasGastosScreen({super.key});
+class CategoriasIngresosScreen extends StatelessWidget {
+  const CategoriasIngresosScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     final String? userName = Auth().currentUser?.displayName;
-
+    List<dynamic> ingresosItems = [
+      ['Curso', 0]
+    ];
     return Scaffold(
         appBar: AppBar(
           title: Text(
-            'Categorías',
+            'Ingresos',
             style: GoogleFonts.inter(
                 color: const Color(0xFF2a195d),
                 fontWeight: FontWeight.bold,
@@ -34,11 +36,14 @@ class CategoriasGastosScreen extends StatelessWidget {
                 child: Column(children: <Widget>[
                   Column(
                     children: [
-                      const CategoriasItems(),
+                      ItemsIngreso(
+                        items: ingresosItems,
+                      ),
+                      // const CategoriasItems(),
                       Padding(
-                        padding: const EdgeInsets.only(top: 60.0),
+                        padding: const EdgeInsets.only(top: 40.0),
                         child: Text(
-                          '$userName, este mes ha gastado:',
+                          '$userName, este es el total de ingresos del mes:',
                           style: GoogleFonts.poppins(
                               color: const Color.fromARGB(
                                   232, 42, 25, 93), //0xFF2a195d
@@ -63,21 +68,4 @@ class CategoriasGastosScreen extends StatelessWidget {
           ]),
         ));
   }
-
-  // Widget _buildInputs(BuildContext context) {
-  //   return Padding(
-  //       padding: const EdgeInsets.all(5.0),
-  //       child: Padding(
-  //         padding: const EdgeInsets.only(top: 0.01),
-  //         child: Column(
-  //           children: const <Widget>[
-  //             AgregarGastoInputs(),
-  //             Padding(
-  //                 padding: EdgeInsets.only(top: 40.0),
-  //                 child: CategoriasEleccion()),
-  //             BotonesBitacora(),
-  //           ],
-  //         ),
-  //       ));
-  // }
 }

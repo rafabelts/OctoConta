@@ -11,9 +11,9 @@ class ResultadosTarjetaItems extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Text(
-          "Su interés mensual sera de:",
+          "Su interés mensual será de:",
           style: GoogleFonts.inter(
-            fontSize: 28,
+            fontSize: 22,
             fontWeight: FontWeight.w600,
           ),
         ),
@@ -21,9 +21,9 @@ class ResultadosTarjetaItems extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 20.0),
           child: Align(
             child: Text(
-              "\$ $total",
+              "\$$total",
               style: GoogleFonts.inter(
-                fontSize: 40,
+                fontSize: 30,
                 fontWeight: FontWeight.bold,
                 color: const Color.fromARGB(255, 75, 35, 156),
               ),

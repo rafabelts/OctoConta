@@ -3,7 +3,7 @@ import 'package:octoconta_final/src/models/buttons_calculos.dart';
 import 'package:octoconta_final/src/models/muestra_resultados.dart';
 import 'package:octoconta_final/src/ui/calculos/tarjeta/tarjeta_inputs.dart';
 import 'package:octoconta_final/src/ui/calculos/tarjeta/tarjeta_resultados_items.dart';
-
+import 'package:intl/intl.dart';
 import '../../../models/error_calculando.dart';
 
 class CalculoTarjetaScreen extends StatefulWidget {
@@ -42,7 +42,6 @@ class _CalculoTarjetaScreenState extends State<CalculoTarjetaScreen> {
   }
 
   onChanged() {
-    showErrorMessage(context, false);
     if (deuda.text.isEmpty) {
       interes.text.isEmpty
           ? setValidador(false, false)
@@ -82,7 +81,7 @@ class _CalculoTarjetaScreenState extends State<CalculoTarjetaScreen> {
       } else {
         setValidador(true, true);
         try {
-          calcularInteres(context);
+          calcularInteres();
           mostrarResultados(
               context, ResultadosTarjetaItems(total: totalRedondeado));
         } catch (e) {
@@ -93,17 +92,18 @@ class _CalculoTarjetaScreenState extends State<CalculoTarjetaScreen> {
   }
 
   late String totalRedondeado;
-  calcularInteres(BuildContext context) {
-    double deudaUsuario = double.parse(deuda.text);
+  calcularInteres() {
+    double deudaUsuario = double.parse(deuda.text.replaceAll(',', ''));
     double saldosDiario = deudaUsuario / 30;
 
-    double interesAnual = double.parse(interes.text);
+    double interesAnual = double.parse(interes.text.replaceAll(',', ''));
     double interesMensual = (interesAnual / 100) / 12;
 
     double interesOrdinario = saldosDiario * interesMensual;
     double interesOrdinarioConIVA = interesOrdinario + (interesOrdinario * .16);
     setState(() {
-      totalRedondeado = interesOrdinarioConIVA.toStringAsFixed(2);
+      totalRedondeado =
+          NumberFormat("#,###.##", "en_US").format(interesOrdinarioConIVA);
     });
   }
 
@@ -127,7 +127,6 @@ class _CalculoTarjetaScreenState extends State<CalculoTarjetaScreen> {
             Botones(
               limpiar: () {
                 setValidador(true, true);
-                showErrorMessage(context, false);
                 deuda.clear();
                 interes.clear();
               },

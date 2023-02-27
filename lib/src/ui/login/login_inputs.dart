@@ -5,16 +5,22 @@ class LogInInputs extends StatefulWidget {
   final TextEditingController correoUser;
   final dynamic correoError;
   final Function(dynamic) onChangedCorreo;
+  final VoidCallback onSubmittedCorreo;
+
   final TextEditingController passwordUser;
   final dynamic passwordError;
   final Function(dynamic) onChangedPassword;
+  final VoidCallback onSubmittedPassword;
+
   const LogInInputs(
       {required this.correoUser,
       required this.correoError,
       required this.onChangedCorreo,
+      required this.onSubmittedCorreo,
       required this.passwordUser,
       required this.passwordError,
       required this.onChangedPassword,
+      required this.onSubmittedPassword,
       super.key});
 
   @override
@@ -43,21 +49,21 @@ class _LogInInputsState extends State<LogInInputs> {
 
   Widget buildInputNombreEmail(BuildContext context) {
     // Creo la entrada del email del usuario
-    TextEditingController correoUser = widget.correoUser;
-    dynamic emailError = widget.correoError;
-    Function(dynamic) onChangedEmail = widget.onChangedCorreo;
+
     return Padding(
       padding: const EdgeInsets.only(top: 30.0),
       child: TextField(
-        controller: correoUser,
-        onChanged: onChangedEmail,
+        controller: widget.correoUser,
+        onChanged: widget.onChangedCorreo,
+        onEditingComplete: widget.onSubmittedCorreo,
+        keyboardType: TextInputType.emailAddress,
         style: GoogleFonts.inter(
           color: const Color(0xff534677),
           fontWeight: FontWeight.bold,
           fontSize: 18,
         ),
         decoration: InputDecoration(
-          errorText: emailError,
+          errorText: widget.correoError,
           errorStyle:
               GoogleFonts.inter(fontSize: 14, fontWeight: FontWeight.w600),
           errorBorder: const OutlineInputBorder(
@@ -87,23 +93,20 @@ class _LogInInputsState extends State<LogInInputs> {
   }
 
   Widget buildPasswordInput(BuildContext context) {
-    // Creo la entrada del password del usuario
-    TextEditingController passwordUser = widget.passwordUser;
-    dynamic passwordError = widget.passwordError;
-    Function(dynamic) onChangedPassword = widget.onChangedPassword;
     return Padding(
       padding: const EdgeInsets.only(top: 30.0),
       child: TextField(
-        controller: passwordUser,
-        onChanged: onChangedPassword,
+        controller: widget.passwordUser,
+        onChanged: widget.onChangedPassword,
         obscureText: _isPasswordVisible,
+        onEditingComplete: widget.onSubmittedPassword,
         style: GoogleFonts.inter(
           color: const Color(0xff534677),
           fontWeight: FontWeight.bold,
           fontSize: 18,
         ),
         decoration: InputDecoration(
-          errorText: passwordError,
+          errorText: widget.passwordError,
           errorStyle:
               GoogleFonts.inter(fontSize: 14, fontWeight: FontWeight.w600),
           errorBorder: const OutlineInputBorder(

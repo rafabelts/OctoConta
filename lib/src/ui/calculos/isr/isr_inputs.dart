@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:number_text_input_formatter/number_text_input_formatter.dart';
 
 class CalculoIsrInput extends StatelessWidget {
   final TextEditingController sueldo;
@@ -31,6 +32,20 @@ class CalculoIsrInput extends StatelessWidget {
             keyboardType: TextInputType.number,
             style: Theme.of(context).textTheme.labelLarge,
             textAlign: TextAlign.center,
+            inputFormatters: [
+              NumberTextInputFormatter(
+                integerDigits: 10,
+                decimalDigits: 2,
+                maxValue: '1000000000.00',
+                decimalSeparator: '.',
+                groupDigits: 3,
+                groupSeparator: ',',
+                allowNegative: false,
+                overrideDecimalPoint: true,
+                insertDecimalPoint: false,
+                insertDecimalDigits: false,
+              ),
+            ],
             cursorColor: const Color(0xFF382A62),
             decoration: InputDecoration(
                 errorText: esNumero ? null : 'Por favor ingrese un número',

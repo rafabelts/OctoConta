@@ -11,11 +11,12 @@ class ResultadosPrestamoItems extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Text(
-          "Su pago mensual sera de:",
+          "Su pago mensual será de:",
           style: GoogleFonts.inter(
-            fontSize: 26,
+            fontSize: 22,
             fontWeight: FontWeight.w600,
           ),
+          textAlign: TextAlign.justify,
         ),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 20.0),
@@ -23,7 +24,7 @@ class ResultadosPrestamoItems extends StatelessWidget {
             child: Text(
               "\$$total",
               style: GoogleFonts.inter(
-                fontSize: 40,
+                fontSize: 30,
                 fontWeight: FontWeight.bold,
                 color: const Color.fromARGB(255, 75, 35, 156),
               ),

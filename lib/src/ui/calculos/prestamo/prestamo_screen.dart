@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:octoconta_final/src/models/muestra_resultados.dart';
 import 'package:octoconta_final/src/ui/calculos/prestamo/prestamo_inputs.dart';
 import 'package:octoconta_final/src/ui/calculos/prestamo/prestamo_resultados_items.dart';
@@ -49,7 +50,6 @@ class _CalculoPrestamoScreenState extends State<CalculoPrestamoScreen> {
   }
 
   onChanged() {
-    showErrorMessage(context, false);
     if (monto.text.isEmpty) {
       if (interes.text.isEmpty) {
         meses.text.isEmpty
@@ -156,7 +156,7 @@ class _CalculoPrestamoScreenState extends State<CalculoPrestamoScreen> {
         } else {
           setValidador(true, true, true);
           try {
-            calculoPrestamo(context);
+            calculoPrestamo();
             mostrarResultados(
                 context, ResultadosPrestamoItems(total: totalRedondeado));
           } catch (e) {
@@ -169,7 +169,7 @@ class _CalculoPrestamoScreenState extends State<CalculoPrestamoScreen> {
         } else {
           setValidador(true, true, true);
           try {
-            calculoPrestamo(context);
+            calculoPrestamo();
             mostrarResultados(
                 context, ResultadosPrestamoItems(total: totalRedondeado));
           } catch (e) {
@@ -181,19 +181,19 @@ class _CalculoPrestamoScreenState extends State<CalculoPrestamoScreen> {
   }
 
   String totalRedondeado = '';
-  calculoPrestamo(BuildContext context) {
+  calculoPrestamo() {
+    // Realiza el calculo del prestamo
+    double montoUsuario = double.parse(monto.text.replaceAll(',', ''));
+
+    double interesAnual = double.parse(interes.text.replaceAll(',', ''));
+    double interesMensual = (interesAnual / 100) / 12;
+
+    int mesesUsuario = -(int.parse(meses.text.replaceAll(',', '')));
+
+    double pagoMensual = montoUsuario /
+        ((1 - (pow((1 + interesMensual), mesesUsuario))) / interesMensual);
     setState(() {
-      // Realiza el calculo del prestamo
-      double montoUsuario = double.parse(monto.text);
-
-      double interesAnual = double.parse(interes.text);
-      double interesMensual = (interesAnual / 100) / 12;
-
-      int mesesUsuario = -(int.parse(meses.text));
-
-      double pagoMensual = montoUsuario /
-          ((1 - (pow((1 + interesMensual), mesesUsuario))) / interesMensual);
-      totalRedondeado = pagoMensual.toStringAsFixed(2);
+      totalRedondeado = NumberFormat("#,###.##", "en_US").format(pagoMensual);
     });
   }
 
@@ -220,7 +220,6 @@ class _CalculoPrestamoScreenState extends State<CalculoPrestamoScreen> {
             Botones(
               limpiar: () {
                 setValidador(true, true, true);
-                showErrorMessage(context, false);
                 monto.clear();
                 interes.clear();
                 meses.clear();

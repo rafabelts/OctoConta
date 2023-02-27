@@ -41,31 +41,37 @@ class _CorreoParaVerificarState extends State<CorreoParaVerificar> {
     try {
       await Auth().changePasswordEmail(
           context: context, email: correo.text.toLowerCase().trim());
-      Future.microtask(() => showMensajeParaUsuario(
-          context, true, 'Link para cambiar contrasena, revise su email!'));
+      Future.microtask(() => showMensajeParaUsuario(context, true,
+          'Se ha enviado el link para cambiar su contraseña. Por favor, revise su email!'));
     } on FirebaseAuthException catch (e) {
       if (e.code == 'network-request-failed') {
-        Future.microtask(() => showMensajeParaUsuario(
-            context, true, 'No cuenta con conexion a internet'));
-      } else if (e.code == 'invalid-email') {
-        mensajeErrorEmail('Correo invalido', true);
+        showMensajeParaUsuario(context, true,
+            'Error de solicitud de red: la solicitud no se pudo completar. Por favor, compruebe su conexión a Internet e inténtelo de nuevo.');
       } else if (e.code == 'user-not-found') {
-        mensajeErrorEmail('Usuario no encontrado', true);
+        // El usuario no existe
+        mensajeErrorEmail('''Error: la cuenta de usuario no se ha encontrado. 
+Por favor, compruebe su dirección de correo 
+electrónico e intente de nuevo.''', false);
+      } else if (e.code == 'invalid-email') {
+        // La dirección de correo electrónico es inválida
+        mensajeErrorEmail('''Error: correo electrónico inválido. Por favor, 
+ingrese un correo electrónico válido.''', false);
       } else if (e.code == 'too-many-requests') {
         Future.microtask(() => showMensajeParaUsuario(context, true,
-            'Lo sentimos, has excedido el límite de solicitudes permitidas. Por favor, inténtalo de nuevo más tarde'));
+            'Lo sentimos, has excedido el límite de solicitudes permitidas. Por favor, inténtalo de nuevo más tarde.'));
       } else {
         Future.microtask(() => showMensajeParaUsuario(context, true,
-            'Error desconocido. Por favor, inténtalo de nuevo más tarde'));
+            'Error desconocido. Por favor, intente de nuevo más tarde.'));
       }
     } finally {
+      FocusScope.of(context).unfocus();
       Navigator.pop(context);
     }
   }
 
   void enviarCodigoPassword() {
     if (correo.text.isEmpty) {
-      mensajeErrorEmail('Por favor ingrese su correo', true);
+      mensajeErrorEmail('Por favor, ingrese su correo electrónico.', true);
     } else {
       enviarCorreo();
     }
@@ -107,6 +113,7 @@ class _CorreoParaVerificarState extends State<CorreoParaVerificar> {
                       errorInCorreoUser: errorInEmailUser == false
                           ? null
                           : mensajeDeErroremailUser,
+                      onSubmittedCorreo: enviarCodigoPassword,
                     ),
                     BotonesParaRecuperacion(
                       enviarCodigo: () => enviarCodigoPassword(),

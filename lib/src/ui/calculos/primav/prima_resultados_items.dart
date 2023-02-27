@@ -17,10 +17,10 @@ class ResultadosPrimaVacacionalItems extends StatelessWidget {
         Text(
           'Prima vacacional total:',
           style: GoogleFonts.inter(
-            fontSize: 26,
+            fontSize: 22,
             fontWeight: FontWeight.w600,
           ),
-          textAlign: TextAlign.justify,
+          // textAlign: TextAlign.justify,
         ),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 20.0),
@@ -28,7 +28,7 @@ class ResultadosPrimaVacacionalItems extends StatelessWidget {
             child: Text(
               cantidadPrimaRedondeado,
               style: GoogleFonts.inter(
-                fontSize: 38,
+                fontSize: 30,
                 fontWeight: FontWeight.bold,
                 color: const Color.fromARGB(255, 75, 35, 156),
               ),
@@ -40,7 +40,7 @@ class ResultadosPrimaVacacionalItems extends StatelessWidget {
           child: Text(
             'Días de vacaciones:',
             style: GoogleFonts.inter(
-              fontSize: 26,
+              fontSize: 22,
               fontWeight: FontWeight.w600,
             ),
             textAlign: TextAlign.justify,
@@ -52,7 +52,7 @@ class ResultadosPrimaVacacionalItems extends StatelessWidget {
             child: Text(
               diasVacaciones,
               style: GoogleFonts.inter(
-                fontSize: 40,
+                fontSize: 30,
                 fontWeight: FontWeight.bold,
                 color: const Color.fromARGB(255, 75, 35, 156),
               ),

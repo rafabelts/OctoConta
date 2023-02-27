@@ -5,10 +5,12 @@ class CambiarNombreInput extends StatelessWidget {
   final TextEditingController nombreUser;
   final Function(dynamic) onChangedNombreUser;
   final dynamic errorNombreUser;
+  final VoidCallback onCompleteNombre;
   const CambiarNombreInput(
       {required this.nombreUser,
       required this.onChangedNombreUser,
       required this.errorNombreUser,
+      required this.onCompleteNombre,
       super.key});
 
   @override
@@ -31,6 +33,7 @@ class CambiarNombreInput extends StatelessWidget {
         TextField(
           controller: nombreUser,
           onChanged: onChangedNombreUser,
+          onEditingComplete: onCompleteNombre,
           style: GoogleFonts.inter(
             color: const Color(0xff534677),
             fontWeight: FontWeight.bold,

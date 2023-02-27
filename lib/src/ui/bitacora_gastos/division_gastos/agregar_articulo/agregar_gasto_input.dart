@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../../models/dropdown_cantidad.dart';
+import '../../../../models/dropdown_cantidad.dart';
 
-class BitacoraGastosInput extends StatelessWidget {
-  const BitacoraGastosInput({super.key});
+class AgregarGastoInputs extends StatelessWidget {
+  const AgregarGastoInputs({super.key});
 
   @override
   Widget build(BuildContext context) {

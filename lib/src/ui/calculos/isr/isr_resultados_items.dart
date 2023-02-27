@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ResultadosPrimaVacacionalItems extends StatelessWidget {
+  final String periodo;
   final String subsidioRedondeado;
   final String isrRedondeado;
   const ResultadosPrimaVacacionalItems(
-      {required this.isrRedondeado,
+      {required this.periodo,
+      required this.isrRedondeado,
       required this.subsidioRedondeado,
       super.key});
 
@@ -15,19 +17,20 @@ class ResultadosPrimaVacacionalItems extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Su ISR diario sera de:',
+          'Su ISR $periodo será de:',
           style: GoogleFonts.inter(
-            fontSize: 26,
+            fontSize: 22,
             fontWeight: FontWeight.w600,
           ),
+          textAlign: TextAlign.justify,
         ),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 20.0),
           child: Align(
             child: Text(
-              isrRedondeado,
+              "\$$isrRedondeado",
               style: GoogleFonts.inter(
-                fontSize: 44,
+                fontSize: 32,
                 fontWeight: FontWeight.bold,
                 color: const Color.fromARGB(255, 75, 35, 156),
               ),
@@ -37,20 +40,21 @@ class ResultadosPrimaVacacionalItems extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(top: 20.0),
           child: Text(
-            'Y tendra un subsidio de:',
+            'Y tendrá un subsidio de:',
             style: GoogleFonts.inter(
-              fontSize: 26,
+              fontSize: 22,
               fontWeight: FontWeight.w600,
             ),
+            textAlign: TextAlign.justify,
           ),
         ),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 15.0),
           child: Align(
             child: Text(
-              subsidioRedondeado,
+              "\$$subsidioRedondeado",
               style: GoogleFonts.inter(
-                fontSize: 38,
+                fontSize: 30,
                 fontWeight: FontWeight.bold,
                 color: const Color.fromARGB(255, 75, 35, 156),
               ),

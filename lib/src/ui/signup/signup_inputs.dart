@@ -2,35 +2,43 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class SignUpInputs extends StatefulWidget {
-  final TextEditingController emailUser;
-  final dynamic emailError;
-  final Function(dynamic) onChangedEmail;
-
   final TextEditingController nombreUser;
   final dynamic nombreError;
   final Function(dynamic) onChangedNombre;
+  final VoidCallback onSubmittedNombre;
+
+  final TextEditingController emailUser;
+  final dynamic emailError;
+  final Function(dynamic) onChangedEmail;
+  final VoidCallback onSubmittedEmail;
 
   final TextEditingController passwordUser;
   final dynamic passwordError;
   final Function(dynamic) onChangedPassword;
+  final VoidCallback onSubmittedPassword;
 
   final TextEditingController conffirmedPasswordUser;
   final dynamic conffirmedPasswordError;
   final Function(dynamic) onChangedConffirmedPassword;
+  final VoidCallback onSubmittedConffirmedPassword;
 
   const SignUpInputs(
-      {required this.emailUser,
-      required this.emailError,
-      required this.onChangedEmail,
-      required this.nombreUser,
+      {required this.nombreUser,
       required this.nombreError,
       required this.onChangedNombre,
+      required this.onSubmittedNombre,
+      required this.emailUser,
+      required this.emailError,
+      required this.onChangedEmail,
+      required this.onSubmittedEmail,
       required this.passwordUser,
       required this.passwordError,
       required this.onChangedPassword,
+      required this.onSubmittedPassword,
       required this.conffirmedPasswordUser,
       required this.conffirmedPasswordError,
       required this.onChangedConffirmedPassword,
+      required this.onSubmittedConffirmedPassword,
       super.key});
 
   @override
@@ -40,19 +48,6 @@ class SignUpInputs extends StatefulWidget {
 class _SignUpInputsState extends State<SignUpInputs> {
   bool _isPasswordVisible = true;
   bool _isConfirmPasswordVisible = true;
-
-  late TextEditingController nombre = widget.nombreUser;
-  late Function(dynamic) onChangedNombre = widget.onChangedNombre;
-
-  late TextEditingController email = widget.emailUser;
-  late Function(dynamic) onChangedEmail = widget.onChangedEmail;
-
-  late TextEditingController password = widget.passwordUser;
-  late Function(dynamic) onChangedPassword = widget.onChangedPassword;
-
-  late TextEditingController conffirmedPassword = widget.conffirmedPasswordUser;
-  late Function(dynamic) onChangedConffirmedPassword =
-      widget.onChangedConffirmedPassword;
 
   @override
   Widget build(BuildContext context) {
@@ -76,20 +71,19 @@ class _SignUpInputsState extends State<SignUpInputs> {
 
   Widget buildInputNombre(BuildContext context) {
     // Creo la entrada del nombre del usuario
-    late dynamic errorNombre = widget.nombreError;
-    // late Function(dynamic) onChangedNombre = widget.onChangedNombre;
     return Padding(
       padding: const EdgeInsets.only(top: 20.0),
       child: TextField(
-        controller: nombre,
-        onChanged: onChangedNombre,
+        controller: widget.nombreUser,
+        onChanged: widget.onChangedNombre,
         style: GoogleFonts.inter(
           color: const Color(0xff534677),
           fontWeight: FontWeight.bold,
           fontSize: 18,
         ),
+        onEditingComplete: widget.onSubmittedNombre,
         decoration: InputDecoration(
-          errorText: errorNombre,
+          errorText: widget.nombreError,
           errorStyle:
               GoogleFonts.inter(fontSize: 14, fontWeight: FontWeight.w600),
           errorBorder: const OutlineInputBorder(
@@ -120,22 +114,20 @@ class _SignUpInputsState extends State<SignUpInputs> {
 
   Widget buildEmailInput(BuildContext context) {
     // Creo la entrada del e-mail del usuario
-    // late TextEditingController email = widget.emailUser;
-    late dynamic emailError = widget.emailError;
-    // late Function(dynamic) onChangedEmail = widget.onChangedEmail;
     return Padding(
       padding: const EdgeInsets.only(top: 30.0),
       child: TextField(
         keyboardType: TextInputType.emailAddress,
-        controller: email,
-        onChanged: onChangedEmail,
+        controller: widget.emailUser,
+        onChanged: widget.onChangedEmail,
+        onEditingComplete: widget.onSubmittedEmail,
         style: GoogleFonts.inter(
           color: const Color(0xff534677),
           fontWeight: FontWeight.bold,
           fontSize: 18,
         ),
         decoration: InputDecoration(
-          errorText: emailError,
+          errorText: widget.emailError,
           errorStyle:
               GoogleFonts.inter(fontSize: 14, fontWeight: FontWeight.w600),
           errorBorder: const OutlineInputBorder(
@@ -165,24 +157,20 @@ class _SignUpInputsState extends State<SignUpInputs> {
   }
 
   Widget buildPasswordInput(BuildContext context) {
-    // Entrada para la contrasena del usuario
-    // late TextEditingController password = widget.passwordUser;
-    late dynamic errorPassword = widget.passwordError;
-    // late Function(dynamic) onChangedPassword = widget.onChangedPassword;
-
     return Padding(
       padding: const EdgeInsets.only(top: 30.0),
       child: TextField(
-        controller: password,
-        onChanged: onChangedPassword,
+        controller: widget.passwordUser,
+        onChanged: widget.onChangedPassword,
         obscureText: _isPasswordVisible,
+        onEditingComplete: widget.onSubmittedPassword,
         style: GoogleFonts.inter(
           color: const Color(0xff534677),
           fontWeight: FontWeight.bold,
           fontSize: 18,
         ),
         decoration: InputDecoration(
-          errorText: errorPassword,
+          errorText: widget.passwordError,
           errorStyle:
               GoogleFonts.inter(fontSize: 13.15, fontWeight: FontWeight.w600),
           errorBorder: const OutlineInputBorder(
@@ -226,25 +214,20 @@ class _SignUpInputsState extends State<SignUpInputs> {
 
   Widget buildCPasswordInput(BuildContext context) {
     // Entrada para la confirmacion de contrasena del usuario
-    // late TextEditingController conffirmedPassword =
-    // widget.conffirmedPasswordUser;
-    late dynamic errorConffirmedPassword = widget.conffirmedPasswordError;
-    // late Function(dynamic) onChangedConffirmedPassword =
-    //     widget.onChangedConffirmedPassword;
-
     return Padding(
       padding: const EdgeInsets.only(top: 30.0),
       child: TextField(
-        controller: conffirmedPassword,
+        controller: widget.conffirmedPasswordUser,
         obscureText: _isConfirmPasswordVisible,
-        onChanged: onChangedConffirmedPassword,
+        onChanged: widget.onChangedConffirmedPassword,
+        onEditingComplete: widget.onSubmittedConffirmedPassword,
         style: GoogleFonts.inter(
           color: const Color(0xff534677),
           fontWeight: FontWeight.bold,
           fontSize: 18,
         ),
         decoration: InputDecoration(
-          errorText: errorConffirmedPassword,
+          errorText: widget.conffirmedPasswordError,
           errorStyle:
               GoogleFonts.inter(fontSize: 13.15, fontWeight: FontWeight.w600),
           errorBorder: const OutlineInputBorder(

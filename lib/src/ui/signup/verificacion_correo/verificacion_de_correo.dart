@@ -46,14 +46,14 @@ class _VerificacionDeCorreoState extends State<VerificacionDeCorreo> {
       await user.sendEmailVerification();
     } on FirebaseAuthException catch (e) {
       if (e.code == 'network-request-failed') {
-        Future.microtask(() => showMensajeParaUsuario(
-            context, true, 'No cuenta con conexion a internet'));
+        Future.microtask(() => showMensajeParaUsuario(context, true,
+            'Error de solicitud de red: la solicitud no se pudo completar. Por favor, compruebe su conexión a Internet e inténtelo de nuevo.'));
       } else if (e.code == 'too-many-requests') {
         Future.microtask(() => showMensajeParaUsuario(context, true,
-            'Lo sentimos, has excedido el límite de solicitudes permitidas. Por favor, inténtalo de nuevo más tarde'));
+            'Lo sentimos, has excedido el límite de solicitudes permitidas. Por favor, inténtalo de nuevo más tarde.'));
       } else {
         Future.microtask(() => showMensajeParaUsuario(context, true,
-            'Error desconocido. Por favor, inténtalo de nuevo más tarde'));
+            'Error desconocido. Por favor, intente de nuevo más tarde.'));
       }
     }
   }

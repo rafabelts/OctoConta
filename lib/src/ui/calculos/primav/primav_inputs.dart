@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:number_text_input_formatter/number_text_input_formatter.dart';
 
 class CalculoPrimaVacacionalInput extends StatelessWidget {
   final TextEditingController year;
@@ -35,6 +37,8 @@ class CalculoPrimaVacacionalInput extends StatelessWidget {
             onEditingComplete: onCompleteYear,
             onChanged: onChanged,
             controller: year,
+            maxLength: 4,
+            maxLengthEnforcement: MaxLengthEnforcement.enforced,
             keyboardType: TextInputType.number,
             style: Theme.of(context).textTheme.labelLarge,
             textAlign: TextAlign.center,
@@ -71,6 +75,20 @@ class CalculoPrimaVacacionalInput extends StatelessWidget {
             onChanged: onChanged,
             controller: sueldo,
             keyboardType: TextInputType.number,
+            inputFormatters: [
+              NumberTextInputFormatter(
+                integerDigits: 10,
+                decimalDigits: 2,
+                maxValue: '1000000000.00',
+                decimalSeparator: '.',
+                groupDigits: 3,
+                groupSeparator: ',',
+                allowNegative: false,
+                overrideDecimalPoint: true,
+                insertDecimalPoint: false,
+                insertDecimalDigits: false,
+              ),
+            ],
             style: Theme.of(context).textTheme.labelLarge,
             textAlign: TextAlign.center,
             cursorColor: const Color(0xFF382A62),

@@ -5,11 +5,13 @@ class EliminarCuentaInput extends StatefulWidget {
   final TextEditingController passwordUser;
   final Function(dynamic) onChangedPassword;
   final dynamic passwordError;
+  final VoidCallback onSubmmitedPassword;
 
   const EliminarCuentaInput(
       {required this.passwordUser,
       required this.onChangedPassword,
       required this.passwordError,
+      required this.onSubmmitedPassword,
       super.key});
 
   @override
@@ -18,25 +20,23 @@ class EliminarCuentaInput extends StatefulWidget {
 
 class _EliminarCuentaInputState extends State<EliminarCuentaInput> {
   bool isPasswordVisible = true;
-  late final TextEditingController passwordUser = widget.passwordUser;
-  late final Function(dynamic) onChangedPassword = widget.onChangedPassword;
+
   @override
   Widget build(BuildContext context) {
-    final dynamic passwordError = widget.passwordError;
-
     return SizedBox(
         width: MediaQuery.of(context).size.width - 20,
         child: TextField(
-          controller: passwordUser,
-          onChanged: onChangedPassword,
+          controller: widget.passwordUser,
+          onChanged: widget.onChangedPassword,
           obscureText: isPasswordVisible,
+          onEditingComplete: widget.onSubmmitedPassword,
           style: GoogleFonts.inter(
             color: const Color(0xff534677),
             fontWeight: FontWeight.bold,
             fontSize: 18,
           ),
           decoration: InputDecoration(
-            errorText: passwordError,
+            errorText: widget.passwordError,
             errorStyle:
                 GoogleFonts.inter(fontSize: 14, fontWeight: FontWeight.w600),
             errorBorder: const OutlineInputBorder(

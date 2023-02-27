@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.octoconta_final">
    <application
-        android:label="octoconta_final"
+        android:label="OctoConta (Beta)"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"    
         >

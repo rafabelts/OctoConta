@@ -1,16 +1,12 @@
-import 'package:flutter/material.dart';
-
-double convertirSueldo(
-    TextEditingController sueldo, String periodoSalario, double conversion) {
-  double salario = double.parse(sueldo.text);
-  // var salario = doubl,parse(sueldo.text);
+double convertirSueldo(String sueldo, String periodoSalario) {
+  double salario = double.parse(sueldo);
   if (periodoSalario == 'Anual') {
-    return conversion = double.parse('${salario / 1}');
+    return double.parse('${salario / 360}');
   } else if (periodoSalario == 'Mensual') {
-    return conversion = double.parse('${salario / 30}');
+    return double.parse('${salario / 30}');
   } else if (periodoSalario == 'Semanal') {
-    return conversion = double.parse('${salario / 7}');
+    return double.parse('${salario / 7}');
   } else {
-    return conversion = salario;
+    return salario;
   }
 }

@@ -35,45 +35,43 @@ class DescripcionISR extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(top: 10.0),
             child: Text(
-              'Persona física:',
+              'Impuesto Sobre Renta (ISR) a favor:',
               style: GoogleFonts.inter(
                   color: colorTitulo,
                   fontWeight: FontWeight.w700,
-                  fontSize: 26),
+                  fontSize: 27),
             ),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10.0),
-            child: Text(
-              'Sujeto jurídico, es decir, cualquier hombre o mujer, tú como persona eres una persona física.',
-              style: GoogleFonts.inter(
-                  color: colorBodyTexto,
-                  fontWeight: FontWeight.w500,
-                  fontSize: 20),
-              textAlign: TextAlign.justify,
-            ),
-          ),
+              padding: const EdgeInsets.symmetric(vertical: 10.0),
+              child: Text(
+                'Cuando tiene un saldo a favor podrá solicitar las devoluciones que le correspondan. Esto ocurre cuando al efectuar el cálculo de sus impuestos, resulta que pagó más de lo que debía, por lo que puede solicitar ante el SAT que le sea devuelta la cantidad.',
+                style: GoogleFonts.inter(
+                    color: colorBodyTexto,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 20),
+                textAlign: TextAlign.justify,
+              )),
           Padding(
             padding: const EdgeInsets.only(top: 10.0),
             child: Text(
-              'Persona moral:',
+              'Impuesto Sobre Renta (ISR) a retener:',
               style: GoogleFonts.inter(
                   color: colorTitulo,
                   fontWeight: FontWeight.w700,
-                  fontSize: 26),
+                  fontSize: 27),
             ),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10.0),
-            child: Text(
-              'Organización reconocida por la ley como una persona ficticia, como una corporación, una agencia gubernamental, una ONG o una organización internacional.',
-              style: GoogleFonts.inter(
-                  color: colorBodyTexto,
-                  fontWeight: FontWeight.w500,
-                  fontSize: 20),
-              textAlign: TextAlign.justify,
-            ),
-          ),
+              padding: const EdgeInsets.only(top: 10.0),
+              child: Text(
+                'Es la cantidad de dinero que debe ser retenido por una empresa o empleador de los pagos que realiza a sus empleados o contratistas, y que posteriormente debe ser entregado a la autoridad fiscal correspondiente.',
+                style: GoogleFonts.inter(
+                    color: colorBodyTexto,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 20),
+                textAlign: TextAlign.justify,
+              )),
           Padding(
             padding: const EdgeInsets.only(top: 25.0),
             child: Text(
@@ -85,7 +83,7 @@ class DescripcionISR extends StatelessWidget {
             ),
           ),
           Padding(
-              padding: const EdgeInsets.only(top: 10.0),
+              padding: const EdgeInsets.symmetric(vertical: 10.0),
               child: Text(
                 'Es la cantidad total de dinero a favor del trabajador que una empresa debe pagar como contraprestación por sus servicios profesionales.',
                 style: GoogleFonts.inter(

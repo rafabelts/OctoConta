@@ -1,12 +1,12 @@
 import 'package:adaptive_components/adaptive_components.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:octoconta_final/src/services/auth.dart';
-import 'package:octoconta_final/src/ui/bitacora_gastos/saldo_mensual/tarjeta.dart';
+import 'package:intl/intl.dart';
+import 'package:octoconta_final/src/ui/bitacora_gastos/categorias_y_cantidad.dart';
+import 'package:octoconta_final/src/ui/bitacora_gastos/finanzas/finanzasScreen.dart';
 import 'package:octoconta_final/src/ui/pagina_principal/calculos_contables_items.dart';
 import 'package:octoconta_final/src/ui/screen_seleccionada/screens_appbar.dart';
-import '../bitacora_gastos/boton_categorias.dart';
-import '../bitacora_gastos/saldo_mensual/edicionSaldo/saldo_ahorro_screen.dart';
+import '../../models/tarjeta.dart';
 import '../settings_screen/settings_screen.dart';
 
 class PaginaPrincipal extends StatefulWidget {
@@ -21,11 +21,8 @@ class _PaginaPrincipalState extends State<PaginaPrincipal> {
   Widget build(BuildContext context) {
     goToSettings() => Navigator.push(context,
         MaterialPageRoute(builder: (context) => const SettingsScreen()));
-    goToEditarSaldo() => Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => const EdicionSaldoYVerAhorro()));
-
+    goToFinanzas() => Navigator.push(context,
+        MaterialPageRoute(builder: (context) => const FinanzasScreen()));
     return Scaffold(
         appBar: ScreensAppBar(
           titulo: '',
@@ -74,11 +71,15 @@ class _PaginaPrincipalState extends State<PaginaPrincipal> {
                           ),
                         ),
                       ),
-                      const TarjetaSaldoMensual(),
+                      TarjetaSaldoMensual(
+                        opcion: 'Balance:',
+                        total:
+                            '\$${NumberFormat("#,###.##", "en_US").format(0)}',
+                      ),
                       ListTile(
-                        onTap: goToEditarSaldo,
+                        onTap: goToFinanzas,
                         title: Text(
-                          'Editar saldo',
+                          'Editar balance',
                           style: GoogleFonts.inter(
                             color: const Color(0xFF5E35B1),
                             fontWeight: FontWeight.bold,
@@ -91,36 +92,15 @@ class _PaginaPrincipalState extends State<PaginaPrincipal> {
                           color: Color(0xFF5E35B1),
                         ),
                       ),
-                      // const Padding(
-                      //   padding: EdgeInsets.symmetric(vertical: 20.0),
-                      // ),
                       const Padding(
                         padding: EdgeInsets.symmetric(
                             vertical: 30.0, horizontal: 10.0),
-                        child: BotonCategorias(),
+                        child: CategoriasYCantidades(),
                       ),
                     ],
                   ),
                 ),
-              )
+              ),
             ])));
   }
 }
-
-//  ListTile(
-//                 onTap: () => modalBottomSeleciones(
-//                     context, const ItemsCalculosContables()),
-//                 title: Text(
-//                   "Ir a los disponibles",
-//                   style: GoogleFonts.inter(
-//                     color: const Color(0xFF5E35B1),
-//                     fontWeight: FontWeight.bold,
-//                     fontSize: 26,
-//                   ),
-//                 ),
-//                 trailing: const Icon(
-//                   Icons.arrow_forward_ios,
-//                   size: 20,
-//                   color: const Color(0xFF5E35B1),
-//                 ),
-//               ),

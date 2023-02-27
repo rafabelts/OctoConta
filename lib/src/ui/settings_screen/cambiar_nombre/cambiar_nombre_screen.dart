@@ -26,6 +26,8 @@ class _CambiarNombreScreenState extends State<CambiarNombreScreen> {
     });
   }
 
+  void onChangedNombreUser() => mensajeErrorNombre("", false);
+
   @override
   void initState() {
     super.initState();
@@ -62,11 +64,11 @@ class _CambiarNombreScreenState extends State<CambiarNombreScreen> {
         await user?.reload();
       } on FirebaseAuthException catch (e) {
         if (e.code == 'network-request-failed') {
-          Future.microtask(() => showMensajeParaUsuario(
-              context, true, 'No cuenta con conexion a internet'));
+          Future.microtask(() => showMensajeParaUsuario(context, true,
+              'Error de solicitud de red: la solicitud no se pudo completar. Por favor, compruebe su conexión a Internet e inténtelo de nuevo.'));
         } else if (e.code == 'too-many-requests') {
           Future.microtask(() => showMensajeParaUsuario(context, true,
-              'Lo sentimos, has excedido el límite de solicitudes permitidas. Por favor, inténtalo de nuevo más tarde'));
+              'Lo sentimos, has excedido el límite de solicitudes permitidas. Por favor, inténtalo de nuevo más tarde.'));
         } else {
           Future.microtask(() => showMensajeParaUsuario(context, true,
               'Error desconocido. Por favor, inténtalo de nuevo más tarde'));
@@ -78,10 +80,10 @@ class _CambiarNombreScreenState extends State<CambiarNombreScreen> {
 
     void cambiarNombre() {
       if (nombreUser.text.isEmpty) {
-        mensajeErrorNombre('Por favor ingrese un nuevo nombre', true);
+        mensajeErrorNombre('Por favor, ingrese su nombre.', true);
       } else if (userName == nombreUser.text) {
-        mensajeErrorNombre('''Ingrese un nombre diferente al dado con 
-anterioridad.''', true);
+        mensajeErrorNombre('''Por favor, ingrese un nombre diferente al 
+actual.''', true);
       } else {
         FocusScope.of(context).unfocus();
         cambioNombre();
@@ -105,9 +107,10 @@ anterioridad.''', true);
                   children: <Widget>[
                     CambiarNombreInput(
                       nombreUser: nombreUser,
-                      onChangedNombreUser: (p0) {},
+                      onChangedNombreUser: (value) => onChangedNombreUser(),
                       errorNombreUser:
                           errorInNombre == false ? null : mensajeDeErrorNombre,
+                      onCompleteNombre: cambiarNombre,
                     ),
                     CambiarSettingsButtons(
                         cambio: 'nombre', cambiar: () => cambiarNombre())

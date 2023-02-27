@@ -82,15 +82,17 @@ class _CambiarEmailScreenState extends State<CambiarEmailScreen> {
         });
       } on FirebaseAuthException catch (e) {
         if (e.code == 'network-request-failed') {
-          showMensajeParaUsuario(
-              context, true, 'No cuenta con conexion a internet');
+          showMensajeParaUsuario(context, true,
+              'Error de solicitud de red: la solicitud no se pudo completar. Por favor, compruebe su conexión a Internet e inténtelo de nuevo.');
         } else if (e.code == 'invalid-email') {
-          mensajeErrorEmail('Correo invalido', true);
+          mensajeErrorEmail('''Error: correo electrónico inválido. Por favor, 
+ingrese un correo electrónico válido.''', true);
         } else if (e.code == 'email-already-in-use') {
-          mensajeErrorEmail('Correo en uso', true);
+          mensajeErrorEmail('''Error: esta dirección de correo electrónico
+ya está en uso. Por favor, intente con una diferente.''', true);
         } else {
-          showMensajeParaUsuario(
-              context, true, 'Error al cambiar correo, intente mas tarde');
+          showMensajeParaUsuario(context, true,
+              'Error desconocido. Por favor, inténte de nuevo más tarde.');
         }
       }
     }
@@ -100,7 +102,7 @@ class _CambiarEmailScreenState extends State<CambiarEmailScreen> {
           context: context,
           builder: (context) => Center(
                 child: CircularProgressIndicator(
-                  color: Color.fromARGB(255, 153, 151, 158),
+                  color: const Color.fromARGB(255, 153, 151, 158),
                   backgroundColor: Theme.of(context).scaffoldBackgroundColor,
                 ),
               ));
@@ -112,13 +114,40 @@ class _CambiarEmailScreenState extends State<CambiarEmailScreen> {
         await cambioCorreo();
       } on FirebaseAuthException catch (e) {
         if (e.code == 'network-request-failed') {
-          showMensajeParaUsuario(
-              context, true, 'No cuenta con conexion a internet');
+          showMensajeParaUsuario(context, true,
+              'Error de solicitud de red: la solicitud no se pudo completar. Por favor, compruebe su conexión a Internet e inténtelo de nuevo.');
         } else if (e.code == 'wrong-password') {
-          mensajeErrorPassword('La contraseña es incorrecta.', true);
+          mensajeErrorPassword(
+              '''Error: contraseña incorrecta. Por favor ingrese su 
+contraseña correctamente.''', true);
+        } else if (e.code == 'too-many-requests') {
+          Future.microtask(() => showMensajeParaUsuario(context, true,
+              'Lo sentimos, has excedido el límite de solicitudes permitidas. Por favor, inténtalo de nuevo más tarde.'));
+        } else {
+          Future.microtask(() => showMensajeParaUsuario(context, true,
+              'Error desconocido. Por favor, intente de nuevo más tarde.'));
         }
       } finally {
         Navigator.pop(context);
+      }
+    }
+
+    void onSubmittedCorreo() {
+      String emailPattern =
+          r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+      RegExp regExpEmail = RegExp(emailPattern);
+      if (correoUser.text.isEmpty) {
+        mensajeErrorEmail(
+            "Por favor, ingrese su nuevo correo eléctronico.", true);
+      } else if (!regExpEmail.hasMatch(correoUser.text.toLowerCase().trim())) {
+        mensajeErrorEmail('''Error: correo electrónico inválido. Por favor, 
+ingrese un correo electrónico válido.''', true);
+      } else if (userCorreo == correoUser.text.toLowerCase().trim()) {
+        mensajeErrorEmail(
+            '''Por favor, ingrese un correo electrónico diferente al 
+actual.''', true);
+      } else {
+        FocusScope.of(context).nextFocus();
       }
     }
 
@@ -127,13 +156,17 @@ class _CambiarEmailScreenState extends State<CambiarEmailScreen> {
           r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
       RegExp regExpEmail = RegExp(emailPattern);
       if (correoUser.text.isEmpty) {
-        mensajeErrorEmail("Por favor ingrese un correo.", true);
+        mensajeErrorEmail(
+            "'Por favor, ingrese su nuevo correo eléctronico.", true);
       } else if (!regExpEmail.hasMatch(correoUser.text.toLowerCase().trim())) {
-        mensajeErrorEmail('Correo Invalido', true);
+        mensajeErrorEmail('''Error: correo electrónico inválido. Por favor, 
+ingrese un correo electrónico válido.''', true);
       } else if (userCorreo == correoUser.text.toLowerCase().trim()) {
-        mensajeErrorEmail('Ingrese un correo diferente al actual', true);
+        mensajeErrorEmail(
+            '''Por favor, ingrese un correo electrónico diferente al 
+actual.''', true);
       } else if (password.text.isEmpty) {
-        mensajeErrorPassword('Ingrese su contra', true);
+        mensajeErrorPassword('Por favor, ingrese su contraseña.', true);
       } else {
         validarUser();
       }
@@ -160,11 +193,13 @@ class _CambiarEmailScreenState extends State<CambiarEmailScreen> {
                       errorCorreoUser: errorInEmailUser == false
                           ? null
                           : mensajeDeErroremailUser,
+                      onSubmittedCorreo: onSubmittedCorreo,
                       passwordUser: password,
                       onChangedPassword: (value) => onChangedPassword(),
                       passwordUserError: errorInPassword == false
                           ? null
                           : mensajeDeErrorPassword,
+                      onSubmittedPassword: cambiarCorreo,
                     ),
                     CambiarSettingsButtons(
                         cambio: 'correo', cambiar: () => cambiarCorreo())

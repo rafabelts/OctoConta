@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
+import 'package:number_text_input_formatter/number_text_input_formatter.dart';
 
 class CalculoPrestamoInput extends StatelessWidget {
   final TextEditingController monto;
@@ -37,6 +40,20 @@ class CalculoPrestamoInput extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 10.0),
           child: TextField(
+            inputFormatters: [
+              NumberTextInputFormatter(
+                integerDigits: 10,
+                decimalDigits: 2,
+                maxValue: '1000000000.00',
+                decimalSeparator: '.',
+                groupDigits: 3,
+                groupSeparator: ',',
+                allowNegative: false,
+                overrideDecimalPoint: true,
+                insertDecimalPoint: false,
+                insertDecimalDigits: false,
+              ),
+            ],
             controller: monto,
             onChanged: onChanged,
             onEditingComplete: onCompleteMonto,
@@ -75,7 +92,21 @@ class CalculoPrestamoInput extends StatelessWidget {
             controller: tasaInteres,
             onChanged: onChanged,
             onEditingComplete: onCompleteInteres,
-            keyboardType: TextInputType.number,
+            keyboardType: const TextInputType.numberWithOptions(decimal: true),
+            inputFormatters: [
+              NumberTextInputFormatter(
+                integerDigits: 10,
+                decimalDigits: 2,
+                maxValue: '1000000000.00',
+                decimalSeparator: '.',
+                groupDigits: 3,
+                groupSeparator: ',',
+                allowNegative: false,
+                overrideDecimalPoint: true,
+                insertDecimalPoint: false,
+                insertDecimalDigits: false,
+              ),
+            ],
             style: Theme.of(context).textTheme.labelLarge,
             textAlign: TextAlign.center,
             cursorColor: const Color(0xFF382A62),
@@ -111,6 +142,20 @@ class CalculoPrestamoInput extends StatelessWidget {
             controller: meses,
             onChanged: onChanged,
             onSubmitted: onSubmitted,
+            inputFormatters: [
+              NumberTextInputFormatter(
+                integerDigits: 10,
+                decimalDigits: 2,
+                maxValue: '1000000000.00',
+                decimalSeparator: '.',
+                groupDigits: 3,
+                groupSeparator: ',',
+                allowNegative: false,
+                overrideDecimalPoint: true,
+                insertDecimalPoint: false,
+                insertDecimalDigits: false,
+              ),
+            ],
             keyboardType: TextInputType.number,
             style: Theme.of(context).textTheme.labelLarge,
             textAlign: TextAlign.center,

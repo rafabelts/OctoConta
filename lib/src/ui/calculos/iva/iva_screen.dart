@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:octoconta_final/src/models/agregar_iva.dart';
 import 'package:octoconta_final/src/models/buttons_calculos.dart';
 import 'package:octoconta_final/src/models/modal_selecciones.dart';
@@ -39,7 +40,6 @@ class _CalculoIVAScreenState extends State<CalculoIVAScreen> {
   }
 
   onChanged() {
-    showErrorMessage(context, false);
     if (precio.text.isEmpty) {
       setValidador(false);
     } else {
@@ -63,9 +63,11 @@ class _CalculoIVAScreenState extends State<CalculoIVAScreen> {
 
   restarIVA() {
     Navigator.pop(context);
-    calculoIVA(context, 'restar');
-    cantidadIVARedondeado = calculoIVA(context, 'restar')[0].toStringAsFixed(2);
-    precioFinalRedondeado = calculoIVA(context, 'restar')[1].toStringAsFixed(2);
+    calculoIVA('restar');
+    cantidadIVARedondeado =
+        NumberFormat("#,###.##", "en_US").format(calculoIVA('restar')[0]);
+    precioFinalRedondeado =
+        NumberFormat("#,###.##", "en_US").format(calculoIVA('restar')[1]);
     mostrarResultados(
         context,
         ResultadosIVAItems(
@@ -78,9 +80,9 @@ class _CalculoIVAScreenState extends State<CalculoIVAScreen> {
   sumarIVA() {
     Navigator.pop(context);
     cantidadIVARedondeado =
-        calculoIVA(context, "agregar")[0].toStringAsFixed(2);
+        NumberFormat("#,###.##", "en_US").format(calculoIVA("agregar")[0]);
     precioFinalRedondeado =
-        calculoIVA(context, "agregar")[1].toStringAsFixed(2);
+        NumberFormat("#,###.##", "en_US").format(calculoIVA("agregar")[1]);
 
     mostrarResultados(
         context,
@@ -95,14 +97,14 @@ class _CalculoIVAScreenState extends State<CalculoIVAScreen> {
   String cantidadIVARedondeado = '';
   String precioFinalRedondeado = '';
 
-  List<dynamic> calculoIVA(BuildContext context, String opcion) {
+  List<dynamic> calculoIVA(String opcion) {
     if (opcion == 'agregar') {
-      double precioUsuario = double.parse(precio.text);
+      double precioUsuario = double.parse(precio.text.replaceAll(',', ''));
       double cantidadIVA = agregarIva(precioUsuario)[0];
       double total = agregarIva(precioUsuario)[1];
       return [cantidadIVA, total];
     } else {
-      double precioUsuario = double.parse(precio.text);
+      double precioUsuario = double.parse(precio.text.replaceAll(',', ''));
       double precioFinal = precioUsuario / (1 + .16);
       double cantidadIVA = precioUsuario - precioFinal;
       return [cantidadIVA, precioFinal];

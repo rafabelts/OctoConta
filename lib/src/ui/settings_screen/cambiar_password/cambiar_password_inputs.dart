@@ -5,24 +5,31 @@ class CambiarPasswordInput extends StatefulWidget {
   final TextEditingController passwordUser;
   final dynamic passwordError;
   final Function(dynamic) onChangedPassword;
+  final VoidCallback onSubmmitedPassword;
 
   final TextEditingController newPasswordUser;
   final dynamic newPasswordError;
   final Function(dynamic) onChangedNewPassword;
+  final VoidCallback onSubmittedNewPassword;
 
   final TextEditingController conffirmedNewPasswordUser;
   final dynamic conffirmedNewPasswordError;
   final Function(dynamic) onChangedNewConffirmedPassword;
+  final VoidCallback onSubmittedNewConffirmedPassword;
+
   const CambiarPasswordInput(
       {required this.passwordUser,
       required this.passwordError,
       required this.onChangedPassword,
+      required this.onSubmmitedPassword,
       required this.newPasswordUser,
       required this.newPasswordError,
       required this.onChangedNewPassword,
+      required this.onSubmittedNewPassword,
       required this.conffirmedNewPasswordUser,
       required this.conffirmedNewPasswordError,
       required this.onChangedNewConffirmedPassword,
+      required this.onSubmittedNewConffirmedPassword,
       super.key});
 
   @override
@@ -76,6 +83,7 @@ class _CambiarPasswordInputState extends State<CambiarPasswordInput> {
             fontWeight: FontWeight.bold,
             fontSize: 18,
           ),
+          onEditingComplete: widget.onSubmmitedPassword,
           decoration: InputDecoration(
             errorText: passwordUserError,
             errorStyle:
@@ -122,6 +130,7 @@ class _CambiarPasswordInputState extends State<CambiarPasswordInput> {
             controller: newPasswordUser,
             onChanged: onChangedNewPassword,
             obscureText: isNewPasswordVisible,
+            onEditingComplete: widget.onSubmittedNewPassword,
             style: GoogleFonts.inter(
               color: const Color(0xff534677),
               fontWeight: FontWeight.bold,
@@ -173,6 +182,7 @@ class _CambiarPasswordInputState extends State<CambiarPasswordInput> {
           controller: conffirmedNewPassword,
           onChanged: onChangedconffirmedNewPassword,
           obscureText: isConffirmNewPasswordVisible,
+          onEditingComplete: widget.onSubmittedNewConffirmedPassword,
           style: GoogleFonts.inter(
             color: const Color(0xff534677),
             fontWeight: FontWeight.bold,

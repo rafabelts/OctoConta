@@ -5,10 +5,12 @@ class CorreoParaVerificarInput extends StatelessWidget {
   final TextEditingController correoUser;
   final Function(dynamic) onChangedCorreoUser;
   final dynamic errorInCorreoUser;
+  final VoidCallback onSubmittedCorreo;
   const CorreoParaVerificarInput(
       {required this.correoUser,
       required this.onChangedCorreoUser,
       required this.errorInCorreoUser,
+      required this.onSubmittedCorreo,
       super.key});
 
   @override
@@ -36,6 +38,7 @@ class CorreoParaVerificarInput extends StatelessWidget {
               fontWeight: FontWeight.bold,
               fontSize: 18,
             ),
+            onEditingComplete: onSubmittedCorreo,
             decoration: InputDecoration(
               errorText: errorInCorreoUser,
               errorStyle: GoogleFonts.inter(

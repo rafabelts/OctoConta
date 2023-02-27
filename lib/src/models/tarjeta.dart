@@ -1,8 +1,12 @@
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class TarjetaSaldoMensual extends StatelessWidget {
-  const TarjetaSaldoMensual({super.key});
+  final String opcion;
+  final String total;
+  const TarjetaSaldoMensual(
+      {required this.opcion, required this.total, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -20,14 +24,14 @@ class TarjetaSaldoMensual extends StatelessWidget {
     );
     return Container(
       width: double.infinity,
-      height: 220,
+      height: 200,
       decoration: decoracion,
       padding: const EdgeInsets.all(25.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Text(
-            'Saldo:',
+            opcion,
             style: GoogleFonts.inter(
                 color: Theme.of(context).scaffoldBackgroundColor,
                 fontWeight: FontWeight.w600,
@@ -37,8 +41,7 @@ class TarjetaSaldoMensual extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.only(top: 20.0),
               child: Text(
-                // '\$0',
-                '\$0',
+                total,
                 style: GoogleFonts.inter(
                   textStyle: TextStyle(
                       color: Theme.of(context).scaffoldBackgroundColor,
@@ -47,7 +50,7 @@ class TarjetaSaldoMensual extends StatelessWidget {
                 ),
               ),
             ),
-          )
+          ),
         ],
       ),
     );

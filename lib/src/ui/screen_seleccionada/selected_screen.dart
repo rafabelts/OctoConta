@@ -90,8 +90,8 @@ class _SelectedScreenState extends State<SelectedScreen> {
                     : indexClicked == 3
                         ? 'Prima Vacacional'
                         : indexClicked == 4
-                            ? 'Calculo de ISR'
-                            : 'Calculo de IVA',
+                            ? 'Cálculo de ISR'
+                            : 'Cálculo de IVA',
         leadingIcon: Builder(
           builder: (context) {
             return IconButton(

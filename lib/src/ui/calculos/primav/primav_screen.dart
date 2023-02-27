@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:octoconta_final/src/models/buttons_calculos.dart';
 import 'package:octoconta_final/src/models/conversion_sueldo.dart';
 import 'package:octoconta_final/src/models/dropdown_salario.dart';
@@ -46,7 +47,6 @@ class _CalculoPrimaVacacionalScreenState
   }
 
   onChanged() {
-    showErrorMessage(context, false);
     if (year.text.isEmpty) {
       sueldo.text.isEmpty
           ? setValidador(false, false)
@@ -90,6 +90,11 @@ class _CalculoPrimaVacacionalScreenState
     }
   }
 
+  List<String> periodosPago = ['Anual', 'Mensual', 'Semanal', 'Diario'];
+  String diasVacaciones = '';
+  String primaVacacional = '';
+  late String periodoActual = periodosPago[1];
+
   listo() {
     FocusScope.of(context).unfocus();
     if (year.text.isEmpty) {
@@ -103,8 +108,9 @@ class _CalculoPrimaVacacionalScreenState
         setValidador(true, true);
         try {
           setValidador(true, true);
-          calculoPrimaVacacional(context);
-          diasVacaciones = calculoPrimaVacacional(context).toString();
+          calculoPrimaVacacional();
+          print(periodoActual);
+          diasVacaciones = calculoPrimaVacacional().toString();
           mostrarResultados(
               context,
               ResultadosPrimaVacacionalItems(
@@ -119,15 +125,9 @@ class _CalculoPrimaVacacionalScreenState
     }
   }
 
-  List<String> periodosPago = ['Anual', 'Mensual', 'Semanal', 'Diario'];
-  late String periodoActual = periodosPago[1];
-  String diasVacaciones = '';
-  String primaVacacional = '';
-  double salarioConvertido = 0;
-
-  int calculoPrimaVacacional(BuildContext context) {
+  int calculoPrimaVacacional() {
     double conversion =
-        convertirSueldo(sueldo, periodoActual, salarioConvertido);
+        convertirSueldo(sueldo.text.replaceAll(',', ''), periodoActual);
     print(conversion);
     String dias = calcularTiempo(year, diasVacaciones);
     double totalPrimaVacacional = (conversion * int.parse(dias)) * 0.25;
@@ -138,7 +138,8 @@ class _CalculoPrimaVacacionalScreenState
       });
     } else {
       setState(() {
-        primaVacacional = totalPrimaVacacional.toStringAsFixed(2);
+        primaVacacional =
+            NumberFormat("#,###.##", "en_US").format(totalPrimaVacacional);
       });
     }
     return int.parse(dias);
@@ -162,13 +163,17 @@ class _CalculoPrimaVacacionalScreenState
               onCompleteSueldo: onCompleteSueldo,
             ),
             DropdownPeriodoSalario(
-              periodoActual: periodoActual,
               periodos: periodosPago,
+              cambiarPeriodo: (String? diferentePeriodo) {
+                setState(() {
+                  periodoActual = diferentePeriodo!;
+                });
+              },
+              periodoActual: periodoActual,
             ),
             Botones(
                 limpiar: () {
                   setValidador(true, true);
-                  showErrorMessage(context, false);
                   year.clear();
                   sueldo.clear();
                 },

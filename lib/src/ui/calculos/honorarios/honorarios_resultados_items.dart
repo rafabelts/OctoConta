@@ -13,7 +13,7 @@ class ResultadoHonorariosItems extends StatelessWidget {
         Text(
           "Su total a recibir será de:",
           style: GoogleFonts.inter(
-            fontSize: 26,
+            fontSize: 22,
             fontWeight: FontWeight.w600,
           ),
         ),
@@ -23,7 +23,7 @@ class ResultadoHonorariosItems extends StatelessWidget {
             child: Text(
               "\$$total",
               style: GoogleFonts.inter(
-                fontSize: 38,
+                fontSize: 30,
                 fontWeight: FontWeight.bold,
                 color: const Color.fromARGB(255, 75, 35, 156),
               ),
