@@ -8,7 +8,7 @@ class CategoriasYCantidades extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<dynamic> categoriaYgasto = [
-      ['Alimentos:', '100000', Colors.red],
+      ['Alimentos:', '0', Colors.red],
       ['Salud e Higiene:', '0', Colors.red],
       ['Servicios:', '0', Colors.red],
       ['Suscripciones:', '0', Colors.red],

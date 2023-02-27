@@ -14,7 +14,10 @@ class IngresosInputs extends StatelessWidget {
           child: Column(
             children: const <Widget>[
               AgregarIngresoInputs(),
-              BotonesBitacora(),
+              BotonesBitacora(
+                agregar: "Agregar",
+                cancelar: "Cancelar",
+              ),
             ],
           ),
         ));

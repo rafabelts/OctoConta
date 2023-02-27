@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:octoconta_final/src/ui/bitacora_gastos/categorias_y_cantidad.dart';
-import 'package:octoconta_final/src/ui/bitacora_gastos/finanzas/finanzasScreen.dart';
+import 'package:octoconta_final/src/ui/bitacora_gastos/finanzas/finanzas_screen.dart';
 import 'package:octoconta_final/src/ui/pagina_principal/calculos_contables_items.dart';
 import 'package:octoconta_final/src/ui/screen_seleccionada/screens_appbar.dart';
 import '../../models/tarjeta.dart';
@@ -79,7 +79,7 @@ class _PaginaPrincipalState extends State<PaginaPrincipal> {
                       ListTile(
                         onTap: goToFinanzas,
                         title: Text(
-                          'Editar balance',
+                          'Agregar gasto o ingreso',
                           style: GoogleFonts.inter(
                             color: const Color(0xFF5E35B1),
                             fontWeight: FontWeight.bold,

@@ -18,7 +18,10 @@ class GastosInputs extends StatelessWidget {
               Padding(
                   padding: EdgeInsets.only(top: 40.0),
                   child: CategoriasEleccion()),
-              BotonesBitacora(),
+              BotonesBitacora(
+                agregar: "Agregar",
+                cancelar: "Cancelar",
+              ),
             ],
           ),
         ));
