@@ -7,7 +7,7 @@ import 'package:octoconta_final/src/models/modal_selecciones.dart';
 import 'package:octoconta_final/src/models/tarjeta.dart';
 import 'package:octoconta_final/src/ui/bitacora_gastos/division_gastos/agregar_articulo/gastos_input.dart';
 import 'package:octoconta_final/src/ui/bitacora_gastos/division_gastos/categorias_screen.dart';
-import 'package:octoconta_final/src/ui/bitacora_gastos/editar_balance/editar_balance_screen.dart';
+import 'package:octoconta_final/src/ui/bitacora_gastos/editar_saldo/editar_balance_screen.dart';
 import 'package:octoconta_final/src/ui/bitacora_gastos/ingresos/ingresos_input.dart';
 import 'package:octoconta_final/src/ui/bitacora_gastos/ingresos/ingresos_screen.dart';
 
@@ -24,8 +24,12 @@ class FinanzasScreen extends StatelessWidget {
         context,
         MaterialPageRoute(
             builder: (context) => const CategoriasIngresosScreen()));
-    goToEditarBalance() => Navigator.push(context,
-        MaterialPageRoute(builder: (context) => const EditarBalanceScreen()));
+    goToEditarBalance() => Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => EditarBalanceScreen(),
+          ),
+        );
 
     return Scaffold(
       appBar: AppBar(
@@ -53,7 +57,7 @@ class FinanzasScreen extends StatelessWidget {
                     child: ListTile(
                       onTap: goToEditarBalance,
                       title: Text(
-                        'Editar Balance',
+                        'Editar Saldo',
                         style: GoogleFonts.inter(
                           color: Color(0xFF5E35B1),
                           fontWeight: FontWeight.bold,
@@ -70,6 +74,7 @@ class FinanzasScreen extends StatelessWidget {
                   TarjetaSaldoMensual(
                     opcion: 'Gastado:',
                     total: '\$${NumberFormat("#,###.##", "en_US").format(0)}',
+                    colorTotal: Theme.of(context).scaffoldBackgroundColor,
                   ),
                   ListTile(
                     onTap: goToGastos,
@@ -92,6 +97,7 @@ class FinanzasScreen extends StatelessWidget {
                     child: TarjetaSaldoMensual(
                       opcion: 'Ingresos:',
                       total: '\$${NumberFormat("#,###.##", "en_US").format(0)}',
+                      colorTotal: Theme.of(context).scaffoldBackgroundColor,
                     ),
                   ),
                   ListTile(

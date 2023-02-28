@@ -10,9 +10,7 @@ class CategoriasIngresosScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final String? userName = Auth().currentUser?.displayName;
-    List<dynamic> ingresosItems = [
-      ['Curso', 0]
-    ];
+    List<dynamic> ingresosItems = [];
     return Scaffold(
         appBar: AppBar(
           title: Text(

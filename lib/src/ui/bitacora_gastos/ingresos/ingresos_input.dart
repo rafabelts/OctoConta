@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:octoconta_final/src/ui/bitacora_gastos/bitacora_botones.dart';
+import 'package:octoconta_final/src/models/bitacora_botones.dart';
 import 'package:octoconta_final/src/ui/bitacora_gastos/ingresos/agregar_ingreso.dart';
 
 class IngresosInputs extends StatelessWidget {
@@ -12,11 +12,13 @@ class IngresosInputs extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.only(top: 10),
           child: Column(
-            children: const <Widget>[
-              AgregarIngresoInputs(),
+            children: <Widget>[
+              const AgregarIngresoInputs(),
               BotonesBitacora(
                 agregar: "Agregar",
                 cancelar: "Cancelar",
+                agregarOpcion: () {},
+                cancelarOpcion: () {},
               ),
             ],
           ),

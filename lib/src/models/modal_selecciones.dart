@@ -9,6 +9,7 @@ void modalBottomSeleciones(BuildContext context, Widget entradas) {
               topLeft: Radius.circular(40.0), topRight: Radius.circular(40.0))),
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       builder: (context) => SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
             padding: const EdgeInsets.all(10.0),
             child: AdaptiveColumn(
               children: <AdaptiveContainer>[

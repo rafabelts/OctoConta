@@ -19,6 +19,7 @@ class PaginaPrincipal extends StatefulWidget {
 class _PaginaPrincipalState extends State<PaginaPrincipal> {
   @override
   Widget build(BuildContext context) {
+    double saldoUsuario = 0;
     goToSettings() => Navigator.push(context,
         MaterialPageRoute(builder: (context) => const SettingsScreen()));
     goToFinanzas() => Navigator.push(context,
@@ -72,9 +73,12 @@ class _PaginaPrincipalState extends State<PaginaPrincipal> {
                         ),
                       ),
                       TarjetaSaldoMensual(
-                        opcion: 'Balance:',
+                        opcion: 'Saldo:',
                         total:
-                            '\$${NumberFormat("#,###.##", "en_US").format(0)}',
+                            '\$${NumberFormat("#,###.##", "en_US").format(saldoUsuario < 0 ? saldoUsuario * -1 : saldoUsuario)}',
+                        colorTotal: saldoUsuario < 0
+                            ? Color.fromARGB(255, 255, 16, 44)
+                            : Theme.of(context).scaffoldBackgroundColor,
                       ),
                       ListTile(
                         onTap: goToFinanzas,

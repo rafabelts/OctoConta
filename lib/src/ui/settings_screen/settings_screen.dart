@@ -24,7 +24,7 @@ class SettingsScreen extends StatelessWidget {
 
     List<dynamic> elementosParaConfigurar = [
       ['Nombre:', userName ?? '', const CambiarNombreScreen()],
-      ['Correo electrónico:', correoUser, const CambiarEmailScreen()],
+      ['Correo electrónico:', correoUser ?? ' ', const CambiarEmailScreen()],
       ['Contraseña:', '********', const CambiarPasswordScreen()],
     ];
     return Scaffold(

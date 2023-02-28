@@ -7,34 +7,36 @@ class ItemsIngreso extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      shrinkWrap: true,
-      physics: const BouncingScrollPhysics(),
-      itemCount: items.length,
-      itemBuilder: (context, index) {
-        return Padding(
-          padding: const EdgeInsets.only(top: 25.0),
-          child: ListTile(
-            splashColor: const Color.fromARGB(32, 115, 79, 223),
-            title: Text(
-              items[index][0],
-              style: GoogleFonts.inter(
-                color: const Color(0xFF2a195d),
-                fontWeight: FontWeight.w600,
-                fontSize: 30,
+    return SizedBox(
+      height: MediaQuery.of(context).size.height * 0.55,
+      child: ListView.builder(
+        physics: const BouncingScrollPhysics(),
+        itemCount: items.length,
+        itemBuilder: (context, index) {
+          return Padding(
+            padding: const EdgeInsets.only(top: 25.0),
+            child: ListTile(
+              splashColor: const Color.fromARGB(32, 115, 79, 223),
+              title: Text(
+                items[index][0],
+                style: GoogleFonts.inter(
+                  color: const Color(0xFF2a195d),
+                  fontWeight: FontWeight.w600,
+                  fontSize: 30,
+                ),
+              ),
+              trailing: Text(
+                '\$${items[index][1]}',
+                style: GoogleFonts.inter(
+                  color: const Color(0xFF2a195d),
+                  fontWeight: FontWeight.w600,
+                  fontSize: 30,
+                ),
               ),
             ),
-            trailing: Text(
-              '\$${items[index][1]}',
-              style: GoogleFonts.inter(
-                color: const Color(0xFF2a195d),
-                fontWeight: FontWeight.w600,
-                fontSize: 30,
-              ),
-            ),
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 }

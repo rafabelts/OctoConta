@@ -1,8 +1,8 @@
 import 'package:adaptive_components/adaptive_components.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:octoconta_final/src/ui/bitacora_gastos/bitacora_botones.dart';
-import 'package:octoconta_final/src/ui/bitacora_gastos/editar_balance/editar_balance_inputs.dart';
+import 'package:octoconta_final/src/models/bitacora_botones.dart';
+import 'package:octoconta_final/src/ui/bitacora_gastos/editar_saldo/editar_balance_inputs.dart';
 
 class EditarBalanceScreen extends StatelessWidget {
   const EditarBalanceScreen({super.key});
@@ -12,13 +12,16 @@ class EditarBalanceScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Balance',
+          'Saldo',
           style: GoogleFonts.inter(
               color: const Color(0xFF2a195d),
               fontWeight: FontWeight.bold,
               fontSize: 28),
         ),
-        leading: const Icon(null),
+        leading: IconButton(
+          onPressed: () => Navigator.pop(context),
+          icon: const Icon(Icons.arrow_back_ios, size: 25),
+        ),
       ),
       body: AdaptiveColumn(
         children: <AdaptiveContainer>[
@@ -31,13 +34,13 @@ class EditarBalanceScreen extends StatelessWidget {
                     children: <Widget>[
                       Padding(
                         padding: EdgeInsets.only(top: 50),
-                        child: EditarBalanceInputs(
-                          agregarQuitarBalance: "Editar Balance:",
-                        ),
+                        child: EditarBalanceInputs(),
                       ),
                       BotonesBitacora(
-                        agregar: "Agregar",
-                        cancelar: "Cancelar",
+                        agregar: 'Editar',
+                        cancelar: 'Cancelar',
+                        agregarOpcion: () {},
+                        cancelarOpcion: () => Navigator.pop(context),
                       )
                     ],
                   ))),

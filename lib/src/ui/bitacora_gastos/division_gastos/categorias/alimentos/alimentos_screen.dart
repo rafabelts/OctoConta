@@ -1,23 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:octoconta_final/src/ui/bitacora_gastos/division_gastos/categorias/gastos.dart';
+import 'package:octoconta_final/src/models/gastos.dart';
 
 class AlimentosScreen extends StatelessWidget {
   const AlimentosScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    List<dynamic> alimentosGastos = [
-      ['Hamburgesa', '\$200'],
-      ['Hamburgesa', '\$200'],
-      ['Hamburgesa', '\$200'],
-      ['Hamburgesa', '\$200'],
-      ['Hamburgesa', '\$200'],
-      ['Hamburgesa', '\$200'],
-      ['Hamburgesa', '\$200'],
-      ['Hamburgesa', '\$200'],
-      ['Hamburgesa', '\$200'],
-    ];
+    List<dynamic> alimentosGastos = [];
 
     return Scaffold(
         appBar: AppBar(

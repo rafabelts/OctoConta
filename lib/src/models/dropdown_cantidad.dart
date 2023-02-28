@@ -41,7 +41,7 @@ class _DropdownCantidadState extends State<DropdownCantidad> {
             style: GoogleFonts.inter(
                 color: const Color(0xff534677),
                 fontWeight: FontWeight.bold,
-                fontSize: 28),
+                fontSize: 24),
             // fontWeight: FontWeight.w600,
           ),
         );

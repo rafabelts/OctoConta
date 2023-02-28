@@ -71,97 +71,96 @@ class _VerificacionDeCorreoState extends State<VerificacionDeCorreo> {
   }
 
   @override
-  Widget build(BuildContext context) => estaEmailVerificado
-      ? const PaginaPrincipal()
-      : Scaffold(
+  Widget build(BuildContext context) =>
+      estaEmailVerificado ? const PaginaPrincipal() : verificarCorreo();
+
+  Widget verificarCorreo() => Scaffold(
           body: SafeArea(
-          child: SingleChildScrollView(
-            physics: const BouncingScrollPhysics(),
-            padding: const EdgeInsets.all(10.0),
-            child: AdaptiveColumn(
-              children: <AdaptiveContainer>[
-                AdaptiveContainer(
-                  columnSpan: 12,
-                  child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.only(top: 80.0),
+        child: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
+          padding: const EdgeInsets.all(10.0),
+          child: AdaptiveColumn(
+            children: <AdaptiveContainer>[
+              AdaptiveContainer(
+                columnSpan: 12,
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.only(top: 80.0),
+                        child: Text(
+                          'Verificación de correo.',
+                          style: Theme.of(context).textTheme.displayMedium,
+                          // textAlign: TextAlign.center,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 40.0),
+                        child: Text(
+                          'Encontrara un correo en su bandeja para verificar su usuario (en caso de que no aparezca verifique en su bandeja de spam).',
+                          style: GoogleFonts.inter(
+                            color: const Color(0xff382A62),
+                            fontWeight: FontWeight.w600,
+                            fontSize: 22,
+                          ),
+                          textAlign: TextAlign.justify,
+                        ),
+                      ),
+                      SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15.0)),
+                            backgroundColor: const Color(0xff5E35B1),
+                            elevation: 10,
+                            shadowColor: const Color(0xff2A195D),
+                            padding: const EdgeInsets.symmetric(vertical: 10.0),
+                          ),
                           child: Text(
-                            'Verificación de correo.',
-                            style: Theme.of(context).textTheme.displayMedium,
-                            // textAlign: TextAlign.center,
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 40.0),
-                          child: Text(
-                            'Encontrara un correo en su bandeja para verificar su usuario (en caso de que no aparezca verifique en su bandeja de spam).',
-                            style: GoogleFonts.inter(
-                              color: const Color(0xff382A62),
-                              fontWeight: FontWeight.w600,
-                              fontSize: 22,
+                            'Reenviar Correo',
+                            style: GoogleFonts.poppins(
+                              color: Theme.of(context).scaffoldBackgroundColor,
+                              fontWeight: FontWeight.w700,
+                              fontSize: 26,
                             ),
-                            textAlign: TextAlign.justify,
                           ),
-                        ),
-                        SizedBox(
-                          width: double.infinity,
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(15.0)),
-                              backgroundColor: const Color(0xff5E35B1),
-                              elevation: 10,
-                              shadowColor: const Color(0xff2A195D),
-                              padding:
-                                  const EdgeInsets.symmetric(vertical: 10.0),
-                            ),
-                            child: Text(
-                              'Reenviar Correo',
-                              style: GoogleFonts.poppins(
-                                color:
-                                    Theme.of(context).scaffoldBackgroundColor,
-                                fontWeight: FontWeight.w700,
-                                fontSize: 26,
-                              ),
-                            ),
-                            onPressed: () {
-                              showDialog(
-                                  context: context,
-                                  builder: (context) => Center(
-                                        child: CircularProgressIndicator(
-                                          color: const Color(0xff2A195D),
-                                          backgroundColor: Theme.of(context)
-                                              .scaffoldBackgroundColor,
-                                        ),
-                                      ));
-                              enviarCorreoVerificacion()
-                                  .then((value) => Navigator.pop(context));
-                            },
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 20.0),
-                          child: TextButton(
-                            onPressed: () => Auth().signOut(
+                          onPressed: () {
+                            showDialog(
                                 context: context,
-                                navegacionPantallasAlCerrarSesion: (value) =>
-                                    Navigator.pop(context)),
-                            child: Text(
-                              'Cancelar',
-                              style: GoogleFonts.poppins(
-                                color: const Color(0xff4527A0),
-                                fontWeight: FontWeight.w600,
-                                fontSize: 30,
-                              ),
+                                builder: (context) => Center(
+                                      child: CircularProgressIndicator(
+                                        color: const Color(0xff2A195D),
+                                        backgroundColor: Theme.of(context)
+                                            .scaffoldBackgroundColor,
+                                      ),
+                                    ));
+                            enviarCorreoVerificacion()
+                                .then((value) => Navigator.pop(context));
+                          },
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 20.0),
+                        child: TextButton(
+                          onPressed: () => Auth().signOut(
+                              context: context,
+                              navegacionPantallasAlCerrarSesion: (value) =>
+                                  Navigator.pop(context)),
+                          child: Text(
+                            'Cancelar',
+                            style: GoogleFonts.poppins(
+                              color: const Color(0xff4527A0),
+                              fontWeight: FontWeight.w600,
+                              fontSize: 30,
                             ),
                           ),
-                        )
-                      ]),
-                )
-              ],
-            ),
+                        ),
+                      )
+                    ]),
+              )
+            ],
           ),
-        ));
+        ),
+      ));
 }

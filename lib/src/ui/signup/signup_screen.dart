@@ -38,7 +38,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
             'Error de solicitud de red: la solicitud no se pudo completar. Por favor, compruebe su conexión a Internet e inténtelo de nuevo.');
       } else if (e.code == 'email-already-in-use') {
         mensajeErrorEmail('''Error: esta dirección de correo electrónico 
-ya está en uso. Por favor, intente con una diferente.''', false);
+ya está en uso. Por favor, intente con una 
+diferente.''', false);
       } else if (e.code == 'weak-password') {
         mensajeErrorPassword('''La contraseña ingresada es demasiado débil. 
 Por favor intente crear una contraseña más segura''', false);

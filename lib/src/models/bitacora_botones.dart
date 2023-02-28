@@ -3,9 +3,15 @@ import 'package:google_fonts/google_fonts.dart';
 
 class BotonesBitacora extends StatelessWidget {
   final String agregar;
+  final VoidCallback agregarOpcion;
   final String cancelar;
+  final VoidCallback cancelarOpcion;
   const BotonesBitacora(
-      {required this.agregar, required this.cancelar, super.key});
+      {required this.agregar,
+      required this.agregarOpcion,
+      required this.cancelar,
+      required this.cancelarOpcion,
+      super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +25,7 @@ class BotonesBitacora extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 30.0),
                 child: TextButton(
-                  onPressed: () => Navigator.pop(context),
+                  onPressed: cancelarOpcion,
                   child: Text(cancelar,
                       style: GoogleFonts.inter(
                         color: const Color(0xFF5E35B1),
@@ -29,7 +35,7 @@ class BotonesBitacora extends StatelessWidget {
                 ),
               ),
               ElevatedButton(
-                onPressed: () {},
+                onPressed: agregarOpcion,
                 style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.0)),
@@ -41,7 +47,7 @@ class BotonesBitacora extends StatelessWidget {
                   agregar,
                   style: GoogleFonts.inter(
                     color: Theme.of(context).scaffoldBackgroundColor,
-                    fontSize: 24,
+                    fontSize: 26,
                     fontWeight: FontWeight.w600,
                   ),
                 ),

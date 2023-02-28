@@ -4,12 +4,30 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../../../models/dropdown_cantidad.dart';
 
 class AgregarGastoInputs extends StatelessWidget {
-  const AgregarGastoInputs({super.key});
+  final TextEditingController articulo;
+  final Function(dynamic) onChangedArticulo;
+  final dynamic articuloError;
+
+  final List<int> cantidades;
+  final int cantidadReciente;
+
+  final TextEditingController precio;
+  final Function(dynamic) onChangedPrecio;
+  final dynamic precioError;
+
+  const AgregarGastoInputs(
+      {required this.articulo,
+      required this.onChangedArticulo,
+      required this.articuloError,
+      required this.cantidades,
+      required this.cantidadReciente,
+      required this.precio,
+      required this.onChangedPrecio,
+      required this.precioError,
+      super.key});
 
   @override
   Widget build(BuildContext context) {
-    List<int> cantidades = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-    int cantidadReciente = cantidades[0];
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -24,6 +42,8 @@ class AgregarGastoInputs extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 10.0),
           child: TextField(
+            controller: articulo,
+            onChanged: onChangedArticulo,
             style: GoogleFonts.inter(
               color: const Color(0xFF534677),
               fontWeight: FontWeight.w600,
@@ -32,10 +52,13 @@ class AgregarGastoInputs extends StatelessWidget {
             textAlign: TextAlign.center,
             cursorColor: const Color(0xFF382A62),
             decoration: InputDecoration(
+                errorText: articuloError,
+                errorStyle: GoogleFonts.inter(
+                    fontSize: 14, fontWeight: FontWeight.w600),
                 errorBorder: const UnderlineInputBorder(
-                    borderSide: BorderSide(width: 2.0)),
+                    borderSide: BorderSide(color: Colors.red, width: 2.0)),
                 focusedErrorBorder: const UnderlineInputBorder(
-                    borderSide: BorderSide(width: 2.0)),
+                    borderSide: BorderSide(width: 2.0, color: Colors.red)),
                 contentPadding: const EdgeInsets.symmetric(vertical: 2.0),
                 hintText: "Articulo",
                 hintStyle: GoogleFonts.inter(
@@ -74,6 +97,8 @@ class AgregarGastoInputs extends StatelessWidget {
               SizedBox(
                 width: MediaQuery.of(context).size.width * 0.56,
                 child: TextField(
+                  controller: precio,
+                  onChanged: onChangedPrecio,
                   keyboardType: TextInputType.number,
                   style: GoogleFonts.inter(
                     color: const Color(0xFF534677),
@@ -83,10 +108,15 @@ class AgregarGastoInputs extends StatelessWidget {
                   textAlign: TextAlign.center,
                   cursorColor: const Color(0xFF382A62),
                   decoration: InputDecoration(
-                      errorBorder: const UnderlineInputBorder(
-                          borderSide: BorderSide(width: 2.0)),
-                      focusedErrorBorder: const UnderlineInputBorder(
-                          borderSide: BorderSide(width: 2.0)),
+                      errorText: precioError,
+                      errorStyle: GoogleFonts.inter(
+                          fontSize: 14, fontWeight: FontWeight.w600),
+                      errorBorder: const OutlineInputBorder(
+                          borderSide:
+                              BorderSide(color: Colors.red, width: 2.0)),
+                      focusedErrorBorder: const OutlineInputBorder(
+                          borderSide:
+                              BorderSide(width: 2.0, color: Colors.red)),
                       contentPadding: const EdgeInsets.symmetric(vertical: 2.0),
                       hintText: "0.0",
                       hintStyle: GoogleFonts.inter(

@@ -5,6 +5,7 @@ import 'package:octoconta_final/src/models/mensaje_cuentas.dart';
 import 'package:octoconta_final/src/services/auth.dart';
 import 'package:octoconta_final/src/ui/settings_screen/eliminar_cuenta.dart/eliminar_cuenta_buttons.dart';
 import 'package:octoconta_final/src/ui/settings_screen/eliminar_cuenta.dart/eliminar_cuenta_input.dart';
+import 'package:octoconta_final/src/ui/welcome/welcome_screen.dart';
 
 class EliminarCuentaScreen extends StatefulWidget {
   const EliminarCuentaScreen({super.key});

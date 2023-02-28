@@ -2,18 +2,29 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CategoriasEleccion extends StatefulWidget {
-  const CategoriasEleccion({super.key});
+  final int valor;
+  final Function(int) cambioValor;
+  const CategoriasEleccion(
+      {required this.valor, required this.cambioValor, super.key});
 
   @override
   State<CategoriasEleccion> createState() => _CategoriasEleccionState();
 }
 
 class _CategoriasEleccionState extends State<CategoriasEleccion> {
-  int valor = 0;
+  late int valor;
+
+  @override
+  void initState() {
+    super.initState();
+    valor = widget.valor;
+  }
+
   Widget customRadioBoton(String categoria, String imagenCategoriaSeleccionada,
       String imagenCategoria, int index) {
     return ElevatedButton(
       onPressed: () {
+        widget.cambioValor(index);
         setState(() {
           valor = index;
         });

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:number_text_input_formatter/number_text_input_formatter.dart';
 
 class EditarBalanceInputs extends StatelessWidget {
-  final String agregarQuitarBalance;
-  const EditarBalanceInputs({required this.agregarQuitarBalance, super.key});
+  const EditarBalanceInputs({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -11,21 +11,35 @@ class EditarBalanceInputs extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Text(
-            agregarQuitarBalance,
+            'Editar Saldo: (\$)',
             style: GoogleFonts.inter(
               color: const Color(0xff382A62),
-              fontWeight: FontWeight.w600,
-              fontSize: 28,
+              fontWeight: FontWeight.bold,
+              fontSize: 38,
             ),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10.0),
+            padding: const EdgeInsets.symmetric(vertical: 50.0),
             child: TextField(
               style: GoogleFonts.inter(
                 color: const Color(0xFF534677),
                 fontWeight: FontWeight.w600,
-                fontSize: 30,
+                fontSize: 48,
               ),
+              inputFormatters: [
+                NumberTextInputFormatter(
+                  integerDigits: 10,
+                  decimalDigits: 2,
+                  maxValue: '1000000000.00',
+                  decimalSeparator: '.',
+                  groupDigits: 3,
+                  groupSeparator: ',',
+                  allowNegative: false,
+                  overrideDecimalPoint: true,
+                  insertDecimalPoint: false,
+                  insertDecimalDigits: false,
+                ),
+              ],
               textAlign: TextAlign.center,
               cursorColor: const Color(0xFF382A62),
               decoration: InputDecoration(
@@ -34,11 +48,11 @@ class EditarBalanceInputs extends StatelessWidget {
                   focusedErrorBorder: const UnderlineInputBorder(
                       borderSide: BorderSide(width: 2.0)),
                   contentPadding: const EdgeInsets.symmetric(vertical: 2.0),
-                  hintText: "Ingreso",
+                  hintText: "\$0",
                   hintStyle: GoogleFonts.inter(
                     color: const Color(0xFF534677),
                     fontWeight: FontWeight.w600,
-                    fontSize: 30,
+                    fontSize: 48,
                   ),
                   enabledBorder: const UnderlineInputBorder(
                       borderSide: BorderSide(color: Color(0xFF382A62))),
