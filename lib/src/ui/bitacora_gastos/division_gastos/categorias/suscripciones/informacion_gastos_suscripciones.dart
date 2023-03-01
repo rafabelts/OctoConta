@@ -1,4 +1,4 @@
-class informacionGastos {
+class informacionGastosSuscripciones {
   // Lista de los gastos
   List listaGastos = [];
 
@@ -10,10 +10,5 @@ class informacionGastos {
   // agregar nuevo gasto
   void agregarNuevoGasto(nuevoGasto) {
     listaGastos.add(nuevoGasto);
-  }
-
-  // Eliminar gasto
-  void eliminarNuevoGasto(gasto) {
-    listaGastos.remove(gasto);
   }
 }

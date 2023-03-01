@@ -11,9 +11,4 @@ class informacionIngresos {
   void agregarNuevoIngreso(nuevoGasto) {
     listaIngresos.add(nuevoGasto);
   }
-
-  // Eliminar gasto
-  void eliminarNuevoIngreso(gasto) {
-    listaIngresos.remove(gasto);
-  }
 }
