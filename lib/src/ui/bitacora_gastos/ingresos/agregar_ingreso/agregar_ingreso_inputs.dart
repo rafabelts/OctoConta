@@ -2,7 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AgregarIngresoInputs extends StatelessWidget {
-  const AgregarIngresoInputs({super.key});
+  final TextEditingController ingreso;
+  final Function(dynamic) onChangedIngreso;
+  final dynamic errorInIngreso;
+
+  final TextEditingController montoIngreso;
+  final Function(dynamic) onChangedMontoIngreso;
+  final dynamic errorInMontoIngreso;
+
+  const AgregarIngresoInputs({
+    required this.ingreso,
+    required this.onChangedIngreso,
+    required this.errorInIngreso,
+    required this.montoIngreso,
+    required this.onChangedMontoIngreso,
+    required this.errorInMontoIngreso,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +36,8 @@ class AgregarIngresoInputs extends StatelessWidget {
         Padding(
             padding: const EdgeInsets.symmetric(vertical: 10.0),
             child: TextField(
+              controller: ingreso,
+              onChanged: onChangedIngreso,
               style: GoogleFonts.inter(
                 color: const Color(0xFF534677),
                 fontWeight: FontWeight.w600,
@@ -28,10 +46,13 @@ class AgregarIngresoInputs extends StatelessWidget {
               textAlign: TextAlign.center,
               cursorColor: const Color(0xFF382A62),
               decoration: InputDecoration(
+                  errorText: errorInIngreso,
+                  errorStyle: GoogleFonts.inter(
+                      fontSize: 14, fontWeight: FontWeight.w600),
                   errorBorder: const UnderlineInputBorder(
-                      borderSide: BorderSide(width: 2.0)),
+                      borderSide: BorderSide(color: Colors.red, width: 2.0)),
                   focusedErrorBorder: const UnderlineInputBorder(
-                      borderSide: BorderSide(width: 2.0)),
+                      borderSide: BorderSide(width: 2.0, color: Colors.red)),
                   contentPadding: const EdgeInsets.symmetric(vertical: 2.0),
                   hintText: "Ingreso",
                   hintStyle: GoogleFonts.inter(
@@ -57,6 +78,8 @@ class AgregarIngresoInputs extends StatelessWidget {
           ),
         ),
         TextField(
+          controller: montoIngreso,
+          onChanged: onChangedMontoIngreso,
           keyboardType: TextInputType.number,
           style: GoogleFonts.inter(
             color: const Color(0xFF534677),
@@ -66,10 +89,13 @@ class AgregarIngresoInputs extends StatelessWidget {
           textAlign: TextAlign.center,
           cursorColor: const Color(0xFF382A62),
           decoration: InputDecoration(
+              errorText: errorInMontoIngreso,
+              errorStyle:
+                  GoogleFonts.inter(fontSize: 14, fontWeight: FontWeight.w600),
               errorBorder: const UnderlineInputBorder(
-                  borderSide: BorderSide(width: 2.0)),
+                  borderSide: BorderSide(color: Colors.red, width: 2.0)),
               focusedErrorBorder: const UnderlineInputBorder(
-                  borderSide: BorderSide(width: 2.0)),
+                  borderSide: BorderSide(width: 2.0, color: Colors.red)),
               contentPadding: const EdgeInsets.symmetric(vertical: 2.0),
               hintText: "0.0",
               hintStyle: GoogleFonts.inter(

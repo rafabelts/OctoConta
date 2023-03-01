@@ -111,10 +111,10 @@ class AgregarGastoInputs extends StatelessWidget {
                       errorText: precioError,
                       errorStyle: GoogleFonts.inter(
                           fontSize: 14, fontWeight: FontWeight.w600),
-                      errorBorder: const OutlineInputBorder(
+                      errorBorder: const UnderlineInputBorder(
                           borderSide:
                               BorderSide(color: Colors.red, width: 2.0)),
-                      focusedErrorBorder: const OutlineInputBorder(
+                      focusedErrorBorder: const UnderlineInputBorder(
                           borderSide:
                               BorderSide(width: 2.0, color: Colors.red)),
                       contentPadding: const EdgeInsets.symmetric(vertical: 2.0),

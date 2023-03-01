@@ -3,7 +3,14 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:number_text_input_formatter/number_text_input_formatter.dart';
 
 class EditarBalanceInputs extends StatelessWidget {
-  const EditarBalanceInputs({super.key});
+  final TextEditingController saldo;
+  final Function(dynamic) onChangedSaldo;
+  final dynamic errorInSaldo;
+  const EditarBalanceInputs(
+      {required this.saldo,
+      required this.onChangedSaldo,
+      required this.errorInSaldo,
+      super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +28,8 @@ class EditarBalanceInputs extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 50.0),
             child: TextField(
+              controller: saldo,
+              onChanged: onChangedSaldo,
               style: GoogleFonts.inter(
                 color: const Color(0xFF534677),
                 fontWeight: FontWeight.w600,
@@ -43,10 +52,13 @@ class EditarBalanceInputs extends StatelessWidget {
               textAlign: TextAlign.center,
               cursorColor: const Color(0xFF382A62),
               decoration: InputDecoration(
+                  errorText: errorInSaldo,
+                  errorStyle: GoogleFonts.inter(
+                      fontSize: 14, fontWeight: FontWeight.w600),
                   errorBorder: const UnderlineInputBorder(
-                      borderSide: BorderSide(width: 2.0)),
+                      borderSide: BorderSide(color: Colors.red, width: 2.0)),
                   focusedErrorBorder: const UnderlineInputBorder(
-                      borderSide: BorderSide(width: 2.0)),
+                      borderSide: BorderSide(width: 2.0, color: Colors.red)),
                   contentPadding: const EdgeInsets.symmetric(vertical: 2.0),
                   hintText: "\$0",
                   hintStyle: GoogleFonts.inter(

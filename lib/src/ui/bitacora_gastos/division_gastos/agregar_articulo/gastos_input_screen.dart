@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:octoconta_final/src/models/bitacora_botones.dart';
 import 'package:octoconta_final/src/ui/bitacora_gastos/division_gastos/agregar_articulo/agregar_gasto_input.dart';
 import 'package:octoconta_final/src/ui/bitacora_gastos/division_gastos/agregar_articulo/categoria_eleccion.dart';
@@ -62,6 +63,14 @@ class _GastosInputsState extends State<GastosInputs> {
     });
   }
 
+  String mensajeDeErrorCategoria = "";
+  void mensajeErrorCategoria(String mensajeDeError) {
+    Text(
+      mensajeDeError,
+      style: GoogleFonts.inter(fontSize: 14, fontWeight: FontWeight.w600),
+    );
+  }
+
   onChangedArticulo() => mensajeErrorArticulo('', false);
   onChangedPrecio() => mensajeErrorPrecio('', false);
 
@@ -69,7 +78,18 @@ class _GastosInputsState extends State<GastosInputs> {
     if (articulo.text.isEmpty) {
       mensajeErrorArticulo(
           'Por favor, agregue un artículo para continuar.', true);
-    } else {}
+    } else if (precio.text.isEmpty) {
+      mensajeErrorPrecio("Por favor, ingrese el precio del artículo.", true);
+    } else if (categoriaSeleccionada.isEmpty) {
+      setState(() {
+        mensajeDeErrorCategoria = "Por favor, ingrese una categoría.";
+      });
+      mensajeErrorCategoria(mensajeDeErrorCategoria);
+    } else {
+      mensajeErrorArticulo('', false);
+      mensajeErrorPrecio('', false);
+      mensajeErrorCategoria('');
+    }
   }
 
   @override
