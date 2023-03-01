@@ -7,7 +7,7 @@ import 'package:octoconta_final/src/models/modal_selecciones.dart';
 import 'package:octoconta_final/src/models/tarjeta.dart';
 import 'package:octoconta_final/src/ui/bitacora_gastos/division_gastos/agregar_articulo/gastos_input_screen.dart';
 import 'package:octoconta_final/src/ui/bitacora_gastos/division_gastos/categorias_screen.dart';
-import 'package:octoconta_final/src/ui/bitacora_gastos/division_gastos/editar_saldo/editar_saldo_screen.dart';
+import 'package:octoconta_final/src/ui/bitacora_gastos/editar_saldo/editar_saldo_screen.dart';
 import 'package:octoconta_final/src/ui/bitacora_gastos/ingresos/agregar_ingreso/ingresos_input_sceen.dart';
 import 'package:octoconta_final/src/ui/bitacora_gastos/ingresos/ingresos_screen.dart';
 

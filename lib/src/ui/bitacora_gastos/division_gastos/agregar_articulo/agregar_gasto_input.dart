@@ -7,23 +7,29 @@ class AgregarGastoInputs extends StatelessWidget {
   final TextEditingController articulo;
   final Function(dynamic) onChangedArticulo;
   final dynamic articuloError;
+  final VoidCallback onSubmittedArticulo;
 
   final List<int> cantidades;
   final int cantidadReciente;
+  final Function(int?) cantidad;
 
   final TextEditingController precio;
   final Function(dynamic) onChangedPrecio;
   final dynamic precioError;
+  final VoidCallback onSubmittedPrecio;
 
   const AgregarGastoInputs(
       {required this.articulo,
       required this.onChangedArticulo,
       required this.articuloError,
+      required this.onSubmittedArticulo,
       required this.cantidades,
       required this.cantidadReciente,
+      required this.cantidad,
       required this.precio,
       required this.onChangedPrecio,
       required this.precioError,
+      required this.onSubmittedPrecio,
       super.key});
 
   @override
@@ -49,9 +55,11 @@ class AgregarGastoInputs extends StatelessWidget {
               fontWeight: FontWeight.w600,
               fontSize: 28,
             ),
+            onEditingComplete: onSubmittedArticulo,
             textAlign: TextAlign.center,
             cursorColor: const Color(0xFF382A62),
             decoration: InputDecoration(
+                contentPadding: const EdgeInsets.symmetric(vertical: 2.0),
                 errorText: articuloError,
                 errorStyle: GoogleFonts.inter(
                     fontSize: 14, fontWeight: FontWeight.w600),
@@ -59,7 +67,6 @@ class AgregarGastoInputs extends StatelessWidget {
                     borderSide: BorderSide(color: Colors.red, width: 2.0)),
                 focusedErrorBorder: const UnderlineInputBorder(
                     borderSide: BorderSide(width: 2.0, color: Colors.red)),
-                contentPadding: const EdgeInsets.symmetric(vertical: 2.0),
                 hintText: "Articulo",
                 hintStyle: GoogleFonts.inter(
                   color: const Color(0xFF534677),
@@ -92,7 +99,9 @@ class AgregarGastoInputs extends StatelessWidget {
                 margin: const EdgeInsets.symmetric(horizontal: 10.0),
                 width: MediaQuery.of(context).size.width * 0.23,
                 child: DropdownCantidad(
-                    cantidadUsuario: cantidadReciente, cantidades: cantidades),
+                    cantidadUsuario: cantidadReciente,
+                    cantidades: cantidades,
+                    cantidad: cantidad),
               ),
               SizedBox(
                 width: MediaQuery.of(context).size.width * 0.56,
@@ -107,10 +116,13 @@ class AgregarGastoInputs extends StatelessWidget {
                   ),
                   textAlign: TextAlign.center,
                   cursorColor: const Color(0xFF382A62),
+                  onEditingComplete: onSubmittedPrecio,
                   decoration: InputDecoration(
                       errorText: precioError,
                       errorStyle: GoogleFonts.inter(
-                          fontSize: 14, fontWeight: FontWeight.w600),
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                      ),
                       errorBorder: const UnderlineInputBorder(
                           borderSide:
                               BorderSide(color: Colors.red, width: 2.0)),

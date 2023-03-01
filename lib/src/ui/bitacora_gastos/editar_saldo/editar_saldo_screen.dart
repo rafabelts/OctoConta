@@ -2,7 +2,7 @@ import 'package:adaptive_components/adaptive_components.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:octoconta_final/src/models/bitacora_botones.dart';
-import 'package:octoconta_final/src/ui/bitacora_gastos/division_gastos/editar_saldo/editar_saldo_inputs.dart';
+import 'package:octoconta_final/src/ui/bitacora_gastos/editar_saldo/editar_saldo_inputs.dart';
 
 class EditarBalanceScreen extends StatefulWidget {
   const EditarBalanceScreen({super.key});

@@ -30,6 +30,7 @@ class EditarBalanceInputs extends StatelessWidget {
             child: TextField(
               controller: saldo,
               onChanged: onChangedSaldo,
+              keyboardType: TextInputType.number,
               style: GoogleFonts.inter(
                 color: const Color(0xFF534677),
                 fontWeight: FontWeight.w600,

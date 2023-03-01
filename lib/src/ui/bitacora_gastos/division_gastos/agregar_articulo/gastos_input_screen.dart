@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:octoconta_final/src/models/bitacora_botones.dart';
+import 'package:octoconta_final/src/models/mensaje_cuentas.dart';
 import 'package:octoconta_final/src/ui/bitacora_gastos/division_gastos/agregar_articulo/agregar_gasto_input.dart';
 import 'package:octoconta_final/src/ui/bitacora_gastos/division_gastos/agregar_articulo/categoria_eleccion.dart';
 
@@ -43,6 +44,8 @@ class _GastosInputsState extends State<GastosInputs> {
   TextEditingController articulo = TextEditingController();
   TextEditingController precio = TextEditingController();
 
+  double precioArticulo = 0.0;
+
   String mensajeDeErrorArticulo = '';
   bool errorInArticulo = false;
   mensajeErrorArticulo(String mensajeError, bool error) {
@@ -63,14 +66,6 @@ class _GastosInputsState extends State<GastosInputs> {
     });
   }
 
-  String mensajeDeErrorCategoria = "";
-  void mensajeErrorCategoria(String mensajeDeError) {
-    Text(
-      mensajeDeError,
-      style: GoogleFonts.inter(fontSize: 14, fontWeight: FontWeight.w600),
-    );
-  }
-
   onChangedArticulo() => mensajeErrorArticulo('', false);
   onChangedPrecio() => mensajeErrorPrecio('', false);
 
@@ -79,16 +74,40 @@ class _GastosInputsState extends State<GastosInputs> {
       mensajeErrorArticulo(
           'Por favor, agregue un artículo para continuar.', true);
     } else if (precio.text.isEmpty) {
-      mensajeErrorPrecio("Por favor, ingrese el precio del artículo.", true);
-    } else if (categoriaSeleccionada.isEmpty) {
-      setState(() {
-        mensajeDeErrorCategoria = "Por favor, ingrese una categoría.";
-      });
-      mensajeErrorCategoria(mensajeDeErrorCategoria);
+      mensajeErrorPrecio('''Por favor, ingrese el precio 
+del artículo.''', true);
+    } else if (categoriaSeleccionada == '') {
+      showMensajeParaUsuario(context, true,
+          'Error: No se indico la categoría del artículo. Por favor, ingrese una categoría.');
+      Navigator.pop(context);
     } else {
       mensajeErrorArticulo('', false);
       mensajeErrorPrecio('', false);
-      mensajeErrorCategoria('');
+      setState(() {
+        precioArticulo = cantidadReciente * double.parse(precio.text);
+      });
+      print(
+          '${articulo.text}:${NumberFormat('#,###.##').format(precioArticulo)}');
+      Navigator.pop(context);
+    }
+  }
+
+  void submittedArticulo() {
+    if (articulo.text.isEmpty) {
+      mensajeErrorArticulo(
+          'Por favor, agregue un artículo para continuar.', true);
+    } else {
+      FocusScope.of(context).nextFocus();
+      FocusScope.of(context).nextFocus();
+    }
+  }
+
+  void submittedPrecio() {
+    if (precio.text.isEmpty) {
+      mensajeErrorPrecio('''Por favor, ingrese el precio 
+del artículo.''', true);
+    } else {
+      FocusScope.of(context).unfocus();
     }
   }
 
@@ -118,13 +137,21 @@ class _GastosInputsState extends State<GastosInputs> {
                 articulo: articulo,
                 articuloError:
                     errorInArticulo == false ? null : mensajeDeErrorArticulo,
-                onChangedPrecio: (value) => onChangedPrecio(),
+                onChangedArticulo: (value) => onChangedArticulo(),
+                onSubmittedArticulo: submittedArticulo,
                 cantidades: cantidades,
                 cantidadReciente: cantidadReciente,
+                cantidad: (int? diferentePeriodo) {
+                  setState(() {
+                    cantidadReciente = diferentePeriodo!;
+                    print(cantidadReciente);
+                  });
+                },
                 precio: precio,
                 precioError:
                     errorInPrecio == false ? null : mensajeDeErrorPrecio,
-                onChangedArticulo: (value) => onChangedArticulo(),
+                onChangedPrecio: (value) => onChangedPrecio(),
+                onSubmittedPrecio: submittedPrecio,
               ),
               Padding(
                   padding: const EdgeInsets.only(top: 40.0),
