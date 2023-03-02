@@ -12,5 +12,6 @@ class InformacionGastosAlimentos extends ChangeNotifier {
   // agregar nuevo gasto
   void agregarNuevoGastoAlimentos(nuevoGasto) {
     listaGastosAlimentos.add(nuevoGasto);
+    notifyListeners();
   }
 }

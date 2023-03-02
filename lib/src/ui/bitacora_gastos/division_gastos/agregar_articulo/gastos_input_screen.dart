@@ -5,6 +5,9 @@ import 'package:octoconta_final/src/models/gasto_item.dart';
 import 'package:octoconta_final/src/models/mensaje_cuentas.dart';
 import 'package:octoconta_final/src/ui/bitacora_gastos/division_gastos/agregar_articulo/agregar_gasto_input.dart';
 import 'package:octoconta_final/src/ui/bitacora_gastos/division_gastos/agregar_articulo/categoria_eleccion.dart';
+import 'package:provider/provider.dart';
+
+import '../categorias/alimentos/informacion_gastos_alimentos.dart';
 
 class GastosInputs extends StatefulWidget {
   const GastosInputs({super.key});
@@ -111,8 +114,6 @@ del artículo.''', true);
               context, true, 'Error. Por favor ingresa valores válidos');
         }
       });
-      print(
-          '${articulo.text}:${NumberFormat('#,###.##').format(precioArticulo)}');
 
       GastoItem nuevoGasto = GastoItem(
           cantidad: cantidadReciente,
@@ -121,8 +122,9 @@ del artículo.''', true);
 
       switch (categoriaSeleccionada) {
         case 'Alimentos':
-          // Provider.of<InformacionGastosAlimentos>(context, listen: false)
-          //     .agregarNuevoGastoAlimentos(nuevoGasto);
+          Provider.of<InformacionGastosAlimentos>(context, listen: false)
+              .agregarNuevoGastoAlimentos(nuevoGasto);
+          print(InformacionGastosAlimentos().obtenerListaGastosAlimentos());
           break;
       }
 
@@ -146,46 +148,52 @@ del artículo.''', true);
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-        padding: const EdgeInsets.all(5.0),
-        child: Padding(
-          padding: const EdgeInsets.only(top: 0.01),
-          child: Column(
-            children: <Widget>[
-              AgregarGastoInputs(
-                articulo: articulo,
-                articuloError:
-                    errorInArticulo == false ? null : mensajeDeErrorArticulo,
-                onChangedArticulo: (value) => onChangedArticulo(),
-                onSubmittedArticulo: submittedArticulo,
-                cantidades: cantidades,
-                cantidadReciente: cantidadReciente,
-                cantidad: (int? diferentePeriodo) {
-                  setState(() {
-                    cantidadReciente = diferentePeriodo!;
-                    print(cantidadReciente);
-                  });
-                },
-                precio: precio,
-                precioError:
-                    errorInPrecio == false ? null : mensajeDeErrorPrecio,
-                onChangedPrecio: (value) => onChangedPrecio(),
-                onSubmittedPrecio: submittedPrecio,
+    return ChangeNotifierProvider<InformacionGastosAlimentos>(
+      create: (context) => InformacionGastosAlimentos(),
+      builder: (context, child) {
+        return Padding(
+            padding: const EdgeInsets.all(5.0),
+            child: Padding(
+              padding: const EdgeInsets.only(top: 0.01),
+              child: Column(
+                children: <Widget>[
+                  AgregarGastoInputs(
+                    articulo: articulo,
+                    articuloError: errorInArticulo == false
+                        ? null
+                        : mensajeDeErrorArticulo,
+                    onChangedArticulo: (value) => onChangedArticulo(),
+                    onSubmittedArticulo: submittedArticulo,
+                    cantidades: cantidades,
+                    cantidadReciente: cantidadReciente,
+                    cantidad: (int? diferentePeriodo) {
+                      setState(() {
+                        cantidadReciente = diferentePeriodo!;
+                        print(cantidadReciente);
+                      });
+                    },
+                    precio: precio,
+                    precioError:
+                        errorInPrecio == false ? null : mensajeDeErrorPrecio,
+                    onChangedPrecio: (value) => onChangedPrecio(),
+                    onSubmittedPrecio: submittedPrecio,
+                  ),
+                  Padding(
+                      padding: const EdgeInsets.only(top: 40.0),
+                      child: CategoriasEleccion(
+                        valor: valorCategoria,
+                        cambioValor: actualizarValorCategoria,
+                      )),
+                  BotonesBitacora(
+                    agregar: "Agregar",
+                    cancelar: "Cancelar",
+                    agregarOpcion: () => agregar(context),
+                    cancelarOpcion: () => Navigator.pop(context),
+                  ),
+                ],
               ),
-              Padding(
-                  padding: const EdgeInsets.only(top: 40.0),
-                  child: CategoriasEleccion(
-                    valor: valorCategoria,
-                    cambioValor: actualizarValorCategoria,
-                  )),
-              BotonesBitacora(
-                agregar: "Agregar",
-                cancelar: "Cancelar",
-                agregarOpcion: () {},
-                cancelarOpcion: () => Navigator.pop(context),
-              ),
-            ],
-          ),
-        ));
+            ));
+      },
+    );
   }
 }
