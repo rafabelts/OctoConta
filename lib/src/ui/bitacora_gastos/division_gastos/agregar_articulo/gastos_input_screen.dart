@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:octoconta_final/src/models/bitacora_botones.dart';
+import 'package:octoconta_final/src/models/gasto_item.dart';
 import 'package:octoconta_final/src/models/mensaje_cuentas.dart';
 import 'package:octoconta_final/src/ui/bitacora_gastos/division_gastos/agregar_articulo/agregar_gasto_input.dart';
 import 'package:octoconta_final/src/ui/bitacora_gastos/division_gastos/agregar_articulo/categoria_eleccion.dart';
@@ -69,29 +70,6 @@ class _GastosInputsState extends State<GastosInputs> {
   onChangedArticulo() => mensajeErrorArticulo('', false);
   onChangedPrecio() => mensajeErrorPrecio('', false);
 
-  void agregar() {
-    if (articulo.text.isEmpty) {
-      mensajeErrorArticulo(
-          'Por favor, agregue un artículo para continuar.', true);
-    } else if (precio.text.isEmpty) {
-      mensajeErrorPrecio('''Por favor, ingrese el precio 
-del artículo.''', true);
-    } else if (categoriaSeleccionada == '') {
-      showMensajeParaUsuario(context, true,
-          'Error: No se indico la categoría del artículo. Por favor, ingrese una categoría.');
-      Navigator.pop(context);
-    } else {
-      mensajeErrorArticulo('', false);
-      mensajeErrorPrecio('', false);
-      setState(() {
-        precioArticulo = cantidadReciente * double.parse(precio.text);
-      });
-      print(
-          '${articulo.text}:${NumberFormat('#,###.##').format(precioArticulo)}');
-      Navigator.pop(context);
-    }
-  }
-
   void submittedArticulo() {
     if (articulo.text.isEmpty) {
       mensajeErrorArticulo(
@@ -108,6 +86,47 @@ del artículo.''', true);
 del artículo.''', true);
     } else {
       FocusScope.of(context).unfocus();
+    }
+  }
+
+  void agregar(BuildContext context) {
+    if (articulo.text.isEmpty) {
+      mensajeErrorArticulo(
+          'Por favor, agregue un artículo para continuar.', true);
+    } else if (precio.text.isEmpty) {
+      mensajeErrorPrecio('''Por favor, ingrese el precio
+del artículo.''', true);
+    } else if (categoriaSeleccionada == '') {
+      showMensajeParaUsuario(context, true,
+          'Error: No se indico la categoría del artículo. Por favor, ingrese una categoría.');
+      Navigator.pop(context);
+    } else {
+      mensajeErrorArticulo('', false);
+      mensajeErrorPrecio('', false);
+      setState(() {
+        try {
+          precioArticulo = cantidadReciente * double.parse(precio.text);
+        } catch (e) {
+          showMensajeParaUsuario(
+              context, true, 'Error. Por favor ingresa valores válidos');
+        }
+      });
+      print(
+          '${articulo.text}:${NumberFormat('#,###.##').format(precioArticulo)}');
+
+      GastoItem nuevoGasto = GastoItem(
+          cantidad: cantidadReciente,
+          articulo: articulo.text,
+          precio: precioArticulo);
+
+      switch (categoriaSeleccionada) {
+        case 'Alimentos':
+          // Provider.of<InformacionGastosAlimentos>(context, listen: false)
+          //     .agregarNuevoGastoAlimentos(nuevoGasto);
+          break;
+      }
+
+      Navigator.pop(context);
     }
   }
 
@@ -162,7 +181,7 @@ del artículo.''', true);
               BotonesBitacora(
                 agregar: "Agregar",
                 cancelar: "Cancelar",
-                agregarOpcion: () => agregar(),
+                agregarOpcion: () {},
                 cancelarOpcion: () => Navigator.pop(context),
               ),
             ],

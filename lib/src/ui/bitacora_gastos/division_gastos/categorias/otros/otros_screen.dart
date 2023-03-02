@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:octoconta_final/src/models/gastos.dart';
+import 'package:octoconta_final/src/ui/bitacora_gastos/division_gastos/categorias/alimentos/alimentos_items.dart';
 
 class GastosOtrosScreen extends StatelessWidget {
   const GastosOtrosScreen({super.key});
@@ -27,7 +27,6 @@ class GastosOtrosScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              GastosItems(compras: otrosGastos),
               Padding(
                 padding: EdgeInsets.only(
                     top: MediaQuery.of(context).size.height * 0.18),

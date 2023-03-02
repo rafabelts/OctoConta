@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:octoconta_final/src/models/gastos.dart';
+import 'package:octoconta_final/src/ui/bitacora_gastos/division_gastos/categorias/alimentos/alimentos_items.dart';
+import 'package:octoconta_final/src/ui/bitacora_gastos/division_gastos/categorias/alimentos/informacion_gastos_alimentos.dart';
 
 class AlimentosScreen extends StatelessWidget {
   const AlimentosScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    List<dynamic> alimentosGastos = [];
-
     return Scaffold(
         appBar: AppBar(
           title: Text(
@@ -28,7 +27,7 @@ class AlimentosScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              GastosItems(compras: alimentosGastos),
+              // GastosAlimentosItems(),
               Padding(
                 padding: EdgeInsets.only(
                     top: MediaQuery.of(context).size.height * 0.18),

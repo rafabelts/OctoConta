@@ -1,14 +1,16 @@
-class informacionGastosAlimentos {
+import 'package:flutter/material.dart';
+
+class InformacionGastosAlimentos extends ChangeNotifier {
   // Lista de los gastos
-  List listaGastos = [];
+  List listaGastosAlimentos = [];
 
   // Se obtiene la lista cuando se llama
-  List obtenerListaGastos() {
-    return listaGastos;
+  List obtenerListaGastosAlimentos() {
+    return listaGastosAlimentos;
   }
 
   // agregar nuevo gasto
-  void agregarNuevoGasto(nuevoGasto) {
-    listaGastos.add(nuevoGasto);
+  void agregarNuevoGastoAlimentos(nuevoGasto) {
+    listaGastosAlimentos.add(nuevoGasto);
   }
 }
