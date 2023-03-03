@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:octoconta_final/src/models/bitacora_botones.dart';
 import 'package:octoconta_final/src/models/gasto_item.dart';
 import 'package:octoconta_final/src/models/mensaje_cuentas.dart';
@@ -124,7 +123,7 @@ del artículo.''', true);
         case 'Alimentos':
           Provider.of<InformacionGastosAlimentos>(context, listen: false)
               .agregarNuevoGastoAlimentos(nuevoGasto);
-          print(InformacionGastosAlimentos().obtenerListaGastosAlimentos());
+          print(InformacionGastosAlimentos);
           break;
       }
 
@@ -148,8 +147,12 @@ del artículo.''', true);
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<InformacionGastosAlimentos>(
-      create: (context) => InformacionGastosAlimentos(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<InformacionGastosAlimentos>(
+          create: (context) => InformacionGastosAlimentos(),
+        )
+      ],
       builder: (context, child) {
         return Padding(
             padding: const EdgeInsets.all(5.0),
