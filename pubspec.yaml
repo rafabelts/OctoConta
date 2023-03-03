@@ -44,7 +44,7 @@ dependencies:
   intl: ^0.17.0
   number_text_input_formatter: ^1.0.0+3
   flutter_speed_dial: ^6.2.0
-  provider: 
+  provider: ^6.0.5
   
 dev_dependencies:
   flutter_test:

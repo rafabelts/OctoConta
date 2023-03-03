@@ -18,28 +18,28 @@ class GastosAlimentosItems extends StatelessWidget {
             itemCount: value.obtenerListaGastosAlimentos().length,
             itemBuilder: (context, index) {
               return ListTile(
-                leading:
-                    Text('${value.obtenerListaGastosAlimentos()[index][0]}X',
-                        style: GoogleFonts.inter(
-                          color: const Color(0xff4527A0),
-                          fontWeight: FontWeight.w700,
-                          fontSize: 22,
-                        )),
+                leading: Text(
+                    '${value.obtenerListaGastosAlimentos()[index].cantidad}X',
+                    style: GoogleFonts.inter(
+                      color: const Color(0xff4527A0),
+                      fontWeight: FontWeight.w700,
+                      fontSize: 22,
+                    )),
                 title: Text(
-                  value.obtenerListaGastosAlimentos()[index][1],
+                  value.obtenerListaGastosAlimentos()[index].articulo,
                   style: GoogleFonts.inter(
                     color: const Color(0xFF2a195d),
                     fontWeight: FontWeight.w600,
                     fontSize: 30,
                   ),
                 ),
-                trailing:
-                    Text('\$${value.obtenerListaGastosAlimentos()[index][2]}',
-                        style: GoogleFonts.inter(
-                          color: const Color(0xff4527A0),
-                          fontWeight: FontWeight.w700,
-                          fontSize: 30,
-                        )),
+                trailing: Text(
+                    '\$${value.obtenerListaGastosAlimentos()[index].precio}',
+                    style: GoogleFonts.inter(
+                      color: const Color(0xff4527A0),
+                      fontWeight: FontWeight.w700,
+                      fontSize: 30,
+                    )),
               );
             },
           ),

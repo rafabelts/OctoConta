@@ -6,10 +6,12 @@ import 'package:intl/intl.dart';
 import 'package:octoconta_final/src/models/modal_selecciones.dart';
 import 'package:octoconta_final/src/models/tarjeta.dart';
 import 'package:octoconta_final/src/ui/bitacora_gastos/division_gastos/agregar_articulo/gastos_input_screen.dart';
+import 'package:octoconta_final/src/ui/bitacora_gastos/division_gastos/categorias/alimentos/informacion_gastos_alimentos.dart';
 import 'package:octoconta_final/src/ui/bitacora_gastos/division_gastos/categorias_screen.dart';
 import 'package:octoconta_final/src/ui/bitacora_gastos/editar_saldo/editar_saldo_screen.dart';
 import 'package:octoconta_final/src/ui/bitacora_gastos/ingresos/agregar_ingreso/ingresos_input_sceen.dart';
 import 'package:octoconta_final/src/ui/bitacora_gastos/ingresos/ingresos_screen.dart';
+import 'package:provider/provider.dart';
 
 class FinanzasScreen extends StatelessWidget {
   const FinanzasScreen({super.key});
@@ -31,6 +33,12 @@ class FinanzasScreen extends StatelessWidget {
           ),
         );
 
+    // return MultiProvider(
+    //   providers: [
+    //     ChangeNotifierProvider<InformacionGastosAlimentos>(
+    //         create: (context) => InformacionGastosAlimentos()),
+    //   ],
+    //   builder: (context, child) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -173,5 +181,7 @@ class FinanzasScreen extends StatelessWidget {
       ),
       // ),
     );
+    //   },
+    // );
   }
 }
