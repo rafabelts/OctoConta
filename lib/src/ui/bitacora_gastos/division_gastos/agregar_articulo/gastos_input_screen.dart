@@ -91,46 +91,6 @@ del artículo.''', true);
     }
   }
 
-  void agregar(BuildContext context) {
-    if (articulo.text.isEmpty) {
-      mensajeErrorArticulo(
-          'Por favor, agregue un artículo para continuar.', true);
-    } else if (precio.text.isEmpty) {
-      mensajeErrorPrecio('''Por favor, ingrese el precio
-del artículo.''', true);
-    } else if (categoriaSeleccionada == '') {
-      showMensajeParaUsuario(context, true,
-          'Error: No se indico la categoría del artículo. Por favor, ingrese una categoría.');
-      Navigator.pop(context);
-    } else {
-      mensajeErrorArticulo('', false);
-      mensajeErrorPrecio('', false);
-      setState(() {
-        try {
-          precioArticulo = cantidadReciente * double.parse(precio.text);
-        } catch (e) {
-          showMensajeParaUsuario(
-              context, true, 'Error. Por favor ingresa valores válidos');
-        }
-      });
-
-      GastoItem nuevoGasto = GastoItem(
-          cantidad: cantidadReciente,
-          articulo: articulo.text,
-          precio: precioArticulo);
-
-      switch (categoriaSeleccionada) {
-        case 'Alimentos':
-          Provider.of<InformacionGastosAlimentos>(context, listen: false)
-              .agregarNuevoGastoAlimentos(nuevoGasto);
-          print(InformacionGastosAlimentos);
-          break;
-      }
-
-      Navigator.pop(context);
-    }
-  }
-
   @override
   void initState() {
     super.initState();
@@ -151,9 +111,49 @@ del artículo.''', true);
       providers: [
         ChangeNotifierProvider<InformacionGastosAlimentos>(
           create: (context) => InformacionGastosAlimentos(),
+          lazy: false,
         )
       ],
       builder: (context, child) {
+        void agregar() {
+          if (articulo.text.isEmpty) {
+            mensajeErrorArticulo(
+                'Por favor, agregue un artículo para continuar.', true);
+          } else if (precio.text.isEmpty) {
+            mensajeErrorPrecio('''Por favor, ingrese el precio
+del artículo.''', true);
+          } else if (categoriaSeleccionada == '') {
+            showMensajeParaUsuario(context, true,
+                'Error: No se indico la categoría del artículo. Por favor, ingrese una categoría.');
+            Navigator.pop(context);
+          } else {
+            mensajeErrorArticulo('', false);
+            mensajeErrorPrecio('', false);
+            setState(() {
+              try {
+                precioArticulo = cantidadReciente * double.parse(precio.text);
+              } catch (e) {
+                showMensajeParaUsuario(
+                    context, true, 'Error. Por favor ingresa valores válidos');
+              }
+            });
+
+            GastoItem nuevoGasto = GastoItem(
+                cantidad: cantidadReciente,
+                articulo: articulo.text,
+                precio: precioArticulo);
+
+            switch (categoriaSeleccionada) {
+              case 'Alimentos':
+                Provider.of<InformacionGastosAlimentos>(context, listen: false)
+                    .agregarNuevoGastoAlimentos(nuevoGasto);
+                break;
+            }
+
+            Navigator.pop(context);
+          }
+        }
+
         return Padding(
             padding: const EdgeInsets.all(5.0),
             child: Padding(
@@ -190,7 +190,7 @@ del artículo.''', true);
                   BotonesBitacora(
                     agregar: "Agregar",
                     cancelar: "Cancelar",
-                    agregarOpcion: () => agregar(context),
+                    agregarOpcion: () => agregar(),
                     cancelarOpcion: () => Navigator.pop(context),
                   ),
                 ],
