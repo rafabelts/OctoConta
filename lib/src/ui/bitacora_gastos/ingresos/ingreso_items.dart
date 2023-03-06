@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:octoconta_final/src/ui/bitacora_gastos/ingresos/informacion_ingreso.dart';
 import 'package:provider/provider.dart';
 
@@ -30,7 +31,7 @@ class ItemsIngreso extends StatelessWidget {
                     ),
                   ),
                   trailing: Text(
-                    '\$${value.obtenerListaIngresos()[index].monto}',
+                    '\$${NumberFormat('#,###.##').format(value.obtenerListaIngresos()[index].monto)}',
                     style: GoogleFonts.inter(
                       color: const Color(0xff4527A0),
                       fontWeight: FontWeight.w600,

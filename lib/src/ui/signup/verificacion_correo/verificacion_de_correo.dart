@@ -6,9 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:octoconta_final/src/models/mensaje_cuentas.dart';
 import 'package:octoconta_final/src/services/auth.dart';
-import 'package:octoconta_final/src/ui/bitacora_gastos/division_gastos/categorias/alimentos/informacion_gastos_alimentos.dart';
 import 'package:octoconta_final/src/ui/pagina_principal/pagina_principal.dart';
-import 'package:provider/provider.dart';
 
 class VerificacionDeCorreo extends StatefulWidget {
   const VerificacionDeCorreo({super.key});

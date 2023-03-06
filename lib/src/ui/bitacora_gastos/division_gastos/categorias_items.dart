@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:octoconta_final/src/ui/bitacora_gastos/division_gastos/categorias/alimentos/alimentos_screen.dart';
-import 'package:octoconta_final/src/ui/bitacora_gastos/division_gastos/categorias/alimentos/informacion_gastos_alimentos.dart';
 import 'package:octoconta_final/src/ui/bitacora_gastos/division_gastos/categorias/otros/otros_screen.dart';
 import 'package:octoconta_final/src/ui/bitacora_gastos/division_gastos/categorias/saluhigiene/saludhigiene_screen.dart';
 import 'package:octoconta_final/src/ui/bitacora_gastos/division_gastos/categorias/servicios/servicios_screen.dart';
 import 'package:octoconta_final/src/ui/bitacora_gastos/division_gastos/categorias/suscripciones/suscripciones_screen.dart';
-import 'package:provider/provider.dart';
 
 List<dynamic> categorias = [
   ['Alimentos', const AlimentosScreen()],

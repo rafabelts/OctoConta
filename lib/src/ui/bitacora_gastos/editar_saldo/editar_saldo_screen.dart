@@ -2,7 +2,10 @@ import 'package:adaptive_components/adaptive_components.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:octoconta_final/src/models/bitacora_botones.dart';
+import 'package:octoconta_final/src/models/mensaje_cuentas.dart';
 import 'package:octoconta_final/src/ui/bitacora_gastos/editar_saldo/editar_saldo_inputs.dart';
+import 'package:octoconta_final/src/ui/bitacora_gastos/editar_saldo/informacion_saldo.dart';
+import 'package:provider/provider.dart';
 
 class EditarBalanceScreen extends StatefulWidget {
   const EditarBalanceScreen({super.key});
@@ -23,13 +26,7 @@ class _EditarBalanceScreenState extends State<EditarBalanceScreen> {
     });
   }
 
-  void editarSaldo() {
-    if (saldo.text.isEmpty) {
-      mensajeErrorSaldo('Por favor, ingrese su nuevo saldo.', true);
-    } else {
-      mensajeErrorSaldo('', false);
-    }
-  }
+  double saldoDado = 0.0;
 
   onChangedSaldo() => mensajeErrorSaldo('', false);
 
@@ -47,6 +44,26 @@ class _EditarBalanceScreenState extends State<EditarBalanceScreen> {
 
   @override
   Widget build(BuildContext context) {
+    void editarSaldo() {
+      if (saldo.text.isEmpty) {
+        mensajeErrorSaldo('Por favor, ingrese su nuevo saldo.', true);
+      } else {
+        mensajeErrorSaldo('', false);
+        try {
+          setState(() {
+            saldoDado = double.parse(saldo.text.replaceAll(",", ""));
+          });
+          Provider.of<InformacionSaldoUsuario>(context, listen: false)
+              .agregarSaldo(saldoDado);
+        } catch (e) {
+          showMensajeParaUsuario(
+              context, true, 'Error. Por favor ingresa valores válidos');
+        } finally {
+          Navigator.pop(context);
+        }
+      }
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -71,7 +88,7 @@ class _EditarBalanceScreenState extends State<EditarBalanceScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Padding(
-                        padding: EdgeInsets.only(top: 50),
+                        padding: const EdgeInsets.only(top: 50),
                         child: EditarBalanceInputs(
                           saldo: saldo,
                           onChangedSaldo: (value) => onChangedSaldo(),

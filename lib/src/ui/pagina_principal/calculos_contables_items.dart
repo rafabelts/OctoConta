@@ -49,7 +49,7 @@ class ItemsCalculosContables extends StatelessWidget {
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.transparent,
                   elevation: 8.0,
-                  shadowColor: Color(0xff2a195d),
+                  shadowColor: const Color(0xff2a195d),
                 ),
                 onPressed: () =>
                     navegarPantalla(context, listaCalculos[index][1]),

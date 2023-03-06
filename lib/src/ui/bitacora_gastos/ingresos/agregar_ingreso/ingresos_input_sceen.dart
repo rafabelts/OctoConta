@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:octoconta_final/src/models/bitacora_botones.dart';
-import 'package:octoconta_final/src/models/gasto_item.dart';
 import 'package:octoconta_final/src/models/ingreso_item.dart';
 import 'package:octoconta_final/src/models/mensaje_cuentas.dart';
 import 'package:octoconta_final/src/ui/bitacora_gastos/ingresos/agregar_ingreso/agregar_ingreso_inputs.dart';
@@ -36,6 +35,23 @@ class _IngresosInputsState extends State<IngresosInputs> {
           ? false
           : (mensajeDeErrorMontoIngreso = mensajeError);
     });
+  }
+
+  void onSubmittedIngreso() {
+    if (ingreso.text.isEmpty) {
+      mensajeErrorIngreso('Por favor, ingrese el nombre del ingreso.', true);
+    } else {
+      FocusScope.of(context).nextFocus();
+    }
+  }
+
+  void onSubmittedMontoIngreso() {
+    if (montoIngreso.text.isEmpty) {
+      mensajeErrorMontoIngreso(
+          'Por favor, ingrese la cantidad del ingreso.', true);
+    } else {
+      FocusScope.of(context).unfocus();
+    }
   }
 
   onChangedIngreso() => mensajeErrorIngreso('', false);
@@ -78,10 +94,11 @@ class _IngresosInputsState extends State<IngresosInputs> {
               IngresoItem(ingreso: ingreso.text, monto: montoIngresoDouble);
           Provider.of<InformacionIngresos>(context, listen: false)
               .addNuevoIngreso(nuevoIngreso);
-          Navigator.pop(context);
         } catch (e) {
           showMensajeParaUsuario(
               context, true, 'Error. Por favor ingresa valores válidos');
+        } finally {
+          Navigator.pop(context);
         }
       }
     }
@@ -97,11 +114,13 @@ class _IngresosInputsState extends State<IngresosInputs> {
                 onChangedIngreso: (value) => onChangedIngreso(),
                 errorInIngreso:
                     errorInIngreso == false ? null : mensajeDeErrorIngreso,
+                onSubmittedIngreso: onSubmittedIngreso,
                 montoIngreso: montoIngreso,
                 onChangedMontoIngreso: (value) => oncChangedMontoIngreso(),
                 errorInMontoIngreso: errorInMontoIngreso == false
                     ? null
                     : mensajeDeErrorMontoIngreso,
+                onSubmittedMontoIngreso: onSubmittedMontoIngreso,
               ),
               BotonesBitacora(
                 agregar: "Agregar",

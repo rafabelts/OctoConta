@@ -5,7 +5,6 @@ import 'package:octoconta_final/src/models/buttons_cambiar_settings.dart';
 import 'package:octoconta_final/src/models/mensaje_cuentas.dart';
 import 'package:octoconta_final/src/services/auth.dart';
 import 'package:octoconta_final/src/ui/settings_screen/cambiar_password/cambiar_password_inputs.dart';
-import 'package:octoconta_final/src/ui/welcome/welcome_screen.dart';
 
 class CambiarPasswordScreen extends StatefulWidget {
   const CambiarPasswordScreen({super.key});

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:octoconta_final/src/theme/theme.dart';
-// import 'package:octoconta_final/src/ui/welcome/welcome_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:octoconta_final/src/ui/bitacora_gastos/division_gastos/categorias/alimentos/informacion_gastos_alimentos.dart';
 import 'package:octoconta_final/src/ui/bitacora_gastos/division_gastos/categorias/otros/informacion_gastos_otros.dart';
@@ -9,9 +8,11 @@ import 'package:octoconta_final/src/ui/bitacora_gastos/division_gastos/categoria
 import 'package:octoconta_final/src/ui/bitacora_gastos/division_gastos/categorias/servicios/informacion_gastos_servicios.dart';
 import 'package:octoconta_final/src/ui/bitacora_gastos/division_gastos/categorias/suma_gastos_categorias.dart';
 import 'package:octoconta_final/src/ui/bitacora_gastos/division_gastos/categorias/suscripciones/informacion_gastos_suscripciones.dart';
+import 'package:octoconta_final/src/ui/bitacora_gastos/editar_saldo/informacion_saldo.dart';
 import 'package:octoconta_final/src/ui/bitacora_gastos/ingresos/informacion_ingreso.dart';
 import 'package:octoconta_final/src/widget_tree.dart';
 import 'package:provider/provider.dart';
+
 // import 'firebase_options.dart';
 
 Future<void> main() async {
@@ -54,6 +55,8 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<SumaTotalGastos>(
           create: (_) => SumaTotalGastos(),
         ),
+        ChangeNotifierProvider<InformacionSaldoUsuario>(
+            create: (_) => InformacionSaldoUsuario()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

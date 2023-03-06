@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:octoconta_final/src/models/bitacora_botones.dart';
 import 'package:octoconta_final/src/models/gasto_item.dart';
 import 'package:octoconta_final/src/models/mensaje_cuentas.dart';

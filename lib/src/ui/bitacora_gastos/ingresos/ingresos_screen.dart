@@ -1,8 +1,11 @@
 import 'package:adaptive_components/adaptive_components.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:octoconta_final/src/services/auth.dart';
+import 'package:octoconta_final/src/ui/bitacora_gastos/ingresos/informacion_ingreso.dart';
 import 'package:octoconta_final/src/ui/bitacora_gastos/ingresos/ingreso_items.dart';
+import 'package:provider/provider.dart';
 
 class CategoriasIngresosScreen extends StatelessWidget {
   const CategoriasIngresosScreen({super.key});
@@ -53,7 +56,7 @@ class CategoriasIngresosScreen extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.only(top: 5.0),
                         child: Text(
-                          '\$0',
+                          '\$${NumberFormat('#,###.##').format(Provider.of<InformacionIngresos>(context, listen: true).obtenerTotalIngresos())}',
                           style: GoogleFonts.poppins(
                               color: const Color(0xFF2a195d), //0xFF2a195d
                               fontSize: 58,

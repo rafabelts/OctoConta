@@ -15,6 +15,7 @@ import '../bitacora_gastos/division_gastos/categorias/otros/informacion_gastos_o
 import '../bitacora_gastos/division_gastos/categorias/saluhigiene/informacion_gastos_saludhi.dart';
 import '../bitacora_gastos/division_gastos/categorias/servicios/informacion_gastos_servicios.dart';
 import '../bitacora_gastos/division_gastos/categorias/suscripciones/informacion_gastos_suscripciones.dart';
+import '../bitacora_gastos/editar_saldo/informacion_saldo.dart';
 import '../settings_screen/settings_screen.dart';
 
 class PaginaPrincipal extends StatefulWidget {
@@ -47,7 +48,9 @@ class _PaginaPrincipalState extends State<PaginaPrincipal> {
         Provider.of<InformacionGastosOtros>(context, listen: true)
             .obtenerTotalGastosOtros();
 
-    double saldoUsuario = 0 -
+    double saldo = Provider.of<InformacionSaldoUsuario>(context, listen: false)
+        .saldoDUsuario;
+    double saldoUsuario = saldo -
         Provider.of<SumaTotalGastos>(context).obtenerGastoTotal(
             providerGastoAlimento,
             providerGastoSalud,
@@ -111,14 +114,14 @@ class _PaginaPrincipalState extends State<PaginaPrincipal> {
                         total:
                             '\$${NumberFormat("#,###.##", "en_US").format(saldoUsuario < 0 ? saldoUsuario * -1 : saldoUsuario)}',
                         colorTotal: saldoUsuario < 0
-                            ? Color.fromARGB(255, 255, 16, 44)
+                            ? const Color.fromARGB(255, 255, 16, 44)
                             : Theme.of(context).scaffoldBackgroundColor,
                       ),
                       ListTile(
                         onTap: () => Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => FinanzasScreen())),
+                                builder: (context) => const FinanzasScreen())),
                         title: Text(
                           'Agregar gasto o ingreso',
                           style: GoogleFonts.inter(

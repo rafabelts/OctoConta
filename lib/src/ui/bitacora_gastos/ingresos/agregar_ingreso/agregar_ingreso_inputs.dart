@@ -6,18 +6,22 @@ class AgregarIngresoInputs extends StatelessWidget {
   final TextEditingController ingreso;
   final Function(dynamic) onChangedIngreso;
   final dynamic errorInIngreso;
+  final VoidCallback onSubmittedIngreso;
 
   final TextEditingController montoIngreso;
   final Function(dynamic) onChangedMontoIngreso;
   final dynamic errorInMontoIngreso;
+  final VoidCallback onSubmittedMontoIngreso;
 
   const AgregarIngresoInputs({
     required this.ingreso,
     required this.onChangedIngreso,
     required this.errorInIngreso,
+    required this.onSubmittedIngreso,
     required this.montoIngreso,
     required this.onChangedMontoIngreso,
     required this.errorInMontoIngreso,
+    required this.onSubmittedMontoIngreso,
     super.key,
   });
 
@@ -39,6 +43,7 @@ class AgregarIngresoInputs extends StatelessWidget {
             child: TextField(
               controller: ingreso,
               onChanged: onChangedIngreso,
+              onEditingComplete: onSubmittedIngreso,
               style: GoogleFonts.inter(
                 color: const Color(0xFF534677),
                 fontWeight: FontWeight.w600,
@@ -103,6 +108,7 @@ class AgregarIngresoInputs extends StatelessWidget {
           ),
           textAlign: TextAlign.center,
           cursorColor: const Color(0xFF382A62),
+          onEditingComplete: onSubmittedMontoIngreso,
           decoration: InputDecoration(
               errorText: errorInMontoIngreso,
               errorStyle:

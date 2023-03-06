@@ -50,7 +50,7 @@ class _CambiarNombreScreenState extends State<CambiarNombreScreen> {
           context: context,
           builder: (context) => Center(
                 child: CircularProgressIndicator(
-                  color: Color.fromARGB(255, 153, 151, 158),
+                  color: const Color.fromARGB(255, 153, 151, 158),
                   backgroundColor: Theme.of(context).scaffoldBackgroundColor,
                 ),
               ));

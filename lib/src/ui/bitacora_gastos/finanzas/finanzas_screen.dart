@@ -95,7 +95,7 @@ class _FinanzasScreenState extends State<FinanzasScreen> {
                       title: Text(
                         'Editar Saldo',
                         style: GoogleFonts.inter(
-                          color: Color(0xFF5E35B1),
+                          color: const Color(0xFF5E35B1),
                           fontWeight: FontWeight.bold,
                           fontSize: 20,
                         ),
@@ -120,7 +120,7 @@ class _FinanzasScreenState extends State<FinanzasScreen> {
                     title: Text(
                       'Revisar Gastos',
                       style: GoogleFonts.inter(
-                        color: Color(0xFF5E35B1),
+                        color: const Color(0xFF5E35B1),
                         fontWeight: FontWeight.bold,
                         fontSize: 20,
                       ),
