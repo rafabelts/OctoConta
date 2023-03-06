@@ -1,14 +1,26 @@
-class informacionGastosSaludHigiene {
+import 'package:flutter/material.dart';
+
+import '../../../../../models/gasto_item.dart';
+
+class InformacionGastosSaludHigiene extends ChangeNotifier {
   // Lista de los gastos
-  List listaGastos = [];
+  List<GastoItem> listaGastosSalud = [];
 
   // Se obtiene la lista cuando se llama
-  List obtenerListaGastos() {
-    return listaGastos;
+  List<GastoItem> obtenerListaGastosSalud() {
+    return listaGastosSalud;
   }
 
   // agregar nuevo gasto
-  void agregarNuevoGasto(nuevoGasto) {
-    listaGastos.add(nuevoGasto);
+  void agregarNuevoGastoSalud(GastoItem nuevoGasto) {
+    listaGastosSalud.add(nuevoGasto);
+  }
+
+  double obtenerTotalGastoSalud() {
+    double total = 0.0;
+    for (GastoItem gasto in listaGastosSalud) {
+      total += gasto.precio;
+    }
+    return total == 0 ? 0 : total;
   }
 }

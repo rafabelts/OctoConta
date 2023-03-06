@@ -15,4 +15,12 @@ class InformacionGastosAlimentos extends ChangeNotifier {
     listaGastosAlimentos.add(nuevoGasto);
     notifyListeners();
   }
+
+  double obtenerTotalGastosAlimentos() {
+    double total = 0.0;
+    for (GastoItem gasto in listaGastosAlimentos) {
+      total += gasto.precio;
+    }
+    return total == 0 ? 0 : total;
+  }
 }

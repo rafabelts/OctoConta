@@ -2,52 +2,54 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:octoconta_final/src/ui/bitacora_gastos/division_gastos/categorias/alimentos/informacion_gastos_alimentos.dart';
+import 'package:octoconta_final/src/ui/bitacora_gastos/division_gastos/categorias/otros/informacion_gastos_otros.dart';
+import 'package:octoconta_final/src/ui/bitacora_gastos/division_gastos/categorias/saluhigiene/informacion_gastos_saludhi.dart';
+import 'package:octoconta_final/src/ui/bitacora_gastos/division_gastos/categorias/servicios/informacion_gastos_servicios.dart';
 import 'package:provider/provider.dart';
 
-class GastosAlimentosItems extends StatefulWidget {
-  const GastosAlimentosItems({super.key});
+class GastoServiciosItems extends StatefulWidget {
+  const GastoServiciosItems({super.key});
 
   @override
-  State<GastosAlimentosItems> createState() => _GastosAlimentosItemsState();
+  State<GastoServiciosItems> createState() => _GastoServiciosItemsState();
 }
 
-class _GastosAlimentosItemsState extends State<GastosAlimentosItems> {
+class _GastoServiciosItemsState extends State<GastoServiciosItems> {
   @override
   Widget build(BuildContext context) {
-    return Consumer<InformacionGastosAlimentos>(
+    return Consumer<InformacionGastosServicios>(
       builder: (context, value, child) {
         return SizedBox(
           height: MediaQuery.of(context).size.height * 0.5,
           child: ListView.builder(
             shrinkWrap: true,
             physics: const BouncingScrollPhysics(),
-            itemCount: value.obtenerListaGastosAlimentos().length,
+            itemCount: value.obtenerListaGastosServicios().length,
             itemBuilder: (context, index) {
-              return Center(
-                  child: ListTile(
+              return ListTile(
                 leading: Text(
-                    '${value.obtenerListaGastosAlimentos()[index].cantidad}X',
+                    '${value.obtenerListaGastosServicios()[index].cantidad}X',
                     style: GoogleFonts.inter(
                       color: const Color(0xff4527A0),
                       fontWeight: FontWeight.w700,
                       fontSize: 22,
                     )),
                 title: Text(
-                  value.obtenerListaGastosAlimentos()[index].articulo,
+                  value.obtenerListaGastosServicios()[index].articulo,
                   style: GoogleFonts.inter(
                     color: const Color(0xFF2a195d),
                     fontWeight: FontWeight.w600,
-                    fontSize: 26,
+                    fontSize: 30,
                   ),
                 ),
                 trailing: Text(
-                    '\$${NumberFormat('#,###.##').format(value.obtenerListaGastosAlimentos()[index].precio)}',
+                    '\$${NumberFormat('#,###.##').format(value.obtenerListaGastosServicios()[index].precio)}',
                     style: GoogleFonts.inter(
                       color: const Color(0xff4527A0),
                       fontWeight: FontWeight.w700,
                       fontSize: 24,
                     )),
-              ));
+              );
             },
           ),
         );

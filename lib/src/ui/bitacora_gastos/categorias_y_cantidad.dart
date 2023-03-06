@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:octoconta_final/src/ui/bitacora_gastos/division_gastos/categorias/alimentos/informacion_gastos_alimentos.dart';
+import 'package:octoconta_final/src/ui/bitacora_gastos/division_gastos/categorias/otros/informacion_gastos_otros.dart';
+import 'package:octoconta_final/src/ui/bitacora_gastos/division_gastos/categorias/saluhigiene/informacion_gastos_saludhi.dart';
+import 'package:octoconta_final/src/ui/bitacora_gastos/division_gastos/categorias/servicios/informacion_gastos_servicios.dart';
+import 'package:octoconta_final/src/ui/bitacora_gastos/division_gastos/categorias/suscripciones/informacion_gastos_suscripciones.dart';
+import 'package:octoconta_final/src/ui/bitacora_gastos/ingresos/informacion_ingreso.dart';
+import 'package:provider/provider.dart';
 
 class CategoriasYCantidades extends StatelessWidget {
   const CategoriasYCantidades({super.key});
@@ -8,12 +15,42 @@ class CategoriasYCantidades extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<dynamic> categoriaYgasto = [
-      ['Alimentos:', '0', Colors.red],
-      ['Salud e Higiene:', '0', Colors.red],
-      ['Servicios:', '0', Colors.red],
-      ['Suscripciones:', '0', Colors.red],
-      ['Otros:', '0', Colors.red],
-      ['Ingresos:', '0', Colors.green]
+      [
+        'Alimentos:',
+        Provider.of<InformacionGastosAlimentos>(context, listen: true)
+            .obtenerTotalGastosAlimentos(),
+        Colors.red
+      ],
+      [
+        'Salud e Higiene:',
+        Provider.of<InformacionGastosSaludHigiene>(context, listen: true)
+            .obtenerTotalGastoSalud(),
+        Colors.red
+      ],
+      [
+        'Servicios:',
+        Provider.of<InformacionGastosServicios>(context, listen: true)
+            .obtenerTotalGastosServicios(),
+        Colors.red
+      ],
+      [
+        'Suscripciones:',
+        Provider.of<InformacionGastosSuscripciones>(context, listen: true)
+            .obtenerTotalGastosSuscripciones(),
+        Colors.red
+      ],
+      [
+        'Otros:',
+        Provider.of<InformacionGastosOtros>(context, listen: true)
+            .obtenerTotalGastosOtros(),
+        Colors.red
+      ],
+      [
+        'Ingresos:',
+        Provider.of<InformacionIngresos>(context, listen: true)
+            .obtenerTotalIngresos(),
+        Colors.green
+      ]
     ];
     return Container(
         decoration: BoxDecoration(
@@ -45,7 +82,7 @@ class CategoriasYCantidades extends StatelessWidget {
                           fontSize: 24),
                     ),
                     trailing: Text(
-                      '\$${NumberFormat("#,###.##", "en_US").format(double.tryParse(categoriaYgasto[index][1]))}',
+                      '\$${NumberFormat("#,###.##", "en_US").format(categoriaYgasto[index][1])}',
                       style: GoogleFonts.inter(
                           color: categoriaYgasto[index][2], //0xFF454568
                           fontWeight: FontWeight.w600,

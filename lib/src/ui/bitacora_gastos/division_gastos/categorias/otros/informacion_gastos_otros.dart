@@ -1,14 +1,26 @@
-class informacionGastosOtros {
+import 'package:flutter/material.dart';
+
+import '../../../../../models/gasto_item.dart';
+
+class InformacionGastosOtros extends ChangeNotifier {
   // Lista de los gastos
-  List listaGastos = [];
+  List<GastoItem> listaGastosOtros = [];
 
   // Se obtiene la lista cuando se llama
-  List obtenerListaGastos() {
-    return listaGastos;
+  List<GastoItem> obtenerListaGastosOtros() {
+    return listaGastosOtros;
   }
 
   // agregar nuevo gasto
-  void agregarNuevoGasto(nuevoGasto) {
-    listaGastos.add(nuevoGasto);
+  void agregarNuevoGastoOtros(GastoItem nuevoGasto) {
+    listaGastosOtros.add(nuevoGasto);
+  }
+
+  double obtenerTotalGastosOtros() {
+    double total = 0.0;
+    for (GastoItem gasto in listaGastosOtros) {
+      total += gasto.precio;
+    }
+    return total == 0 ? 0 : total;
   }
 }

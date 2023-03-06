@@ -10,18 +10,32 @@ import 'package:octoconta_final/src/ui/bitacora_gastos/division_gastos/categoria
 import 'package:octoconta_final/src/ui/bitacora_gastos/division_gastos/categorias_screen.dart';
 import 'package:octoconta_final/src/ui/bitacora_gastos/editar_saldo/editar_saldo_screen.dart';
 import 'package:octoconta_final/src/ui/bitacora_gastos/ingresos/agregar_ingreso/ingresos_input_sceen.dart';
+import 'package:octoconta_final/src/ui/bitacora_gastos/ingresos/informacion_ingreso.dart';
 import 'package:octoconta_final/src/ui/bitacora_gastos/ingresos/ingresos_screen.dart';
 import 'package:provider/provider.dart';
 
-class FinanzasScreen extends StatelessWidget {
+import '../division_gastos/categorias/otros/informacion_gastos_otros.dart';
+import '../division_gastos/categorias/saluhigiene/informacion_gastos_saludhi.dart';
+import '../division_gastos/categorias/servicios/informacion_gastos_servicios.dart';
+import '../division_gastos/categorias/suma_gastos_categorias.dart';
+import '../division_gastos/categorias/suscripciones/informacion_gastos_suscripciones.dart';
+
+class FinanzasScreen extends StatefulWidget {
   const FinanzasScreen({super.key});
 
   @override
+  State<FinanzasScreen> createState() => _FinanzasScreenState();
+}
+
+class _FinanzasScreenState extends State<FinanzasScreen> {
+  @override
   Widget build(BuildContext context) {
     goToGastos() => Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => const CategoriasGastosScreen()));
+          context,
+          MaterialPageRoute(
+            builder: (context) => const CategoriasGastosScreen(),
+          ),
+        );
     goToIngresos() => Navigator.push(
         context,
         MaterialPageRoute(
@@ -29,16 +43,30 @@ class FinanzasScreen extends StatelessWidget {
     goToEditarBalance() => Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => EditarBalanceScreen(),
+            builder: (context) => const EditarBalanceScreen(),
           ),
         );
 
-    // return MultiProvider(
-    //   providers: [
-    //     ChangeNotifierProvider<InformacionGastosAlimentos>(
-    //         create: (context) => InformacionGastosAlimentos()),
-    //   ],
-    //   builder: (context, child) {
+    double providerGastoAlimento =
+        Provider.of<InformacionGastosAlimentos>(context, listen: true)
+            .obtenerTotalGastosAlimentos();
+
+    double providerGastoSalud =
+        Provider.of<InformacionGastosSaludHigiene>(context, listen: true)
+            .obtenerTotalGastoSalud();
+
+    double providerGastoServicios =
+        Provider.of<InformacionGastosServicios>(context, listen: true)
+            .obtenerTotalGastosServicios();
+
+    double providerGastoSuscripciones =
+        Provider.of<InformacionGastosSuscripciones>(context, listen: true)
+            .obtenerTotalGastosSuscripciones();
+
+    double providerGastoOtros =
+        Provider.of<InformacionGastosOtros>(context, listen: true)
+            .obtenerTotalGastosOtros();
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -79,10 +107,13 @@ class FinanzasScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  TarjetaSaldoMensual(
-                    opcion: 'Gastado:',
-                    total: '\$${NumberFormat("#,###.##", "en_US").format(0)}',
-                    colorTotal: Theme.of(context).scaffoldBackgroundColor,
+                  Consumer<SumaTotalGastos>(
+                    builder: (context, value, child) => TarjetaSaldoMensual(
+                      opcion: 'Gastado:',
+                      total:
+                          '\$${NumberFormat("#,###.##", "en_US").format(value.obtenerGastoTotal(providerGastoAlimento, providerGastoSalud, providerGastoServicios, providerGastoSuscripciones, providerGastoOtros))}',
+                      colorTotal: Theme.of(context).scaffoldBackgroundColor,
+                    ),
                   ),
                   ListTile(
                     onTap: goToGastos,
@@ -100,12 +131,15 @@ class FinanzasScreen extends StatelessWidget {
                       color: Color(0xFF5E35B1),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 40),
-                    child: TarjetaSaldoMensual(
-                      opcion: 'Ingresos:',
-                      total: '\$${NumberFormat("#,###.##", "en_US").format(0)}',
-                      colorTotal: Theme.of(context).scaffoldBackgroundColor,
+                  Consumer<InformacionIngresos>(
+                    builder: (context, value, child) => Padding(
+                      padding: const EdgeInsets.only(top: 40),
+                      child: TarjetaSaldoMensual(
+                        opcion: 'Ingresos:',
+                        total:
+                            '\$${NumberFormat("#,###.##", "en_US").format(value.obtenerTotalIngresos())}',
+                        colorTotal: Theme.of(context).scaffoldBackgroundColor,
+                      ),
                     ),
                   ),
                   ListTile(
@@ -179,9 +213,6 @@ class FinanzasScreen extends StatelessWidget {
           size: 40,
         ),
       ),
-      // ),
     );
-    //   },
-    // );
   }
 }

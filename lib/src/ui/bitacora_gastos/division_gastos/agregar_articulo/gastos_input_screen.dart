@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:octoconta_final/src/models/bitacora_botones.dart';
 import 'package:octoconta_final/src/models/gasto_item.dart';
 import 'package:octoconta_final/src/models/mensaje_cuentas.dart';
 import 'package:octoconta_final/src/ui/bitacora_gastos/division_gastos/agregar_articulo/agregar_gasto_input.dart';
 import 'package:octoconta_final/src/ui/bitacora_gastos/division_gastos/agregar_articulo/categoria_eleccion.dart';
+import 'package:octoconta_final/src/ui/bitacora_gastos/division_gastos/categorias/otros/informacion_gastos_otros.dart';
+import 'package:octoconta_final/src/ui/bitacora_gastos/division_gastos/categorias/saluhigiene/informacion_gastos_saludhi.dart';
+import 'package:octoconta_final/src/ui/bitacora_gastos/division_gastos/categorias/servicios/informacion_gastos_servicios.dart';
+import 'package:octoconta_final/src/ui/bitacora_gastos/division_gastos/categorias/suscripciones/informacion_gastos_suscripciones.dart';
 import 'package:provider/provider.dart';
 
 import '../categorias/alimentos/informacion_gastos_alimentos.dart';
@@ -107,96 +112,102 @@ del artículo.''', true);
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider<InformacionGastosAlimentos>(
-          create: (context) => InformacionGastosAlimentos(),
-          lazy: false,
-        )
-      ],
-      builder: (context, child) {
-        void agregar() {
-          if (articulo.text.isEmpty) {
-            mensajeErrorArticulo(
-                'Por favor, agregue un artículo para continuar.', true);
-          } else if (precio.text.isEmpty) {
-            mensajeErrorPrecio('''Por favor, ingrese el precio
+    void agregar() {
+      if (articulo.text.isEmpty) {
+        mensajeErrorArticulo(
+            'Por favor, agregue un artículo para continuar.', true);
+      } else if (precio.text.isEmpty) {
+        mensajeErrorPrecio('''Por favor, ingrese el precio
 del artículo.''', true);
-          } else if (categoriaSeleccionada == '') {
-            showMensajeParaUsuario(context, true,
-                'Error: No se indico la categoría del artículo. Por favor, ingrese una categoría.');
-            Navigator.pop(context);
-          } else {
-            mensajeErrorArticulo('', false);
-            mensajeErrorPrecio('', false);
-            setState(() {
-              try {
-                precioArticulo = cantidadReciente * double.parse(precio.text);
-              } catch (e) {
-                showMensajeParaUsuario(
-                    context, true, 'Error. Por favor ingresa valores válidos');
-              }
-            });
+      } else if (categoriaSeleccionada == '') {
+        showMensajeParaUsuario(context, true,
+            'Error: No se indico la categoría del artículo. Por favor, ingrese una categoría.');
+        Navigator.pop(context);
+      } else {
+        mensajeErrorArticulo('', false);
+        mensajeErrorPrecio('', false);
 
-            GastoItem nuevoGasto = GastoItem(
-                cantidad: cantidadReciente,
-                articulo: articulo.text,
-                precio: precioArticulo);
+        try {
+          setState(() {
+            precioArticulo = cantidadReciente *
+                double.parse(precio.text.replaceAll(',', ''));
+          });
+          GastoItem nuevoGasto = GastoItem(
+              cantidad: cantidadReciente,
+              articulo: articulo.text,
+              precio: precioArticulo);
 
-            switch (categoriaSeleccionada) {
-              case 'Alimentos':
-                Provider.of<InformacionGastosAlimentos>(context, listen: false)
-                    .agregarNuevoGastoAlimentos(nuevoGasto);
-                break;
-            }
-
-            Navigator.pop(context);
+          switch (categoriaSeleccionada) {
+            case 'Alimentos':
+              Provider.of<InformacionGastosAlimentos>(context, listen: false)
+                  .agregarNuevoGastoAlimentos(nuevoGasto);
+              break;
+            case 'Salud':
+              Provider.of<InformacionGastosSaludHigiene>(context, listen: false)
+                  .agregarNuevoGastoSalud(nuevoGasto);
+              break;
+            case 'Servicios':
+              Provider.of<InformacionGastosServicios>(context, listen: false)
+                  .agregarNuevoGastoServicios(nuevoGasto);
+              break;
+            case 'Suscripciones':
+              Provider.of<InformacionGastosSuscripciones>(context,
+                      listen: false)
+                  .agregarNuevoGastoSuscripciones(nuevoGasto);
+              break;
+            case 'Otros':
+              Provider.of<InformacionGastosOtros>(context, listen: false)
+                  .agregarNuevoGastoOtros(nuevoGasto);
+              break;
           }
+          Navigator.pop(context);
+        } catch (e) {
+          showMensajeParaUsuario(
+              context, true, 'Error. Por favor ingresa valores válidos');
         }
+      }
+    }
 
-        return Padding(
-            padding: const EdgeInsets.all(5.0),
-            child: Padding(
-              padding: const EdgeInsets.only(top: 0.01),
-              child: Column(
-                children: <Widget>[
-                  AgregarGastoInputs(
-                    articulo: articulo,
-                    articuloError: errorInArticulo == false
-                        ? null
-                        : mensajeDeErrorArticulo,
-                    onChangedArticulo: (value) => onChangedArticulo(),
-                    onSubmittedArticulo: submittedArticulo,
-                    cantidades: cantidades,
-                    cantidadReciente: cantidadReciente,
-                    cantidad: (int? diferentePeriodo) {
-                      setState(() {
-                        cantidadReciente = diferentePeriodo!;
-                        print(cantidadReciente);
-                      });
-                    },
-                    precio: precio,
-                    precioError:
-                        errorInPrecio == false ? null : mensajeDeErrorPrecio,
-                    onChangedPrecio: (value) => onChangedPrecio(),
-                    onSubmittedPrecio: submittedPrecio,
-                  ),
-                  Padding(
-                      padding: const EdgeInsets.only(top: 40.0),
-                      child: CategoriasEleccion(
-                        valor: valorCategoria,
-                        cambioValor: actualizarValorCategoria,
-                      )),
-                  BotonesBitacora(
-                    agregar: "Agregar",
-                    cancelar: "Cancelar",
-                    agregarOpcion: () => agregar(),
-                    cancelarOpcion: () => Navigator.pop(context),
-                  ),
-                ],
+    return Padding(
+        padding: const EdgeInsets.all(5.0),
+        child: Padding(
+          padding: const EdgeInsets.only(top: 0.01),
+          child: Column(
+            children: <Widget>[
+              AgregarGastoInputs(
+                articulo: articulo,
+                articuloError:
+                    errorInArticulo == false ? null : mensajeDeErrorArticulo,
+                onChangedArticulo: (value) => onChangedArticulo(),
+                onSubmittedArticulo: submittedArticulo,
+                cantidades: cantidades,
+                cantidadReciente: cantidadReciente,
+                cantidad: (int? diferentePeriodo) {
+                  setState(() {
+                    cantidadReciente = diferentePeriodo!;
+                    print(cantidadReciente);
+                  });
+                },
+                precio: precio,
+                precioError:
+                    errorInPrecio == false ? null : mensajeDeErrorPrecio,
+                onChangedPrecio: (value) => onChangedPrecio(),
+                onSubmittedPrecio: submittedPrecio,
               ),
-            ));
-      },
-    );
+              Padding(
+                  padding: const EdgeInsets.only(top: 40.0),
+                  child: CategoriasEleccion(
+                    valor: valorCategoria,
+                    cambioValor: actualizarValorCategoria,
+                  )),
+              BotonesBitacora(
+                agregar: "Agregar",
+                cancelar: "Cancelar",
+                agregarOpcion: () => agregar(),
+                cancelarOpcion: () => Navigator.pop(context),
+              ),
+            ],
+          ),
+        ));
   }
 }

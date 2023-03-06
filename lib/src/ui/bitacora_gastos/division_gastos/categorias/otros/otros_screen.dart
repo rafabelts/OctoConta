@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:octoconta_final/src/ui/bitacora_gastos/division_gastos/categorias/alimentos/alimentos_items.dart';
+import 'package:intl/intl.dart';
+import 'package:octoconta_final/src/ui/bitacora_gastos/division_gastos/categorias/otros/informacion_gastos_otros.dart';
+import 'package:octoconta_final/src/ui/bitacora_gastos/division_gastos/categorias/otros/otros_items.dart';
+import 'package:provider/provider.dart';
 
 class GastosOtrosScreen extends StatelessWidget {
   const GastosOtrosScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    List<dynamic> otrosGastos = [];
+    double totalSuma =
+        Provider.of<InformacionGastosOtros>(context, listen: false)
+            .obtenerTotalGastosOtros();
     return Scaffold(
         appBar: AppBar(
           title: Text(
@@ -27,6 +32,7 @@ class GastosOtrosScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              const GastosOtrosItems(),
               Padding(
                 padding: EdgeInsets.only(
                     top: MediaQuery.of(context).size.height * 0.18),
@@ -42,7 +48,7 @@ class GastosOtrosScreen extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 20.0),
                 child: Text(
-                  "\$ 0",
+                  "\$ ${NumberFormat('#,###.##').format(totalSuma)}",
                   style: GoogleFonts.inter(
                     color: const Color(0xff4527A0),
                     fontWeight: FontWeight.w700,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:number_text_input_formatter/number_text_input_formatter.dart';
 
 import '../../../../models/dropdown_cantidad.dart';
 
@@ -108,6 +109,20 @@ class AgregarGastoInputs extends StatelessWidget {
                 child: TextField(
                   controller: precio,
                   onChanged: onChangedPrecio,
+                  inputFormatters: [
+                    NumberTextInputFormatter(
+                      integerDigits: 10,
+                      decimalDigits: 2,
+                      maxValue: '1000000000.00',
+                      decimalSeparator: '.',
+                      groupDigits: 3,
+                      groupSeparator: ',',
+                      allowNegative: false,
+                      overrideDecimalPoint: true,
+                      insertDecimalPoint: false,
+                      insertDecimalDigits: false,
+                    ),
+                  ],
                   keyboardType: TextInputType.number,
                   style: GoogleFonts.inter(
                     color: const Color(0xFF534677),
