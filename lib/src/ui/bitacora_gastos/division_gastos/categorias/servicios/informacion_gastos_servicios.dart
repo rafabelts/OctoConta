@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:octoconta_final/src/models/gasto_item.dart';
 
+import '../../../../../services/base_datos_gastos.dart';
+
 class InformacionGastosServicios extends ChangeNotifier {
   // Lista de los gastos
   List<GastoItem> listaGastosServicios = [];
@@ -10,9 +12,21 @@ class InformacionGastosServicios extends ChangeNotifier {
     return listaGastosServicios;
   }
 
+  final db = BaseDatosDeGastos();
+
+  // prepara datos para la base de datos
+  void prepararDatos() {
+    // Si existe un dato, obtenerlo
+    if (db.leerDatosGastos().isNotEmpty) {
+      listaGastosServicios = db.leerDatosGastos();
+    }
+  }
+
   // agregar nuevo gasto
   void agregarNuevoGastoServicios(GastoItem nuevoGasto) {
     listaGastosServicios.add(nuevoGasto);
+    notifyListeners();
+    db.guardarGasto(listaGastosServicios);
   }
 
   double obtenerTotalGastosServicios() {

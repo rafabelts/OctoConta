@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:octoconta_final/src/services/base_datos_gastos.dart';
 
 import '../../../../../models/gasto_item.dart';
 
@@ -11,9 +12,21 @@ class InformacionGastosSaludHigiene extends ChangeNotifier {
     return listaGastosSalud;
   }
 
+  final db = BaseDatosDeGastos();
+
+  // prepara datos para la base de datos
+  void prepararDatos() {
+    // Si existe un dato, obtenerlo
+    if (db.leerDatosGastos().isNotEmpty) {
+      listaGastosSalud = db.leerDatosGastos();
+    }
+  }
+
   // agregar nuevo gasto
   void agregarNuevoGastoSalud(GastoItem nuevoGasto) {
     listaGastosSalud.add(nuevoGasto);
+    notifyListeners();
+    db.guardarGasto(listaGastosSalud);
   }
 
   double obtenerTotalGastoSalud() {

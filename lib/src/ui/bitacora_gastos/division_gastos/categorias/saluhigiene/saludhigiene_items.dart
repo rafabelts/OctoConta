@@ -13,6 +13,14 @@ class GastoSaludHigieneItems extends StatefulWidget {
 
 class _GastoSaludHigieneItemsState extends State<GastoSaludHigieneItems> {
   @override
+  void initState() {
+    super.initState();
+    // prepara datos
+    Provider.of<InformacionGastosSaludHigiene>(context, listen: false)
+        .prepararDatos();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Consumer<InformacionGastosSaludHigiene>(
       builder: (context, value, child) {

@@ -13,7 +13,6 @@ class CategoriasIngresosScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final String? userName = Auth().currentUser?.displayName;
-    List<dynamic> ingresosItems = [];
     return Scaffold(
         appBar: AppBar(
           title: Text(
@@ -37,10 +36,7 @@ class CategoriasIngresosScreen extends StatelessWidget {
                 child: Column(children: <Widget>[
                   Column(
                     children: [
-                      ItemsIngreso(
-                        items: ingresosItems,
-                      ),
-                      // const CategoriasItems(),
+                      const ItemsIngreso(),
                       Padding(
                         padding: const EdgeInsets.only(top: 40.0),
                         child: Text(

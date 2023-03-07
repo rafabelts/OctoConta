@@ -4,9 +4,20 @@ import 'package:intl/intl.dart';
 import 'package:octoconta_final/src/ui/bitacora_gastos/ingresos/informacion_ingreso.dart';
 import 'package:provider/provider.dart';
 
-class ItemsIngreso extends StatelessWidget {
-  final List<dynamic> items;
-  const ItemsIngreso({required this.items, super.key});
+class ItemsIngreso extends StatefulWidget {
+  const ItemsIngreso({super.key});
+
+  @override
+  State<ItemsIngreso> createState() => _ItemsIngresoState();
+}
+
+class _ItemsIngresoState extends State<ItemsIngreso> {
+  @override
+  void initState() {
+    super.initState();
+    // prepara datos
+    Provider.of<InformacionIngresos>(context, listen: false).prepararDatos();
+  }
 
   @override
   Widget build(BuildContext context) {

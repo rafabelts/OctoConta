@@ -14,6 +14,14 @@ class GastosSuscripcionesItems extends StatefulWidget {
 
 class _GastosSuscripcionesItemsState extends State<GastosSuscripcionesItems> {
   @override
+  void initState() {
+    super.initState();
+    // prepara datos
+    Provider.of<InformacionGastosSuscripciones>(context, listen: false)
+        .prepararDatos();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Consumer<InformacionGastosSuscripciones>(
       builder: (context, value, child) {

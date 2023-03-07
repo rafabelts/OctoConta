@@ -13,6 +13,14 @@ class GastoServiciosItems extends StatefulWidget {
 
 class _GastoServiciosItemsState extends State<GastoServiciosItems> {
   @override
+  void initState() {
+    super.initState();
+    // prepara datos
+    Provider.of<InformacionGastosServicios>(context, listen: false)
+        .prepararDatos();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Consumer<InformacionGastosServicios>(
       builder: (context, value, child) {
