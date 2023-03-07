@@ -137,7 +137,7 @@ class _FinanzasScreenState extends State<FinanzasScreen> {
                       child: TarjetaSaldoMensual(
                         opcion: 'Ingresos:',
                         total:
-                            '\$${NumberFormat("#,###.##", "en_US").format(value.obtenerTotalIngresos())}',
+                            '\$${NumberFormat("#,###.##", "en_US").format(value.prepararTotalIngresos())}',
                         colorTotal: Theme.of(context).scaffoldBackgroundColor,
                       ),
                     ),

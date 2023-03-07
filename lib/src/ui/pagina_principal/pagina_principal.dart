@@ -58,7 +58,7 @@ class _PaginaPrincipalState extends State<PaginaPrincipal> {
             providerGastoSuscripciones,
             providerGastoOtros) +
         Provider.of<InformacionIngresos>(context, listen: true)
-            .obtenerTotalIngresos();
+            .prepararTotalIngresos();
 
     return Scaffold(
         appBar: ScreensAppBar(

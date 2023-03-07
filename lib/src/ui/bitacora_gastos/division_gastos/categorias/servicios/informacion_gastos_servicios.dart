@@ -17,8 +17,9 @@ class InformacionGastosServicios extends ChangeNotifier {
   // prepara datos para la base de datos
   void prepararDatos() {
     // Si existe un dato, obtenerlo
+    final datosGastos = db.leerDatosGastos();
     if (db.leerDatosGastos().isNotEmpty) {
-      listaGastosServicios = db.leerDatosGastos();
+      listaGastosServicios = datosGastos['Servicios'] ?? [];
     }
   }
 

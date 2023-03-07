@@ -7,9 +7,15 @@ import 'package:octoconta_final/src/ui/bitacora_gastos/ingresos/informacion_ingr
 import 'package:octoconta_final/src/ui/bitacora_gastos/ingresos/ingreso_items.dart';
 import 'package:provider/provider.dart';
 
-class CategoriasIngresosScreen extends StatelessWidget {
+class CategoriasIngresosScreen extends StatefulWidget {
   const CategoriasIngresosScreen({super.key});
 
+  @override
+  State<CategoriasIngresosScreen> createState() =>
+      _CategoriasIngresosScreenState();
+}
+
+class _CategoriasIngresosScreenState extends State<CategoriasIngresosScreen> {
   @override
   Widget build(BuildContext context) {
     final String? userName = Auth().currentUser?.displayName;
@@ -52,7 +58,7 @@ class CategoriasIngresosScreen extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.only(top: 5.0),
                         child: Text(
-                          '\$${NumberFormat('#,###.##').format(Provider.of<InformacionIngresos>(context, listen: true).obtenerTotalIngresos())}',
+                          '\$${NumberFormat('#,###.##').format(Provider.of<InformacionIngresos>(context, listen: true).prepararTotalIngresos())}',
                           style: GoogleFonts.poppins(
                               color: const Color(0xFF2a195d), //0xFF2a195d
                               fontSize: 58,

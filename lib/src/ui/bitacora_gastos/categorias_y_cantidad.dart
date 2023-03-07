@@ -47,8 +47,9 @@ class CategoriasYCantidades extends StatelessWidget {
       ],
       [
         'Ingresos:',
+        // prepara datos
         Provider.of<InformacionIngresos>(context, listen: true)
-            .obtenerTotalIngresos(),
+            .prepararTotalIngresos(),
         Colors.green
       ]
     ];

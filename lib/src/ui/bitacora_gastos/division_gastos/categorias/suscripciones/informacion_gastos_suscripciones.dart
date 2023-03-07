@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:octoconta_final/src/models/gasto_item.dart';
-
-import '../../../../../services/base_datos_gastos.dart';
+import 'package:octoconta_final/src/services/base_datos_gastos.dart';
 
 class InformacionGastosSuscripciones extends ChangeNotifier {
   // Lista de los gastos
@@ -17,8 +16,9 @@ class InformacionGastosSuscripciones extends ChangeNotifier {
   // prepara datos para la base de datos
   void prepararDatos() {
     // Si existe un dato, obtenerlo
+    final datosGastos = db.leerDatosGastos();
     if (db.leerDatosGastos().isNotEmpty) {
-      listaGastosSuscripciones = db.leerDatosGastos();
+      listaGastosSuscripciones = datosGastos['Suscripciones'] ?? [];
     }
   }
 

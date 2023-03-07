@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:octoconta_final/src/theme/theme.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -23,6 +22,7 @@ Future<void> main() async {
   await Hive.initFlutter(); // Se inicia la base de datos
 
   await Hive.openBox('base_datos_gastos');
+  await Hive.openBox('base_datos_ingresos');
 
   //  Statusbar transparente
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-import 'package:octoconta_final/src/services/base_datos_gastos.dart';
 import 'package:octoconta_final/src/ui/bitacora_gastos/division_gastos/categorias/alimentos/alimentos_items.dart';
 import 'package:octoconta_final/src/ui/bitacora_gastos/division_gastos/categorias/alimentos/informacion_gastos_alimentos.dart';
 import 'package:provider/provider.dart';
@@ -14,15 +13,6 @@ class AlimentosScreen extends StatefulWidget {
 }
 
 class _AlimentosScreenState extends State<AlimentosScreen> {
-  @override
-  void initState() {
-    super.initState();
-    setState(() {
-      Provider.of<InformacionGastosAlimentos>(context, listen: false)
-          .prepararDatosGastos();
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,7 +50,7 @@ class _AlimentosScreenState extends State<AlimentosScreen> {
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 20.0),
                 child: Text(
-                  "\$${NumberFormat('#,###.##').format(BaseDatosDeGastos().leerTotalGastos())}",
+                  "\$${NumberFormat('#,###.##').format(Provider.of<InformacionGastosAlimentos>(context, listen: true).prepararTotalGastos())}",
                   style: GoogleFonts.inter(
                     color: const Color(0xff4527A0),
                     fontWeight: FontWeight.w700,
