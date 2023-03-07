@@ -1,16 +1,9 @@
-# octoconta_final
+# OctoConta
 
-A new Flutter project.
+Proyecto de ALIDET versión Estatal.
 
-## Getting Started
+## ¿Quiénes somos?
 
-This project is a starting point for a Flutter application.
+OctoConta es un proyecto cuya función es ayudar a los usuarios a resolver procesos contables de una forma eficaz y rápida, y cuenta con información para esclarecer dudas sobre términos que pueden ser confusos para gente que puede estar alejada del área contable.
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Como un plus, agregamos una bitacora de gastos para que nuestros usuarios puedan tener un mejor control sobre sus finanzas.
