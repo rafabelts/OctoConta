@@ -18,31 +18,31 @@ class CategoriasYCantidades extends StatelessWidget {
       [
         'Alimentos:',
         Provider.of<InformacionGastosAlimentos>(context, listen: true)
-            .obtenerTotalGastosAlimentos(),
+            .prepararTotalGastos(),
         Colors.red
       ],
       [
         'Salud e Higiene:',
         Provider.of<InformacionGastosSaludHigiene>(context, listen: true)
-            .obtenerTotalGastoSalud(),
+            .prepararTotalGastos(),
         Colors.red
       ],
       [
         'Servicios:',
         Provider.of<InformacionGastosServicios>(context, listen: true)
-            .obtenerTotalGastosServicios(),
+            .prepararTotalGastos(),
         Colors.red
       ],
       [
         'Suscripciones:',
         Provider.of<InformacionGastosSuscripciones>(context, listen: true)
-            .obtenerTotalGastosSuscripciones(),
+            .prepararTotalGastos(),
         Colors.red
       ],
       [
         'Otros:',
         Provider.of<InformacionGastosOtros>(context, listen: true)
-            .obtenerTotalGastosOtros(),
+            .prepararTotalGastos(),
         Colors.red
       ],
       [

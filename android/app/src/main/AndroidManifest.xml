@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.octoconta_final">
+    package="com.octo.octoconta_final">
    <application
         android:label="OctoConta (Beta)"
         android:name="${applicationName}"

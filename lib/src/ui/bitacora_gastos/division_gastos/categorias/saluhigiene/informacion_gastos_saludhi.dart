@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:octoconta_final/src/services/base_datos_gastos.dart';
+import 'package:octoconta_final/src/services/base_datos_gastos_salud.dart';
 
 import '../../../../../models/gasto_item.dart';
 
@@ -12,22 +12,15 @@ class InformacionGastosSaludHigiene extends ChangeNotifier {
     return listaGastosSalud;
   }
 
-  final db = BaseDatosDeGastos();
+  final db = BaseDatosDeGastosSalud();
 
   // prepara datos para la base de datos
   void prepararDatos() {
     // Si existe un dato, obtenerlo
-    final datosGastos = db.leerDatosGastos();
-    if (db.leerDatosGastos().isNotEmpty) {
-      listaGastosSalud = datosGastos['Salud'] ?? [];
+    final datosGastos = db.leerDatosSalud();
+    if (datosGastos.isNotEmpty) {
+      listaGastosSalud = datosGastos;
     }
-  }
-
-  // agregar nuevo gasto
-  void agregarNuevoGastoSalud(GastoItem nuevoGasto) {
-    listaGastosSalud.add(nuevoGasto);
-    notifyListeners();
-    db.guardarGasto(listaGastosSalud);
   }
 
   double obtenerTotalGastoSalud() {
@@ -36,5 +29,18 @@ class InformacionGastosSaludHigiene extends ChangeNotifier {
       total += gasto.precio;
     }
     return total == 0 ? 0 : total;
+  }
+
+  // agregar nuevo gasto
+  void agregarNuevoGastoSalud(GastoItem nuevoGasto) {
+    listaGastosSalud.add(nuevoGasto);
+    notifyListeners();
+    // db.guardarGasto(listaGastosSalud);
+    db.guardarGastosSalud(listaGastosSalud);
+    db.totalDeGastosSalud(obtenerTotalGastoSalud());
+  }
+
+  double prepararTotalGastos() {
+    return db.leerTotalSalud();
   }
 }

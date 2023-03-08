@@ -10,9 +10,6 @@ class GastosSuscripcionesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double totalSuma =
-        Provider.of<InformacionGastosSuscripciones>(context, listen: false)
-            .obtenerTotalGastosSuscripciones();
     return Scaffold(
         appBar: AppBar(
           title: Text(
@@ -48,7 +45,7 @@ class GastosSuscripcionesScreen extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 20.0),
                 child: Text(
-                  "\$ ${NumberFormat('#,###.##').format(totalSuma)}",
+                  "\$${NumberFormat('#,###.##').format(Provider.of<InformacionGastosSuscripciones>(context, listen: true).prepararTotalGastos())}",
                   style: GoogleFonts.inter(
                     color: const Color(0xff4527A0),
                     fontWeight: FontWeight.w700,

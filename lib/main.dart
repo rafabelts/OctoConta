@@ -21,7 +21,12 @@ Future<void> main() async {
   await Firebase.initializeApp();
   await Hive.initFlutter(); // Se inicia la base de datos
 
-  await Hive.openBox('base_datos_gastos');
+  await Hive.openBox('base_datos_alimentos');
+  await Hive.openBox('base_datos_salud');
+  await Hive.openBox('base_datos_servicios');
+  await Hive.openBox('base_datos_suscripciones');
+
+  await Hive.openBox('base_datos_otros');
   await Hive.openBox('base_datos_ingresos');
 
   //  Statusbar transparente

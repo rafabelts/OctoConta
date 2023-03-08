@@ -10,10 +10,6 @@ class GastosSaludeHigieneScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double totalSuma =
-        Provider.of<InformacionGastosSaludHigiene>(context, listen: false)
-            .obtenerTotalGastoSalud();
-
     return Scaffold(
         appBar: AppBar(
           title: Text(
@@ -49,7 +45,7 @@ class GastosSaludeHigieneScreen extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 20.0),
                 child: Text(
-                  "\$ ${NumberFormat('#,###.##').format(totalSuma)}",
+                  "\$${NumberFormat('#,###.##').format(Provider.of<InformacionGastosSaludHigiene>(context, listen: true).prepararTotalGastos())}",
                   style: GoogleFonts.inter(
                     color: const Color(0xff4527A0),
                     fontWeight: FontWeight.w700,

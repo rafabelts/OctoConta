@@ -6,10 +6,13 @@ class EditarBalanceInputs extends StatelessWidget {
   final TextEditingController saldo;
   final Function(dynamic) onChangedSaldo;
   final dynamic errorInSaldo;
+  final VoidCallback onSubmittedSaldo;
+
   const EditarBalanceInputs(
       {required this.saldo,
       required this.onChangedSaldo,
       required this.errorInSaldo,
+      required this.onSubmittedSaldo,
       super.key});
 
   @override
@@ -36,6 +39,7 @@ class EditarBalanceInputs extends StatelessWidget {
                 fontWeight: FontWeight.w600,
                 fontSize: 48,
               ),
+              onEditingComplete: onSubmittedSaldo,
               inputFormatters: [
                 NumberTextInputFormatter(
                   integerDigits: 10,

@@ -45,7 +45,7 @@ class GastosOtrosScreen extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 20.0),
                 child: Text(
-                  "\$ ${NumberFormat('#,###.##').format(0)}",
+                  "\$${NumberFormat('#,###.##').format(Provider.of<InformacionGastosOtros>(context, listen: true).prepararTotalGastos())}",
                   style: GoogleFonts.inter(
                     color: const Color(0xff4527A0),
                     fontWeight: FontWeight.w700,

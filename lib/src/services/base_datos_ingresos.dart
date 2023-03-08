@@ -48,4 +48,14 @@ class BaseDatosDeIngresos {
     }
     return ingresosTotal;
   }
+
+  // Guardar saldo
+  void guardarSaldo(double saldo) {
+    _mybox.put("saldo_usuario", saldo);
+  }
+
+  // Leer saldo
+  double leerSaldo() {
+    return _mybox.get("saldo_usuario", defaultValue: 0.0);
+  }
 }

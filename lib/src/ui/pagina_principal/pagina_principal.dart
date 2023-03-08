@@ -30,35 +30,35 @@ class _PaginaPrincipalState extends State<PaginaPrincipal> {
   Widget build(BuildContext context) {
     double providerGastoAlimento =
         Provider.of<InformacionGastosAlimentos>(context, listen: true)
-            .obtenerTotalGastosAlimentos();
+            .prepararTotalGastos();
 
     double providerGastoSalud =
         Provider.of<InformacionGastosSaludHigiene>(context, listen: true)
-            .obtenerTotalGastoSalud();
+            .prepararTotalGastos();
 
     double providerGastoServicios =
         Provider.of<InformacionGastosServicios>(context, listen: true)
-            .obtenerTotalGastosServicios();
+            .prepararTotalGastos();
 
     double providerGastoSuscripciones =
         Provider.of<InformacionGastosSuscripciones>(context, listen: true)
-            .obtenerTotalGastosSuscripciones();
+            .prepararTotalGastos();
 
     double providerGastoOtros =
         Provider.of<InformacionGastosOtros>(context, listen: true)
-            .obtenerTotalGastosOtros();
+            .prepararTotalGastos();
 
-    double saldo = Provider.of<InformacionSaldoUsuario>(context, listen: false)
-        .saldoDUsuario;
-    double saldoUsuario = saldo -
+    double saldo = Provider.of<InformacionSaldoUsuario>(context, listen: true)
+        .prepararSaldoUsuario();
+    double saldoUsuario = saldo +
+        Provider.of<InformacionIngresos>(context, listen: true)
+            .prepararTotalIngresos() -
         Provider.of<SumaTotalGastos>(context).obtenerGastoTotal(
             providerGastoAlimento,
             providerGastoSalud,
             providerGastoServicios,
             providerGastoSuscripciones,
-            providerGastoOtros) +
-        Provider.of<InformacionIngresos>(context, listen: true)
-            .prepararTotalIngresos();
+            providerGastoOtros);
 
     return Scaffold(
         appBar: ScreensAppBar(

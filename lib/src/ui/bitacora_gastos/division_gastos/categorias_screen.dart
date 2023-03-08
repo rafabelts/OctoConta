@@ -26,23 +26,23 @@ class _CategoriasGastosScreenState extends State<CategoriasGastosScreen> {
     final String? userName = Auth().currentUser?.displayName;
     double providerGastoAlimento =
         Provider.of<InformacionGastosAlimentos>(context, listen: false)
-            .obtenerTotalGastosAlimentos();
+            .prepararTotalGastos();
 
     double providerGastoSalud =
         Provider.of<InformacionGastosSaludHigiene>(context, listen: false)
-            .obtenerTotalGastoSalud();
+            .prepararTotalGastos();
 
     double providerGastoServicios =
         Provider.of<InformacionGastosServicios>(context, listen: false)
-            .obtenerTotalGastosServicios();
+            .prepararTotalGastos();
 
     double providerGastoSuscripciones =
         Provider.of<InformacionGastosSuscripciones>(context, listen: false)
-            .obtenerTotalGastosSuscripciones();
+            .prepararTotalGastos();
 
     double providerGastoOtros =
         Provider.of<InformacionGastosOtros>(context, listen: false)
-            .obtenerTotalGastosOtros();
+            .prepararTotalGastos();
     return Scaffold(
       appBar: AppBar(
         title: Text(

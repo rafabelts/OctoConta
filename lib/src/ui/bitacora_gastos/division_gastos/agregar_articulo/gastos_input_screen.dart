@@ -111,7 +111,6 @@ del artículo.''', true);
 
   @override
   Widget build(BuildContext context) {
-    String categoriaDeGasto = "";
     void agregar() {
       if (articulo.text.isEmpty) {
         mensajeErrorArticulo(
@@ -132,47 +131,32 @@ del artículo.''', true);
             precioArticulo = cantidadReciente *
                 double.parse(precio.text.replaceAll(',', ''));
           });
-
           GastoItem nuevoGasto = GastoItem(
-              cantidad: cantidadReciente,
-              articulo: articulo.text,
-              precio: precioArticulo,
-              categoria: categoriaDeGasto);
+            cantidad: cantidadReciente,
+            articulo: articulo.text,
+            precio: precioArticulo,
+          );
 
           switch (categoriaSeleccionada) {
             case 'Alimentos':
-              setState(() {
-                categoriaDeGasto = "Alimentos";
-              });
               Provider.of<InformacionGastosAlimentos>(context, listen: false)
                   .agregarNuevoGastoAlimentos(nuevoGasto);
+
               break;
             case 'Salud':
-              setState(() {
-                categoriaDeGasto = "Salud";
-              });
               Provider.of<InformacionGastosSaludHigiene>(context, listen: false)
                   .agregarNuevoGastoSalud(nuevoGasto);
               break;
             case 'Servicios':
-              setState(() {
-                categoriaDeGasto = "Servicios";
-              });
               Provider.of<InformacionGastosServicios>(context, listen: false)
                   .agregarNuevoGastoServicios(nuevoGasto);
               break;
             case 'Suscripciones':
-              setState(() {
-                categoriaDeGasto = "Suscripciones";
-              });
               Provider.of<InformacionGastosSuscripciones>(context,
                       listen: false)
                   .agregarNuevoGastoSuscripciones(nuevoGasto);
               break;
             case 'Otros':
-              setState(() {
-                categoriaDeGasto = "Otros";
-              });
               Provider.of<InformacionGastosOtros>(context, listen: false)
                   .agregarNuevoGastoOtros(nuevoGasto);
               break;

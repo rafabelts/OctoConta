@@ -91,6 +91,7 @@ class _EditarBalanceScreenState extends State<EditarBalanceScreen> {
                         padding: const EdgeInsets.only(top: 50),
                         child: EditarBalanceInputs(
                           saldo: saldo,
+                          onSubmittedSaldo: () => editarSaldo(),
                           onChangedSaldo: (value) => onChangedSaldo(),
                           errorInSaldo: errorInSaldo == false
                               ? null

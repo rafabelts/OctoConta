@@ -49,23 +49,23 @@ class _FinanzasScreenState extends State<FinanzasScreen> {
 
     double providerGastoAlimento =
         Provider.of<InformacionGastosAlimentos>(context, listen: true)
-            .obtenerTotalGastosAlimentos();
+            .prepararTotalGastos();
 
     double providerGastoSalud =
         Provider.of<InformacionGastosSaludHigiene>(context, listen: true)
-            .obtenerTotalGastoSalud();
+            .prepararTotalGastos();
 
     double providerGastoServicios =
         Provider.of<InformacionGastosServicios>(context, listen: true)
-            .obtenerTotalGastosServicios();
+            .prepararTotalGastos();
 
     double providerGastoSuscripciones =
         Provider.of<InformacionGastosSuscripciones>(context, listen: true)
-            .obtenerTotalGastosSuscripciones();
+            .prepararTotalGastos();
 
     double providerGastoOtros =
         Provider.of<InformacionGastosOtros>(context, listen: true)
-            .obtenerTotalGastosOtros();
+            .prepararTotalGastos();
 
     return Scaffold(
       appBar: AppBar(
@@ -111,7 +111,7 @@ class _FinanzasScreenState extends State<FinanzasScreen> {
                     builder: (context, value, child) => TarjetaSaldoMensual(
                       opcion: 'Gastado:',
                       total:
-                          '\$${NumberFormat("#,###.##", "en_US").format(value.obtenerGastoTotal(providerGastoAlimento, providerGastoSalud, providerGastoServicios, providerGastoSuscripciones, providerGastoOtros))}',
+                          '\$${NumberFormat('#,###.##').format(Provider.of<SumaTotalGastos>(context, listen: false).obtenerGastoTotal(providerGastoAlimento, providerGastoSalud, providerGastoServicios, providerGastoSuscripciones, providerGastoOtros))}',
                       colorTotal: Theme.of(context).scaffoldBackgroundColor,
                     ),
                   ),

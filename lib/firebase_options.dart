@@ -51,7 +51,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyCS1PKKrEZVlxWGlK8ByBr8-gclYPc556w',
-    appId: '1:583532087968:android:466d776a68ad115715d7c5',
+    appId: '1:583532087968:android:c5fa2e7f38ca78bb15d7c5',
     messagingSenderId: '583532087968',
     projectId: 'octoconta-7e756',
     storageBucket: 'octoconta-7e756.appspot.com',
@@ -59,11 +59,12 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyAI66QDPUAXNoQuYTxlTCQ7MKkJzLeXQsM',
-    appId: '1:583532087968:ios:aec588bb1ff7776a15d7c5',
+    appId: '1:583532087968:ios:8f9777f6410119d215d7c5',
     messagingSenderId: '583532087968',
     projectId: 'octoconta-7e756',
     storageBucket: 'octoconta-7e756.appspot.com',
-    iosClientId: '583532087968-cv9osanqecgjh4nrm76u2hnrbtha9qou.apps.googleusercontent.com',
-    iosBundleId: 'com.example.octocontaFinal',
+    iosClientId:
+        '583532087968-cv9osanqecgjh4nrm76u2hnrbtha9qou.apps.googleusercontent.com',
+    iosBundleId: 'com.octo.octocontaFinal',
   );
 }
