@@ -50,7 +50,9 @@ class _CategoriasIngresosScreenState extends State<CategoriasIngresosScreen> {
                           style: GoogleFonts.poppins(
                               color: const Color.fromARGB(
                                   232, 42, 25, 93), //0xFF2a195d
-                              fontSize: 30,
+                              fontSize: MediaQuery.of(context).size.width <= 360
+                                  ? 28
+                                  : 30,
                               fontWeight: FontWeight.w600),
                           textAlign: TextAlign.center,
                         ),

@@ -202,7 +202,8 @@ class _CalculoPrestamoScreenState extends State<CalculoPrestamoScreen> {
     return Padding(
       padding: const EdgeInsets.all(5.0),
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 15.0),
+        padding: EdgeInsets.symmetric(
+            vertical: MediaQuery.of(context).size.height * 0.02),
         child: Column(
           children: <Widget>[
             CalculoPrestamoInput(

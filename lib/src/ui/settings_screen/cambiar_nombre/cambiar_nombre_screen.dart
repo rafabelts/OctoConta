@@ -82,8 +82,8 @@ class _CambiarNombreScreenState extends State<CambiarNombreScreen> {
       if (nombreUser.text.isEmpty) {
         mensajeErrorNombre('Por favor, ingrese su nombre.', true);
       } else if (userName == nombreUser.text) {
-        mensajeErrorNombre('''Por favor, ingrese un nombre diferente al 
-actual.''', true);
+        mensajeErrorNombre(
+            '''Por favor, ingrese un nombre diferente al actual.''', true);
       } else {
         FocusScope.of(context).unfocus();
         cambioNombre();

@@ -10,6 +10,7 @@ class CambiarSettingsButtons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
     return Column(
       children: <Widget>[
         Padding(
@@ -28,7 +29,7 @@ class CambiarSettingsButtons extends StatelessWidget {
                 'Cambiar $cambio',
                 style: GoogleFonts.inter(
                   fontWeight: FontWeight.w700,
-                  fontSize: 30,
+                  fontSize: width <= 360 ? 26 : 30,
                 ),
               ),
             ),
@@ -43,7 +44,7 @@ class CambiarSettingsButtons extends StatelessWidget {
               style: GoogleFonts.inter(
                 fontWeight: FontWeight.w700,
                 color: const Color(0xff4527A0),
-                fontSize: 27,
+                fontSize: width <= 360 ? 23 : 27,
               ),
             ),
           ),

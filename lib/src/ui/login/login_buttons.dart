@@ -8,30 +8,15 @@ class LogInButtons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
     return Padding(
       padding: const EdgeInsets.all(5.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: <Widget>[
-          TextButton(
-            onPressed: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const CorreoParaVerificar()));
-            },
-            child: Text(
-              'Haz olvidado tu contraseña?',
-              style: GoogleFonts.inter(
-                color: const Color(0xff4527A0),
-                fontWeight: FontWeight.w700,
-                fontSize: 20,
-              ),
-            ),
-          ),
           Column(children: <Widget>[
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 40.0),
+              padding: const EdgeInsets.symmetric(vertical: 20.0),
               child: SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
@@ -49,7 +34,7 @@ class LogInButtons extends StatelessWidget {
                     style: GoogleFonts.inter(
                       // color: lightBackround,
                       fontWeight: FontWeight.w700,
-                      fontSize: 28,
+                      fontSize: width <= 360 ? 24 : 28,
                     ),
                   ),
                 ),
@@ -87,6 +72,22 @@ class LogInButtons extends StatelessWidget {
             //   ),
             // ),
           ]),
+          TextButton(
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const CorreoParaVerificar()));
+            },
+            child: Text(
+              'Haz olvidado tu contraseña?',
+              style: GoogleFonts.inter(
+                color: const Color(0xff4527A0),
+                fontWeight: FontWeight.w700,
+                fontSize: width <= 360 ? 18 : 20,
+              ),
+            ),
+          ),
         ],
       ),
     );

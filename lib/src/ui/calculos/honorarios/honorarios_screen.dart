@@ -84,7 +84,8 @@ class _CalculoHonorariosScreenState extends State<CalculoHonorariosScreen> {
     return Padding(
       padding: const EdgeInsets.all(5.0),
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 150.0),
+        padding: EdgeInsets.symmetric(
+            vertical: MediaQuery.of(context).size.height * 0.1),
         child: Column(
           children: <Widget>[
             CalculoHonorariosInput(
@@ -99,7 +100,7 @@ class _CalculoHonorariosScreenState extends State<CalculoHonorariosScreen> {
                 importe.clear();
               },
               calcular: () => listo(),
-              numeroAMultiplicar: MediaQuery.of(context).size.height * 0.3,
+              numeroAMultiplicar: MediaQuery.of(context).size.height * 0.25,
             )
           ],
         ),

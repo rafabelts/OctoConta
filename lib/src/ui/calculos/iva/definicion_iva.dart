@@ -8,7 +8,7 @@ class DescripcionIVA extends StatelessWidget {
   Widget build(BuildContext context) {
     var colorTitulo = const Color(0xFF382A62);
     var colorBodyTexto = const Color(0xFF534677);
-
+    double width = MediaQuery.of(context).size.width;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.start,
@@ -17,7 +17,7 @@ class DescripcionIVA extends StatelessWidget {
             style: GoogleFonts.inter(
               color: colorTitulo,
               fontWeight: FontWeight.w700,
-              fontSize: 28.6,
+              fontSize: width <= 360 ? 22 : 28,
             ),
             textAlign: TextAlign.center),
         Padding(
@@ -27,7 +27,7 @@ class DescripcionIVA extends StatelessWidget {
             style: GoogleFonts.inter(
                 color: colorBodyTexto,
                 fontWeight: FontWeight.w500,
-                fontSize: 20),
+                fontSize: width <= 360 ? 16 : 20),
             textAlign: TextAlign.justify,
           ),
         ),
@@ -36,13 +36,17 @@ class DescripcionIVA extends StatelessWidget {
           child: Text(
             'Función:',
             style: GoogleFonts.inter(
-                color: colorTitulo, fontWeight: FontWeight.w700, fontSize: 27),
+                color: colorTitulo,
+                fontWeight: FontWeight.w700,
+                fontSize: width <= 360 ? 21 : 27),
           ),
         ),
         Text(
           'La función del cobro de este impuesto es para que el estado obtenga ingresos mediante cargas las actividades de venta de bienes, servicios, arrendamiento de bienes, así como también la importación de bienes y servicios.',
           style: GoogleFonts.inter(
-              color: colorBodyTexto, fontWeight: FontWeight.w500, fontSize: 20),
+              color: colorBodyTexto,
+              fontWeight: FontWeight.w500,
+              fontSize: width <= 360 ? 16 : 20),
           textAlign: TextAlign.justify,
         )
       ],

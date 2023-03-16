@@ -32,6 +32,7 @@ class _CambiarEmailInputState extends State<CambiarEmailInput> {
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -43,7 +44,7 @@ class _CambiarEmailInputState extends State<CambiarEmailInput> {
             style: GoogleFonts.inter(
               color: const Color(0xff2A195D),
               fontWeight: FontWeight.w700,
-              fontSize: 37.9,
+              fontSize: width <= 360 ? 34 : 37,
             ),
           ),
         ),
@@ -59,8 +60,9 @@ class _CambiarEmailInputState extends State<CambiarEmailInput> {
           ),
           decoration: InputDecoration(
             errorText: widget.errorCorreoUser,
-            errorStyle:
-                GoogleFonts.inter(fontSize: 14, fontWeight: FontWeight.w600),
+            errorMaxLines: 4,
+            errorStyle: GoogleFonts.inter(
+                fontSize: width <= 360 ? 12 : 14, fontWeight: FontWeight.w600),
             errorBorder: const OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.red, width: 2.0)),
             focusedErrorBorder: const OutlineInputBorder(
@@ -70,7 +72,7 @@ class _CambiarEmailInputState extends State<CambiarEmailInput> {
                 child: const Text('Nuevo Correo Electrónico')),
             labelStyle: GoogleFonts.inter(
                 textStyle: const TextStyle(color: Color(0xff534677)),
-                fontSize: 21,
+                fontSize: width <= 360 ? 19 : 21,
                 fontWeight: FontWeight.w500),
             contentPadding: const EdgeInsets.symmetric(vertical: 20.0),
             enabledBorder: const OutlineInputBorder(
@@ -87,11 +89,11 @@ class _CambiarEmailInputState extends State<CambiarEmailInput> {
         Padding(
             padding: const EdgeInsets.only(top: 40.0),
             child: Text(
-              'Para realizar el cambio ingrese su contraseña',
+              'Para realizar el cambio ingrese su contraseña.',
               style: GoogleFonts.inter(
                 color: const Color(0xff382A62),
                 fontWeight: FontWeight.w600,
-                fontSize: 18,
+                fontSize: width <= 360 ? 16 : 18,
               ),
             )),
         Padding(
@@ -108,8 +110,9 @@ class _CambiarEmailInputState extends State<CambiarEmailInput> {
             ),
             decoration: InputDecoration(
               errorText: widget.passwordUserError,
-              errorStyle:
-                  GoogleFonts.inter(fontSize: 14, fontWeight: FontWeight.w600),
+              errorStyle: GoogleFonts.inter(
+                  fontSize: width <= 360 ? 12 : 14,
+                  fontWeight: FontWeight.w600),
               errorBorder: const OutlineInputBorder(
                   borderSide: BorderSide(color: Colors.red, width: 2.0)),
               focusedErrorBorder: const OutlineInputBorder(
@@ -119,7 +122,7 @@ class _CambiarEmailInputState extends State<CambiarEmailInput> {
                   child: const Text('Contraseña')),
               labelStyle: GoogleFonts.inter(
                   textStyle: const TextStyle(color: Color(0xff534677)),
-                  fontSize: 21,
+                  fontSize: width <= 360 ? 19 : 21,
                   fontWeight: FontWeight.w500),
               contentPadding: const EdgeInsets.symmetric(vertical: 20.0),
               enabledBorder: const OutlineInputBorder(
@@ -132,6 +135,7 @@ class _CambiarEmailInputState extends State<CambiarEmailInput> {
                 size: 30,
               ),
               suffixIcon: IconButton(
+                splashRadius: 1.0,
                 onPressed: () {
                   setState(() {
                     isPasswordVisible =

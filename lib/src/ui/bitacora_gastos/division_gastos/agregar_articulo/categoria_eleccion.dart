@@ -31,7 +31,9 @@ class _CategoriasEleccionState extends State<CategoriasEleccion> {
       },
       style: ElevatedButton.styleFrom(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-        padding: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 12.0),
+        padding: EdgeInsets.symmetric(
+            vertical: 6.0,
+            horizontal: MediaQuery.of(context).size.width * 0.02),
         side: const BorderSide(color: Color(0xFF3E3378)),
         backgroundColor: valor == index
             ? const Color(0xFF3E3378)
@@ -70,7 +72,7 @@ class _CategoriasEleccionState extends State<CategoriasEleccion> {
           style: GoogleFonts.inter(
             color: const Color(0xff382A62),
             fontWeight: FontWeight.w600,
-            fontSize: 28,
+            fontSize: MediaQuery.of(context).size.width <= 360 ? 26 : 28,
           ),
         ),
         Padding(

@@ -1,4 +1,5 @@
 import 'package:adaptive_components/adaptive_components.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:octoconta_final/src/services/auth.dart';
@@ -24,7 +25,7 @@ class SettingsScreen extends StatelessWidget {
 
     List<dynamic> elementosParaConfigurar = [
       ['Nombre:', userName ?? '', const CambiarNombreScreen()],
-      ['Correo electrónico:', correoUser ?? ' ', const CambiarEmailScreen()],
+      ['Correo electrónico:', correoUser ?? '', const CambiarEmailScreen()],
       ['Contraseña:', '********', const CambiarPasswordScreen()],
     ];
     return Scaffold(
@@ -80,18 +81,32 @@ class SettingsScreen extends StatelessWidget {
                                     fontWeight: FontWeight.w700,
                                   ),
                                 ),
-                                Text(
-                                  elementosParaConfigurar[index][1],
-                                  style: GoogleFonts.poppins(
-                                    color: const Color(0xff4527A0),
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w500,
+                                Container(
+                                  width: 240.0,
+                                  child: Text(
+                                    elementosParaConfigurar[index][1],
+                                    style: GoogleFonts.poppins(
+                                      color: const Color(0xff4527A0),
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                    overflow: TextOverflow.ellipsis,
                                   ),
-                                ),
+                                )
+                                // Text(
+                                //   elementosParaConfigurar[index][1],
+                                //   style: GoogleFonts.poppins(
+                                //     color: const Color(0xff4527A0),
+                                //     fontSize: 14,
+                                //     fontWeight: FontWeight.w500,
+                                //   ),
+                                //   overflow: TextOverflow.ellipsis,
+                                //   maxLines: 1,
+                                // ),
                               ],
                             ),
                             const Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 13),
+                                padding: EdgeInsets.symmetric(horizontal: 26),
                                 child: Icon(
                                   Icons.arrow_forward_ios,
                                   color: Color(0xff4527A0),
@@ -104,7 +119,7 @@ class SettingsScreen extends StatelessWidget {
                   ),
                   Padding(
                     padding: EdgeInsets.only(
-                        top: MediaQuery.of(context).size.height * 0.24),
+                        top: MediaQuery.of(context).size.height * 0.2),
                     child: SettingsButton(),
                   ),
                 ],

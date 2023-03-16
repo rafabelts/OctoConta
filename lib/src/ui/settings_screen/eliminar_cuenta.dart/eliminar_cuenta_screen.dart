@@ -75,8 +75,8 @@ class _EliminarCuentaScreenState extends State<EliminarCuentaScreen> {
         } else if (e.code == 'wrong-password') {
           Navigator.pop(context); // Cerrar diálogo
           mensajeErrorPassword(
-              '''Error: contraseña incorrecta. Por favor ingrese su 
-contraseña correctamente.''', true);
+              '''Error: contraseña incorrecta. Por favor ingrese su contraseña correctamente.''',
+              true);
         } else {
           Future.microtask(() => showMensajeParaUsuario(context, true,
               'Error desconocido. Por favor, intente de nuevo más tarde.'));

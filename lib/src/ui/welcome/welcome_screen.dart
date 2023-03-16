@@ -8,6 +8,7 @@ class WelcomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
     return Scaffold(
         body: SingleChildScrollView(
       padding: const EdgeInsets.all(10.0),
@@ -27,7 +28,15 @@ class WelcomeScreen extends StatelessWidget {
                   ),
                   Text(
                     'Bienvenido!',
-                    style: Theme.of(context).textTheme.displayLarge,
+                    style: GoogleFonts.inter(
+                      color: const Color(0xFF2a195d),
+                      fontWeight: FontWeight.bold,
+                      fontSize: width <= 300
+                          ? 40
+                          : width <= 360
+                              ? 50
+                              : 56,
+                    ),
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 5.0),
@@ -48,6 +57,7 @@ class WelcomeScreen extends StatelessWidget {
   }
 
   Widget buildContinuarButton(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 30),
       child: SizedBox(
@@ -67,7 +77,7 @@ class WelcomeScreen extends StatelessWidget {
             style: GoogleFonts.poppins(
               color: Theme.of(context).scaffoldBackgroundColor,
               fontWeight: FontWeight.w700,
-              fontSize: 32,
+              fontSize: width <= 360 ? 26 : 32,
             ),
           ),
           onPressed: () {

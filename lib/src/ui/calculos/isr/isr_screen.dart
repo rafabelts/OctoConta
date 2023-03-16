@@ -130,7 +130,8 @@ class _CalculoISRScreenState extends State<CalculoISRScreen> {
     return Padding(
       padding: const EdgeInsets.all(5.0),
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 30.0),
+        padding: EdgeInsets.symmetric(
+            vertical: MediaQuery.of(context).size.height * 0.02),
         child: Column(
           children: <Widget>[
             CalculoIsrInput(
@@ -154,7 +155,7 @@ class _CalculoISRScreenState extends State<CalculoISRScreen> {
                 setValidador(true);
               },
               calcular: () => listo(),
-              numeroAMultiplicar: MediaQuery.of(context).size.height * 0.24,
+              numeroAMultiplicar: MediaQuery.of(context).size.height * 0.13,
             ),
           ],
         ),

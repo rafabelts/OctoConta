@@ -8,6 +8,7 @@ class DescripcionPrimaVacacional extends StatelessWidget {
   Widget build(BuildContext context) {
     var colorTitulo = const Color(0xFF382A62);
     var colorBodyTexto = const Color(0xFF534677);
+    double width = MediaQuery.of(context).size.width;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.start,
@@ -16,7 +17,7 @@ class DescripcionPrimaVacacional extends StatelessWidget {
             style: GoogleFonts.inter(
               color: colorTitulo,
               fontWeight: FontWeight.w700,
-              fontSize: 28.6,
+              fontSize: width <= 360 ? 22 : 28,
             ),
             textAlign: TextAlign.center),
         Padding(
@@ -26,7 +27,7 @@ class DescripcionPrimaVacacional extends StatelessWidget {
             style: GoogleFonts.inter(
                 color: colorBodyTexto,
                 fontWeight: FontWeight.w500,
-                fontSize: 20),
+                fontSize: width <= 360 ? 16 : 20),
             textAlign: TextAlign.justify,
           ),
         ),
@@ -35,13 +36,17 @@ class DescripcionPrimaVacacional extends StatelessWidget {
           child: Text(
             'Artículo 80:',
             style: GoogleFonts.inter(
-                color: colorTitulo, fontWeight: FontWeight.w700, fontSize: 27),
+                color: colorTitulo,
+                fontWeight: FontWeight.w700,
+                fontSize: width <= 360 ? 21 : 27),
           ),
         ),
         Text(
           'Los trabajadores tendrán derecho a una prima no menor de veinticinco por ciento sobre los salarios que les correspondan durante el período de vacaciones.',
           style: GoogleFonts.inter(
-              color: colorBodyTexto, fontWeight: FontWeight.w500, fontSize: 20),
+              color: colorBodyTexto,
+              fontWeight: FontWeight.w500,
+              fontSize: width <= 360 ? 16 : 20),
           textAlign: TextAlign.justify,
         ),
         Padding(
@@ -59,7 +64,7 @@ class DescripcionPrimaVacacional extends StatelessWidget {
               style: GoogleFonts.inter(
                   color: colorBodyTexto,
                   fontWeight: FontWeight.w500,
-                  fontSize: 20),
+                  fontSize: width <= 360 ? 16 : 20),
               textAlign: TextAlign.justify,
             )),
       ],

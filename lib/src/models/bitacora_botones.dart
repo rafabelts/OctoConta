@@ -15,6 +15,7 @@ class BotonesBitacora extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
     return Column(
       children: [
         Padding(
@@ -30,7 +31,7 @@ class BotonesBitacora extends StatelessWidget {
                       style: GoogleFonts.inter(
                         color: const Color(0xFF5E35B1),
                         fontWeight: FontWeight.w700,
-                        fontSize: 26,
+                        fontSize: width <= 360 ? 23 : 26,
                       )),
                 ),
               ),
@@ -47,7 +48,7 @@ class BotonesBitacora extends StatelessWidget {
                   agregar,
                   style: GoogleFonts.inter(
                     color: Theme.of(context).scaffoldBackgroundColor,
-                    fontSize: 26,
+                    fontSize: width <= 360 ? 23 : 26,
                     fontWeight: FontWeight.w600,
                   ),
                 ),

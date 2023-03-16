@@ -10,6 +10,7 @@ class SignUpButtons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
     return Padding(
       padding: const EdgeInsets.all(5.0),
       child: Column(children: [
@@ -70,7 +71,7 @@ class SignUpButtons extends StatelessWidget {
                 style: GoogleFonts.inter(
                   // color: lightBackround,
                   fontWeight: FontWeight.w700,
-                  fontSize: 27,
+                  fontSize: width <= 360 ? 24 : 27,
                 ),
               ),
             ),
@@ -119,7 +120,7 @@ class SignUpButtons extends StatelessWidget {
               style: GoogleFonts.inter(
                 color: const Color(0xff4527A0),
                 fontWeight: FontWeight.w700,
-                fontSize: 18,
+                fontSize: width <= 360 ? 17 : 18,
               ),
             ),
           ),

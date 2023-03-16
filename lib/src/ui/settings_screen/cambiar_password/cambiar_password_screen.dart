@@ -130,19 +130,18 @@ class _CambiarPasswordScreenState extends State<CambiarPasswordScreen> {
               'Por favor, ingrese su nueva contraseña.', true);
         } else if (conffirmedNewPassword.text.isEmpty) {
           mensajeErrorConffirmedNewPassword(
-              '''Por favor, ingrese su nueva contraseña de nuevo  
-para confirmar.''', true);
+              '''Por favor, ingrese su nueva contraseña de nuevo para confirmar.''',
+              true);
         } else if (userNewPassword.text.length < 8) {
           mensajeErrorNewPassword('Se necesitan al menos 8 caracteres', true);
         } else if (!regExpPassword.hasMatch(userNewPassword.text)) {
           mensajeErrorNewPassword(
-              '''La contraseña debe tener al entre 8 y 16 caracteres,
-al menos un valor especial, un numero, una 
-minúscula y una mayúscula.''', true);
+              '''La contraseña debe tener al entre 8 y 16 caracteres, al menos un valor especial, un numero, una minúscula y una mayúscula.''',
+              true);
         } else if (userPassword.text == userNewPassword.text) {
           mensajeErrorNewPassword(
-              '''Por favor, ingrese una contraseña diferente a la 
-actual.''', true);
+              '''Por favor, ingrese una contraseña diferente a la actual.''',
+              true);
         } else if (userNewPassword.text != conffirmedNewPassword.text) {
           mensajeErrorNewPassword('Error: Las contraseñas no coinciden.', true);
           mensajeErrorConffirmedNewPassword(
@@ -157,8 +156,8 @@ actual.''', true);
         } else if (e.code == 'wrong-password') {
           Navigator.pop(context); // Cerrar diálogo
           mensajeErrorPassword(
-              '''Error: contraseña incorrecta. Por favor ingrese su 
-contraseña correctamente.''', true);
+              '''Error: contraseña incorrecta. Por favor ingrese su contraseña correctamente.''',
+              true);
         } else if (e.code == 'too-many-requests') {
           Future.microtask(() => showMensajeParaUsuario(context, true,
               'Lo sentimos, has excedido el límite de solicitudes permitidas. Por favor, inténtalo de nuevo más tarde.'));
@@ -189,13 +188,12 @@ contraseña correctamente.''', true);
         mensajeErrorNewPassword('Se necesitan al menos 8 caracteres', true);
       } else if (!regExpPassword.hasMatch(userNewPassword.text)) {
         mensajeErrorNewPassword(
-            '''La contraseña debe tener al entre 8 y 16 caracteres,
-al menos un valor especial, un numero, una 
-minúscula y una mayúscula.''', true);
+            '''La contraseña debe tener al entre 8 y 16 caracteres, al menos un valor especial, un numero, una minúscula y una mayúscula.''',
+            true);
       } else if (userPassword.text == userNewPassword.text) {
         mensajeErrorNewPassword(
-            '''Por favor, ingrese una contraseña diferente a la 
-actual.''', true);
+            '''Por favor, ingrese una contraseña diferente a la actual.''',
+            true);
       } else {
         FocusScope.of(context).nextFocus();
         FocusScope.of(context).nextFocus();
@@ -205,8 +203,8 @@ actual.''', true);
     void onSubmittedConffirmedNewPassword() {
       if (conffirmedNewPassword.text.isEmpty) {
         mensajeErrorConffirmedNewPassword(
-            '''Por favor, ingrese su nueva contraseña de nuevo  
-para confirmar.''', true);
+            '''Por favor, ingrese su nueva contraseña de nuevo  para confirmar.''',
+            true);
       } else if (userNewPassword.text != conffirmedNewPassword.text) {
         mensajeErrorNewPassword('Error: Las contraseñas no coinciden.', true);
         mensajeErrorConffirmedNewPassword(

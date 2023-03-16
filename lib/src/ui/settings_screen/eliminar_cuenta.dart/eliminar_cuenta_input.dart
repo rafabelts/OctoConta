@@ -23,6 +23,7 @@ class _EliminarCuentaInputState extends State<EliminarCuentaInput> {
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
     return SizedBox(
         width: MediaQuery.of(context).size.width - 20,
         child: TextField(
@@ -37,8 +38,9 @@ class _EliminarCuentaInputState extends State<EliminarCuentaInput> {
           ),
           decoration: InputDecoration(
             errorText: widget.passwordError,
-            errorStyle:
-                GoogleFonts.inter(fontSize: 14, fontWeight: FontWeight.w600),
+            errorMaxLines: 4,
+            errorStyle: GoogleFonts.inter(
+                fontSize: width <= 360 ? 12 : 14, fontWeight: FontWeight.w600),
             errorBorder: const OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.red, width: 2.0)),
             focusedErrorBorder: const OutlineInputBorder(
@@ -61,6 +63,7 @@ class _EliminarCuentaInputState extends State<EliminarCuentaInput> {
               size: 30,
             ),
             suffixIcon: IconButton(
+              splashRadius: 1.0,
               onPressed: () {
                 setState(() {
                   isPasswordVisible = !isPasswordVisible; //change boolean value

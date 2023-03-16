@@ -116,7 +116,8 @@ class _CalculoIVAScreenState extends State<CalculoIVAScreen> {
     return Padding(
       padding: const EdgeInsets.all(5.0),
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 150.0),
+        padding: EdgeInsets.symmetric(
+            vertical: MediaQuery.of(context).size.height * 0.1),
         child: Column(
           children: <Widget>[
             CalculoIvaInput(
@@ -132,7 +133,7 @@ class _CalculoIVAScreenState extends State<CalculoIVAScreen> {
                 FocusScope.of(context).unfocus();
               },
               calcular: () => listo(),
-              numeroAMultiplicar: MediaQuery.of(context).size.height * 0.3,
+              numeroAMultiplicar: MediaQuery.of(context).size.height * 0.2,
             ),
           ],
         ),

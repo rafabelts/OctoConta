@@ -8,6 +8,7 @@ class DescripcionTarjeta extends StatelessWidget {
   Widget build(BuildContext context) {
     var colorTitulo = const Color(0xFF382A62);
     var colorBodyTexto = const Color(0xFF534677);
+    double width = MediaQuery.of(context).size.width;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.start,
@@ -17,7 +18,7 @@ class DescripcionTarjeta extends StatelessWidget {
           style: GoogleFonts.inter(
             color: colorTitulo,
             fontWeight: FontWeight.bold,
-            fontSize: 28.6,
+            fontSize: width <= 360 ? 22 : 28,
           ),
         ),
         Padding(
@@ -27,14 +28,16 @@ class DescripcionTarjeta extends StatelessWidget {
             style: GoogleFonts.inter(
                 color: colorBodyTexto,
                 fontWeight: FontWeight.w500,
-                fontSize: 20),
+                fontSize: width <= 360 ? 16 : 20),
             textAlign: TextAlign.justify,
           ),
         ),
         Text(
           'Cuando la entidad financiera te proporciona una tarjeta de crédito, también te asigna una fecha de corte y una fecha de pago; de esta forma, mes a mes la entidad financiera hace las cuentas de lo que has gastado de tu cupo y a cuantas cuotas lo has diferido.',
           style: GoogleFonts.inter(
-              color: colorBodyTexto, fontWeight: FontWeight.w500, fontSize: 20),
+              color: colorBodyTexto,
+              fontWeight: FontWeight.w500,
+              fontSize: width <= 360 ? 16 : 20),
           textAlign: TextAlign.justify,
         )
       ],

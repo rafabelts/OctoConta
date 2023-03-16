@@ -13,6 +13,7 @@ class Botones extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 50.0),
       child: Column(
@@ -28,7 +29,7 @@ class Botones extends StatelessWidget {
                       style: GoogleFonts.inter(
                         color: const Color(0xFF5E35B1),
                         fontWeight: FontWeight.w700,
-                        fontSize: 34,
+                        fontSize: width <= 360 ? 28 : 34,
                       )),
                 ),
               ),
@@ -45,7 +46,7 @@ class Botones extends StatelessWidget {
                   "Calcular",
                   style: GoogleFonts.inter(
                     color: Theme.of(context).scaffoldBackgroundColor,
-                    fontSize: 29,
+                    fontSize: width <= 360 ? 23 : 29,
                     fontWeight: FontWeight.w600,
                   ),
                 ),

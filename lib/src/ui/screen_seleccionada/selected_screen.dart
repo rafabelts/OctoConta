@@ -277,7 +277,7 @@ class _SelectedScreenState extends State<SelectedScreen> {
               ),
               Padding(
                 padding: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height * 0.18),
+                    top: MediaQuery.of(context).size.height * 0.05),
                 child: ListTile(
                   title: Text(
                     'Regresar',

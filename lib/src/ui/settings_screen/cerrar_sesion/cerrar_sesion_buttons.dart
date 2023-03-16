@@ -7,6 +7,7 @@ class CerrarSesionButtons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
@@ -17,7 +18,7 @@ class CerrarSesionButtons extends StatelessWidget {
             style: GoogleFonts.inter(
               color: Colors.red,
               fontWeight: FontWeight.bold,
-              fontSize: 22,
+              fontSize: width <= 360 ? 20 : 22,
             ),
           ),
         ),
@@ -37,7 +38,7 @@ class CerrarSesionButtons extends StatelessWidget {
               style: GoogleFonts.inter(
                 color: Theme.of(context).scaffoldBackgroundColor,
                 fontWeight: FontWeight.bold,
-                fontSize: 20,
+                fontSize: width <= 360 ? 16 : 20,
               ),
             ))
       ],

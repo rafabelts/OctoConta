@@ -43,7 +43,7 @@ class AgregarGastoInputs extends StatelessWidget {
           style: GoogleFonts.inter(
             color: const Color(0xff382A62),
             fontWeight: FontWeight.w600,
-            fontSize: 28,
+            fontSize: MediaQuery.of(context).size.width <= 360 ? 26 : 28,
           ),
         ),
         Padding(
@@ -62,6 +62,7 @@ class AgregarGastoInputs extends StatelessWidget {
             decoration: InputDecoration(
                 contentPadding: const EdgeInsets.symmetric(vertical: 2.0),
                 errorText: articuloError,
+                errorMaxLines: 3,
                 errorStyle: GoogleFonts.inter(
                     fontSize: 14, fontWeight: FontWeight.w600),
                 errorBorder: const UnderlineInputBorder(
@@ -88,7 +89,7 @@ class AgregarGastoInputs extends StatelessWidget {
             style: GoogleFonts.inter(
               color: const Color(0xff382A62),
               fontWeight: FontWeight.w600,
-              fontSize: 28,
+              fontSize: MediaQuery.of(context).size.width <= 360 ? 26 : 28,
             ),
           ),
         ),
@@ -105,7 +106,7 @@ class AgregarGastoInputs extends StatelessWidget {
                     cantidad: cantidad),
               ),
               SizedBox(
-                width: MediaQuery.of(context).size.width * 0.56,
+                width: MediaQuery.of(context).size.width * 0.542,
                 child: TextField(
                   controller: precio,
                   onChanged: onChangedPrecio,
@@ -134,6 +135,7 @@ class AgregarGastoInputs extends StatelessWidget {
                   onEditingComplete: onSubmittedPrecio,
                   decoration: InputDecoration(
                       errorText: precioError,
+                      errorMaxLines: 4,
                       errorStyle: GoogleFonts.inter(
                         fontSize: 14,
                         fontWeight: FontWeight.w600,

@@ -49,13 +49,14 @@ class _CorreoParaVerificarState extends State<CorreoParaVerificar> {
             'Error de solicitud de red: la solicitud no se pudo completar. Por favor, compruebe su conexión a Internet e inténtelo de nuevo.');
       } else if (e.code == 'user-not-found') {
         // El usuario no existe
-        mensajeErrorEmail('''Error: la cuenta de usuario no se ha encontrado. 
-Por favor, compruebe su dirección de correo 
-electrónico e intente de nuevo.''', false);
+        mensajeErrorEmail(
+            '''Error: la cuenta de usuario no se ha encontrado. Por favor, compruebe su dirección de correo electrónico e intente de nuevo.''',
+            false);
       } else if (e.code == 'invalid-email') {
         // La dirección de correo electrónico es inválida
-        mensajeErrorEmail('''Error: correo electrónico inválido. Por favor, 
-ingrese un correo electrónico válido.''', false);
+        mensajeErrorEmail(
+            '''Error: correo electrónico inválido. Por favor, ingrese un correo electrónico válido.''',
+            false);
       } else if (e.code == 'too-many-requests') {
         Future.microtask(() => showMensajeParaUsuario(context, true,
             'Lo sentimos, has excedido el límite de solicitudes permitidas. Por favor, inténtalo de nuevo más tarde.'));
@@ -100,7 +101,7 @@ ingrese un correo electrónico válido.''', false);
       ),
       body: SingleChildScrollView(
         padding: EdgeInsets.symmetric(
-            vertical: MediaQuery.of(context).size.height * 0.1),
+            vertical: MediaQuery.of(context).size.height * 0.02),
         child: AdaptiveColumn(
           children: <AdaptiveContainer>[
             AdaptiveContainer(

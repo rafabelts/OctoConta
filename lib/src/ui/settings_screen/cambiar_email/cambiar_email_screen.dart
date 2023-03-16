@@ -85,11 +85,13 @@ class _CambiarEmailScreenState extends State<CambiarEmailScreen> {
           showMensajeParaUsuario(context, true,
               'Error de solicitud de red: la solicitud no se pudo completar. Por favor, compruebe su conexión a Internet e inténtelo de nuevo.');
         } else if (e.code == 'invalid-email') {
-          mensajeErrorEmail('''Error: correo electrónico inválido. Por favor, 
-ingrese un correo electrónico válido.''', true);
+          mensajeErrorEmail(
+              '''Error: correo electrónico inválido. Por favor, ingrese un correo electrónico válido.''',
+              true);
         } else if (e.code == 'email-already-in-use') {
-          mensajeErrorEmail('''Error: esta dirección de correo electrónico
-ya está en uso. Por favor, intente con una diferente.''', true);
+          mensajeErrorEmail(
+              '''Error: esta dirección de correo electrónico ya está en uso. Por favor, intente con una diferente.''',
+              true);
         } else {
           showMensajeParaUsuario(context, true,
               'Error desconocido. Por favor, inténte de nuevo más tarde.');
@@ -118,8 +120,8 @@ ya está en uso. Por favor, intente con una diferente.''', true);
               'Error de solicitud de red: la solicitud no se pudo completar. Por favor, compruebe su conexión a Internet e inténtelo de nuevo.');
         } else if (e.code == 'wrong-password') {
           mensajeErrorPassword(
-              '''Error: contraseña incorrecta. Por favor ingrese su 
-contraseña correctamente.''', true);
+              '''Error: contraseña incorrecta. Por favor ingrese su contraseña correctamente.''',
+              true);
         } else if (e.code == 'too-many-requests') {
           Future.microtask(() => showMensajeParaUsuario(context, true,
               'Lo sentimos, has excedido el límite de solicitudes permitidas. Por favor, inténtalo de nuevo más tarde.'));
@@ -140,12 +142,13 @@ contraseña correctamente.''', true);
         mensajeErrorEmail(
             "Por favor, ingrese su nuevo correo eléctronico.", true);
       } else if (!regExpEmail.hasMatch(correoUser.text.toLowerCase().trim())) {
-        mensajeErrorEmail('''Error: correo electrónico inválido. Por favor, 
-ingrese un correo electrónico válido.''', true);
+        mensajeErrorEmail(
+            '''Error: correo electrónico inválido. Por favor, ingrese un correo electrónico válido.''',
+            true);
       } else if (userCorreo == correoUser.text.toLowerCase().trim()) {
         mensajeErrorEmail(
-            '''Por favor, ingrese un correo electrónico diferente al 
-actual.''', true);
+            '''Por favor, ingrese un correo electrónico diferente al actual.''',
+            true);
       } else {
         FocusScope.of(context).nextFocus();
       }
@@ -159,12 +162,13 @@ actual.''', true);
         mensajeErrorEmail(
             "'Por favor, ingrese su nuevo correo eléctronico.", true);
       } else if (!regExpEmail.hasMatch(correoUser.text.toLowerCase().trim())) {
-        mensajeErrorEmail('''Error: correo electrónico inválido. Por favor, 
-ingrese un correo electrónico válido.''', true);
+        mensajeErrorEmail(
+            '''Error: correo electrónico inválido. Por favor, ingrese un correo electrónico válido.''',
+            true);
       } else if (userCorreo == correoUser.text.toLowerCase().trim()) {
         mensajeErrorEmail(
-            '''Por favor, ingrese un correo electrónico diferente al 
-actual.''', true);
+            '''Por favor, ingrese un correo electrónico diferente al actual.''',
+            true);
       } else if (password.text.isEmpty) {
         mensajeErrorPassword('Por favor, ingrese su contraseña.', true);
       } else {

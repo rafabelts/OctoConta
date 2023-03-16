@@ -7,6 +7,7 @@ class BotonesParaRecuperacion extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
     return Padding(
         padding: const EdgeInsets.only(top: 50.0),
         child: Column(
@@ -25,7 +26,7 @@ class BotonesParaRecuperacion extends StatelessWidget {
                   'Envíar Código',
                   style: GoogleFonts.inter(
                     fontWeight: FontWeight.w700,
-                    fontSize: 30,
+                    fontSize: width <= 360 ? 26 : 30,
                   ),
                 ),
               ),
@@ -39,7 +40,7 @@ class BotonesParaRecuperacion extends StatelessWidget {
                   style: GoogleFonts.inter(
                     fontWeight: FontWeight.w700,
                     color: const Color(0xff4527A0),
-                    fontSize: 30,
+                    fontSize: width <= 360 ? 26 : 30,
                   ),
                 ),
               ),

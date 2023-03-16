@@ -71,6 +71,7 @@ class _SignUpInputsState extends State<SignUpInputs> {
 
   Widget buildInputNombre(BuildContext context) {
     // Creo la entrada del nombre del usuario
+    double width = MediaQuery.of(context).size.width;
     return Padding(
       padding: const EdgeInsets.only(top: 20.0),
       child: TextField(
@@ -84,8 +85,9 @@ class _SignUpInputsState extends State<SignUpInputs> {
         onEditingComplete: widget.onSubmittedNombre,
         decoration: InputDecoration(
           errorText: widget.nombreError,
-          errorStyle:
-              GoogleFonts.inter(fontSize: 14, fontWeight: FontWeight.w600),
+          errorMaxLines: 4,
+          errorStyle: GoogleFonts.inter(
+              fontSize: width <= 360 ? 12 : 14, fontWeight: FontWeight.w600),
           errorBorder: const OutlineInputBorder(
               borderSide: BorderSide(color: Colors.red, width: 2.0)),
           focusedErrorBorder: const OutlineInputBorder(
@@ -95,7 +97,7 @@ class _SignUpInputsState extends State<SignUpInputs> {
               child: const Text('Nombre')),
           labelStyle: GoogleFonts.inter(
               textStyle: const TextStyle(color: Color(0xff534677)),
-              fontSize: 21,
+              fontSize: width <= 360 ? 19 : 21,
               fontWeight: FontWeight.w500),
           contentPadding: const EdgeInsets.symmetric(vertical: 20.0),
           enabledBorder: const OutlineInputBorder(
@@ -114,6 +116,7 @@ class _SignUpInputsState extends State<SignUpInputs> {
 
   Widget buildEmailInput(BuildContext context) {
     // Creo la entrada del e-mail del usuario
+    double width = MediaQuery.of(context).size.width;
     return Padding(
       padding: const EdgeInsets.only(top: 30.0),
       child: TextField(
@@ -128,8 +131,9 @@ class _SignUpInputsState extends State<SignUpInputs> {
         ),
         decoration: InputDecoration(
           errorText: widget.emailError,
-          errorStyle:
-              GoogleFonts.inter(fontSize: 14, fontWeight: FontWeight.w600),
+          errorMaxLines: 4,
+          errorStyle: GoogleFonts.inter(
+              fontSize: width <= 360 ? 12 : 14, fontWeight: FontWeight.w600),
           errorBorder: const OutlineInputBorder(
               borderSide: BorderSide(color: Colors.red, width: 2.0)),
           focusedErrorBorder: const OutlineInputBorder(
@@ -139,7 +143,7 @@ class _SignUpInputsState extends State<SignUpInputs> {
               child: const Text('Correo electrónico')),
           labelStyle: GoogleFonts.inter(
               textStyle: const TextStyle(color: Color(0xff534677)),
-              fontSize: 21,
+              fontSize: width <= 360 ? 19 : 21,
               fontWeight: FontWeight.w500),
           contentPadding: const EdgeInsets.symmetric(vertical: 20.0),
           enabledBorder: const OutlineInputBorder(
@@ -157,6 +161,8 @@ class _SignUpInputsState extends State<SignUpInputs> {
   }
 
   Widget buildPasswordInput(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+
     return Padding(
       padding: const EdgeInsets.only(top: 30.0),
       child: TextField(
@@ -171,8 +177,9 @@ class _SignUpInputsState extends State<SignUpInputs> {
         ),
         decoration: InputDecoration(
           errorText: widget.passwordError,
-          errorStyle:
-              GoogleFonts.inter(fontSize: 13.15, fontWeight: FontWeight.w600),
+          errorMaxLines: 4,
+          errorStyle: GoogleFonts.inter(
+              fontSize: width <= 360 ? 12 : 14, fontWeight: FontWeight.w600),
           errorBorder: const OutlineInputBorder(
               borderSide: BorderSide(color: Colors.red, width: 2.0)),
           focusedErrorBorder: const OutlineInputBorder(
@@ -182,7 +189,7 @@ class _SignUpInputsState extends State<SignUpInputs> {
               child: const Text('Contraseña')),
           labelStyle: GoogleFonts.inter(
               textStyle: const TextStyle(color: Color(0xff534677)),
-              fontSize: 21,
+              fontSize: width <= 360 ? 19 : 21,
               fontWeight: FontWeight.w500),
           contentPadding: const EdgeInsets.symmetric(vertical: 20.0),
           enabledBorder: const OutlineInputBorder(
@@ -195,6 +202,7 @@ class _SignUpInputsState extends State<SignUpInputs> {
             size: 30,
           ),
           suffixIcon: IconButton(
+            splashRadius: 1.0,
             onPressed: () {
               setState(() {
                 _isPasswordVisible = !_isPasswordVisible; //change boolean value
@@ -214,6 +222,8 @@ class _SignUpInputsState extends State<SignUpInputs> {
 
   Widget buildCPasswordInput(BuildContext context) {
     // Entrada para la confirmacion de contrasena del usuario
+    double width = MediaQuery.of(context).size.width;
+
     return Padding(
       padding: const EdgeInsets.only(top: 30.0),
       child: TextField(
@@ -228,8 +238,9 @@ class _SignUpInputsState extends State<SignUpInputs> {
         ),
         decoration: InputDecoration(
           errorText: widget.conffirmedPasswordError,
-          errorStyle:
-              GoogleFonts.inter(fontSize: 13.15, fontWeight: FontWeight.w600),
+          errorMaxLines: 4,
+          errorStyle: GoogleFonts.inter(
+              fontSize: width <= 360 ? 12 : 14, fontWeight: FontWeight.w600),
           errorBorder: const OutlineInputBorder(
               borderSide: BorderSide(color: Colors.red, width: 2.0)),
           focusedErrorBorder: const OutlineInputBorder(
@@ -239,7 +250,7 @@ class _SignUpInputsState extends State<SignUpInputs> {
               child: const Text('Confirmar contraseña')),
           labelStyle: GoogleFonts.inter(
               textStyle: const TextStyle(color: Color(0xff534677)),
-              fontSize: 21,
+              fontSize: width <= 360 ? 19 : 21,
               fontWeight: FontWeight.w500),
           contentPadding: const EdgeInsets.symmetric(vertical: 20.0),
           enabledBorder: const OutlineInputBorder(
@@ -252,6 +263,7 @@ class _SignUpInputsState extends State<SignUpInputs> {
             size: 30,
           ),
           suffixIcon: IconButton(
+            splashRadius: 1.0,
             onPressed: () {
               setState(() {
                 _isConfirmPasswordVisible =

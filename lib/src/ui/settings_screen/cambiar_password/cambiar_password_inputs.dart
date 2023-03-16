@@ -59,6 +59,7 @@ class _CambiarPasswordInputState extends State<CambiarPasswordInput> {
     final dynamic newPasswordUserError = widget.newPasswordError;
     final dynamic confirmedNewPasswordUserError =
         widget.conffirmedNewPasswordError;
+    double width = MediaQuery.of(context).size.width;
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -70,7 +71,7 @@ class _CambiarPasswordInputState extends State<CambiarPasswordInput> {
             style: GoogleFonts.inter(
               color: const Color(0xff2A195D),
               fontWeight: FontWeight.w700,
-              fontSize: 37.9,
+              fontSize: width <= 360 ? 32 : 37,
             ),
           ),
         ),
@@ -86,8 +87,9 @@ class _CambiarPasswordInputState extends State<CambiarPasswordInput> {
           onEditingComplete: widget.onSubmmitedPassword,
           decoration: InputDecoration(
             errorText: passwordUserError,
-            errorStyle:
-                GoogleFonts.inter(fontSize: 14, fontWeight: FontWeight.w600),
+            errorMaxLines: 4,
+            errorStyle: GoogleFonts.inter(
+                fontSize: width <= 360 ? 12 : 14, fontWeight: FontWeight.w600),
             errorBorder: const OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.red, width: 2.0)),
             focusedErrorBorder: const OutlineInputBorder(
@@ -97,7 +99,7 @@ class _CambiarPasswordInputState extends State<CambiarPasswordInput> {
                 child: const Text('Contraseña')),
             labelStyle: GoogleFonts.inter(
                 textStyle: const TextStyle(color: Color(0xff534677)),
-                fontSize: 21,
+                fontSize: width <= 360 ? 19 : 21,
                 fontWeight: FontWeight.w500),
             contentPadding: const EdgeInsets.symmetric(vertical: 20.0),
             enabledBorder: const OutlineInputBorder(
@@ -110,6 +112,7 @@ class _CambiarPasswordInputState extends State<CambiarPasswordInput> {
               size: 30,
             ),
             suffixIcon: IconButton(
+              splashRadius: 1.0,
               onPressed: () {
                 setState(() {
                   isPasswordVisible = !isPasswordVisible; //change boolean value
@@ -138,8 +141,10 @@ class _CambiarPasswordInputState extends State<CambiarPasswordInput> {
             ),
             decoration: InputDecoration(
               errorText: newPasswordUserError,
-              errorStyle:
-                  GoogleFonts.inter(fontSize: 14, fontWeight: FontWeight.w600),
+              errorMaxLines: 4,
+              errorStyle: GoogleFonts.inter(
+                  fontSize: width <= 360 ? 12 : 14,
+                  fontWeight: FontWeight.w600),
               errorBorder: const OutlineInputBorder(
                   borderSide: BorderSide(color: Colors.red, width: 2.0)),
               focusedErrorBorder: const OutlineInputBorder(
@@ -149,7 +154,7 @@ class _CambiarPasswordInputState extends State<CambiarPasswordInput> {
                   child: const Text('Nueva Contraseña')),
               labelStyle: GoogleFonts.inter(
                   textStyle: const TextStyle(color: Color(0xff534677)),
-                  fontSize: 21,
+                  fontSize: width <= 360 ? 19 : 21,
                   fontWeight: FontWeight.w500),
               contentPadding: const EdgeInsets.symmetric(vertical: 20.0),
               enabledBorder: const OutlineInputBorder(
@@ -162,6 +167,7 @@ class _CambiarPasswordInputState extends State<CambiarPasswordInput> {
                 size: 30,
               ),
               suffixIcon: IconButton(
+                splashRadius: 1.0,
                 onPressed: () {
                   setState(() {
                     isNewPasswordVisible =
@@ -189,9 +195,9 @@ class _CambiarPasswordInputState extends State<CambiarPasswordInput> {
             fontSize: 18,
           ),
           decoration: InputDecoration(
-            errorText: confirmedNewPasswordUserError,
-            errorStyle:
-                GoogleFonts.inter(fontSize: 14, fontWeight: FontWeight.w600),
+            errorMaxLines: 4,
+            errorStyle: GoogleFonts.inter(
+                fontSize: width <= 360 ? 12 : 14, fontWeight: FontWeight.w600),
             errorBorder: const OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.red, width: 2.0)),
             focusedErrorBorder: const OutlineInputBorder(
@@ -201,7 +207,7 @@ class _CambiarPasswordInputState extends State<CambiarPasswordInput> {
                 child: const Text('Confirmar Contraseña')),
             labelStyle: GoogleFonts.inter(
                 textStyle: const TextStyle(color: Color(0xff534677)),
-                fontSize: 21,
+                fontSize: width <= 360 ? 19 : 21,
                 fontWeight: FontWeight.w500),
             contentPadding: const EdgeInsets.symmetric(vertical: 20.0),
             enabledBorder: const OutlineInputBorder(
@@ -214,6 +220,7 @@ class _CambiarPasswordInputState extends State<CambiarPasswordInput> {
               size: 30,
             ),
             suffixIcon: IconButton(
+              splashRadius: 1.0,
               onPressed: () {
                 setState(() {
                   isConffirmNewPasswordVisible =

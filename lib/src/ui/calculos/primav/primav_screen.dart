@@ -150,7 +150,8 @@ class _CalculoPrimaVacacionalScreenState
     return Padding(
       padding: const EdgeInsets.all(5.0),
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 20.0),
+        padding: EdgeInsets.symmetric(
+            vertical: MediaQuery.of(context).size.height * 0.02),
         child: Column(
           children: <Widget>[
             CalculoPrimaVacacionalInput(
@@ -177,7 +178,7 @@ class _CalculoPrimaVacacionalScreenState
                   year.clear();
                   sueldo.clear();
                 },
-                numeroAMultiplicar: MediaQuery.of(context).size.height * 0.06,
+                numeroAMultiplicar: MediaQuery.of(context).size.height * 0.1,
                 calcular: () => listo()),
           ],
         ),

@@ -37,12 +37,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
         showMensajeParaUsuario(context, true,
             'Error de solicitud de red: la solicitud no se pudo completar. Por favor, compruebe su conexión a Internet e inténtelo de nuevo.');
       } else if (e.code == 'email-already-in-use') {
-        mensajeErrorEmail('''Error: esta dirección de correo electrónico 
-ya está en uso. Por favor, intente con una 
-diferente.''', false);
+        mensajeErrorEmail(
+            '''Error: esta dirección de correo electrónico ya está en uso. Por favor, intente con una diferente.''',
+            false);
       } else if (e.code == 'weak-password') {
-        mensajeErrorPassword('''La contraseña ingresada es demasiado débil. 
-Por favor intente crear una contraseña más segura''', false);
+        mensajeErrorPassword(
+            '''La contraseña ingresada es demasiado débil. Por favor intente crear una contraseña más segura''',
+            false);
       } else if (e.code == 'too-many-requests') {
         Future.microtask(() => showMensajeParaUsuario(context, true,
             'Lo sentimos, has excedido el límite de solicitudes permitidas. Por favor, inténtalo de nuevo más tarde.'));
@@ -59,6 +60,8 @@ Por favor intente crear una contraseña más segura''', false);
     String passwordValor = password.text;
     String conffirmedPasswordValor = conffirmedPassword.text;
 
+    print(MediaQuery.of(context).size.width);
+
     if (nombreValor.isEmpty) {
       mensajeErrorNombre('Por favor, ingrese su nombre.', false);
     }
@@ -70,8 +73,8 @@ Por favor intente crear una contraseña más segura''', false);
     }
     if (conffirmedPasswordValor.isEmpty) {
       mensajeErrorConffirmedPassword(
-          '''Por favor, ingrese su contraseña de nuevo para 
-confirmar.''', false);
+          '''Por favor, ingrese su contraseña de nuevo para confirmar.''',
+          false);
     } else {
       String emailPattern =
           r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
@@ -90,17 +93,17 @@ confirmar.''', false);
             'Error: contraseñas no coinciden.', false);
       } else if (!regExpPassword.hasMatch(passwordValor)) {
         mensajeErrorPassword(
-            '''La contraseña debe tener al entre 8 y 16 caracteres,
-al menos un valor especial, un número, una 
-minúscula y una mayúscula.''', false);
+            '''La contraseña debe tener al entre 8 y 16 caracteres, al menos un valor especial, un número, una minúscula y una mayúscula.''',
+            false);
       } else {
         if (nombreValor.isEmpty) {
           mensajeErrorNombre('Por favor, ingrese su nombre.', false);
         } else if (emailValor.isEmpty) {
           mensajeErrorEmail('Por favor, ingrese su correo electrónico.', false);
         } else if (!regExpEmail.hasMatch(emailValor)) {
-          mensajeErrorEmail('''Error: correo electrónico inválido. Por favor, 
-ingrese un correo electrónico válido.''', false);
+          mensajeErrorEmail(
+              '''Error: correo electrónico inválido. Por favor, ingrese un correo electrónico válido.''',
+              false);
         } else {
           mensajeErrorNombre('', true);
           mensajeErrorEmail('', true);
@@ -129,8 +132,9 @@ ingrese un correo electrónico válido.''', false);
     if (email.text.trim().toLowerCase().isEmpty) {
       mensajeErrorEmail('Por favor, ingrese su correo electrónico.', false);
     } else if (!regExpEmail.hasMatch(email.text.trim().toLowerCase())) {
-      mensajeErrorEmail('''Error: correo electrónico inválido. Por favor, 
-ingrese un correo electrónico válido.''', false);
+      mensajeErrorEmail(
+          '''Error: correo electrónico inválido. Por favor, ingrese un correo electrónico válido.''',
+          false);
     } else {
       mensajeErrorEmail("", true);
       FocusScope.of(context).nextFocus();
@@ -148,9 +152,8 @@ ingrese un correo electrónico válido.''', false);
           'La contraseña debe tener al menos 8 caracteres.', false);
     } else if (!regExpPassword.hasMatch(password.text)) {
       mensajeErrorPassword(
-          '''La contraseña debe tener al entre 8 y 16 caracteres,
-al menos un valor especial, un número, una
-minúscula y una mayúscula.''', false);
+          '''La contraseña debe tener al entre 8 y 16 caracteres, al menos un valor especial, un número, una minúscula y una mayúscula.''',
+          false);
     } else {
       mensajeErrorPassword("", true);
       FocusScope.of(context).nextFocus();

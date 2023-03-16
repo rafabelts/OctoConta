@@ -15,17 +15,19 @@ class ScreensAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
     return AppBar(
       title: Text(
         titulo,
         style: GoogleFonts.inter(
             color: const Color(0xFF2a195d),
             fontWeight: FontWeight.bold,
-            fontSize: 28),
+            fontSize: width <= 360 ? 22 : 28),
       ),
       leading: leadingIcon,
       actions: <Widget>[
         IconButton(
+          splashRadius: 1.0,
           onPressed: onPressed,
           icon: Icon(icono),
           iconSize: 40,

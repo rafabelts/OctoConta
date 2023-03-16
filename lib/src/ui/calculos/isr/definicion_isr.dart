@@ -8,6 +8,7 @@ class DescripcionISR extends StatelessWidget {
   Widget build(BuildContext context) {
     var colorTitulo = const Color(0xFF382A62);
     var colorBodyTexto = const Color(0xFF534677);
+    double width = MediaQuery.of(context).size.width;
     return SingleChildScrollView(
       physics: const BouncingScrollPhysics(),
       child: Column(
@@ -18,7 +19,7 @@ class DescripcionISR extends StatelessWidget {
               style: GoogleFonts.inter(
                 color: colorTitulo,
                 fontWeight: FontWeight.w700,
-                fontSize: 28.6,
+                fontSize: width <= 360 ? 22 : 28,
               ),
               textAlign: TextAlign.center),
           Padding(
@@ -28,7 +29,7 @@ class DescripcionISR extends StatelessWidget {
               style: GoogleFonts.inter(
                   color: colorBodyTexto,
                   fontWeight: FontWeight.w500,
-                  fontSize: 20),
+                  fontSize: width <= 360 ? 16 : 20),
               textAlign: TextAlign.justify,
             ),
           ),
@@ -39,7 +40,7 @@ class DescripcionISR extends StatelessWidget {
               style: GoogleFonts.inter(
                   color: colorTitulo,
                   fontWeight: FontWeight.w700,
-                  fontSize: 27),
+                  fontSize: width <= 360 ? 21 : 27),
             ),
           ),
           Padding(
@@ -49,7 +50,7 @@ class DescripcionISR extends StatelessWidget {
                 style: GoogleFonts.inter(
                     color: colorBodyTexto,
                     fontWeight: FontWeight.w500,
-                    fontSize: 20),
+                    fontSize: width <= 360 ? 16 : 20),
                 textAlign: TextAlign.justify,
               )),
           Padding(
@@ -59,7 +60,7 @@ class DescripcionISR extends StatelessWidget {
               style: GoogleFonts.inter(
                   color: colorTitulo,
                   fontWeight: FontWeight.w700,
-                  fontSize: 27),
+                  fontSize: width <= 360 ? 21 : 27),
             ),
           ),
           Padding(
@@ -69,7 +70,7 @@ class DescripcionISR extends StatelessWidget {
                 style: GoogleFonts.inter(
                     color: colorBodyTexto,
                     fontWeight: FontWeight.w500,
-                    fontSize: 20),
+                    fontSize: width <= 360 ? 16 : 20),
                 textAlign: TextAlign.justify,
               )),
           Padding(
@@ -79,7 +80,7 @@ class DescripcionISR extends StatelessWidget {
               style: GoogleFonts.inter(
                   color: colorTitulo,
                   fontWeight: FontWeight.w700,
-                  fontSize: 27),
+                  fontSize: width <= 360 ? 21 : 27),
             ),
           ),
           Padding(
@@ -89,7 +90,7 @@ class DescripcionISR extends StatelessWidget {
                 style: GoogleFonts.inter(
                     color: colorBodyTexto,
                     fontWeight: FontWeight.w500,
-                    fontSize: 20),
+                    fontSize: width <= 360 ? 16 : 20),
                 textAlign: TextAlign.justify,
               )),
         ],

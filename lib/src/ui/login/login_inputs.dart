@@ -49,7 +49,7 @@ class _LogInInputsState extends State<LogInInputs> {
 
   Widget buildInputNombreEmail(BuildContext context) {
     // Creo la entrada del email del usuario
-
+    double width = MediaQuery.of(context).size.width;
     return Padding(
       padding: const EdgeInsets.only(top: 30.0),
       child: TextField(
@@ -64,8 +64,9 @@ class _LogInInputsState extends State<LogInInputs> {
         ),
         decoration: InputDecoration(
           errorText: widget.correoError,
-          errorStyle:
-              GoogleFonts.inter(fontSize: 14, fontWeight: FontWeight.w600),
+          errorMaxLines: 4,
+          errorStyle: GoogleFonts.inter(
+              fontSize: width <= 360 ? 12 : 14, fontWeight: FontWeight.w600),
           errorBorder: const OutlineInputBorder(
               borderSide: BorderSide(color: Colors.red, width: 2.0)),
           focusedErrorBorder: const OutlineInputBorder(
@@ -75,7 +76,7 @@ class _LogInInputsState extends State<LogInInputs> {
               child: const Text('Correo electrónico')),
           labelStyle: GoogleFonts.inter(
               textStyle: const TextStyle(color: Color(0xff534677)),
-              fontSize: 21,
+              fontSize: width <= 360 ? 19 : 21,
               fontWeight: FontWeight.w500),
           contentPadding: const EdgeInsets.symmetric(vertical: 20.0),
           enabledBorder: const OutlineInputBorder(
@@ -93,6 +94,7 @@ class _LogInInputsState extends State<LogInInputs> {
   }
 
   Widget buildPasswordInput(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
     return Padding(
       padding: const EdgeInsets.only(top: 30.0),
       child: TextField(
@@ -107,8 +109,9 @@ class _LogInInputsState extends State<LogInInputs> {
         ),
         decoration: InputDecoration(
           errorText: widget.passwordError,
-          errorStyle:
-              GoogleFonts.inter(fontSize: 14, fontWeight: FontWeight.w600),
+          errorStyle: GoogleFonts.inter(
+              fontSize: width <= 360 ? 12 : 14, fontWeight: FontWeight.w600),
+          errorMaxLines: 4,
           errorBorder: const OutlineInputBorder(
               borderSide: BorderSide(color: Colors.red, width: 2.0)),
           focusedErrorBorder: const OutlineInputBorder(
@@ -118,7 +121,7 @@ class _LogInInputsState extends State<LogInInputs> {
               child: const Text('Contraseña')),
           labelStyle: GoogleFonts.inter(
               textStyle: const TextStyle(color: Color(0xff534677)),
-              fontSize: 21,
+              fontSize: width <= 360 ? 19 : 21,
               fontWeight: FontWeight.w500),
           contentPadding: const EdgeInsets.symmetric(vertical: 20.0),
           enabledBorder: const OutlineInputBorder(
@@ -131,6 +134,7 @@ class _LogInInputsState extends State<LogInInputs> {
             size: 30,
           ),
           suffixIcon: IconButton(
+            splashRadius: 1.0,
             onPressed: () {
               setState(() {
                 _isPasswordVisible = !_isPasswordVisible; //change boolean value

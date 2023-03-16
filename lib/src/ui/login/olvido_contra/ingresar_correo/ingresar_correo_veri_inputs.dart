@@ -15,6 +15,7 @@ class CorreoParaVerificarInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
     return Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -26,7 +27,7 @@ class CorreoParaVerificarInput extends StatelessWidget {
               style: GoogleFonts.inter(
                 color: const Color(0xff2A195D),
                 fontWeight: FontWeight.w700,
-                fontSize: 32,
+                fontSize: width <= 360 ? 30 : 32,
               ),
             ),
           ),
@@ -42,7 +43,9 @@ class CorreoParaVerificarInput extends StatelessWidget {
             decoration: InputDecoration(
               errorText: errorInCorreoUser,
               errorStyle: GoogleFonts.inter(
-                  fontSize: 13.15, fontWeight: FontWeight.w600),
+                  fontSize: width <= 360 ? 12 : 14,
+                  fontWeight: FontWeight.w600),
+              errorMaxLines: 4,
               errorBorder: const OutlineInputBorder(
                   borderSide: BorderSide(color: Colors.red, width: 2.0)),
               focusedErrorBorder: const OutlineInputBorder(
@@ -52,7 +55,7 @@ class CorreoParaVerificarInput extends StatelessWidget {
                   child: const Text('Correo electrónico')),
               labelStyle: GoogleFonts.inter(
                   textStyle: const TextStyle(color: Color(0xff534677)),
-                  fontSize: 21,
+                  fontSize: width <= 360 ? 19 : 21,
                   fontWeight: FontWeight.w500),
               contentPadding: const EdgeInsets.symmetric(vertical: 20.0),
               enabledBorder: const OutlineInputBorder(

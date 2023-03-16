@@ -51,18 +51,19 @@ class _LogInScreenState extends State<LogInScreen> {
             'Error de solicitud de red: la solicitud no se pudo completar. Por favor, compruebe su conexión a Internet e inténtelo de nuevo.');
       } else if (e.code == 'user-not-found') {
         // El usuario no existe
-        mensajeErrorCorreo('''Error: la cuenta de usuario no se ha encontrado. 
-Por favor, compruebe su dirección de correo 
-electrónico e intente de nuevo.''', false);
+        mensajeErrorCorreo(
+            '''Error: la cuenta de usuario no se ha encontrado. Por favor, compruebe su dirección de correo electrónico e intente de nuevo.''',
+            false);
       } else if (e.code == 'wrong-password') {
         // La contraseña es incorrecta
         mensajeErrorPassword(
-            '''Error: contraseña incorrecta. Por favor ingrese su 
-contraseña correctamente.''', false);
+            '''Error: contraseña incorrecta. Por favor ingrese su contraseña correctamente.''',
+            false);
       } else if (e.code == 'invalid-email') {
         // La dirección de correo electrónico es inválida
-        mensajeErrorCorreo('''Error: correo electrónico inválido. Por favor, 
-ingrese un correo electrónico válido.''', false);
+        mensajeErrorCorreo(
+            '''Error: correo electrónico inválido. Por favor, ingrese un correo electrónico válido.''',
+            false);
       } else if (e.code == 'too-many-requests') {
         Future.microtask(() => showMensajeParaUsuario(context, true,
             'Lo sentimos, has excedido el límite de solicitudes permitidas. Por favor, inténtalo de nuevo más tarde.'));
