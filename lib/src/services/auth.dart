@@ -9,19 +9,20 @@ class Auth {
   Stream<User?> get authStateChanges =>
       _firebaseAuth.authStateChanges(); // Toma los cambios en el auth
 
-  Future<void> signInWithEmailAndPassword(
+  Future<void> iniciarSesion(
       {required String email,
       required String password,
       required BuildContext context,
       snapshot}) async {
     showDialog(
-        context: context,
-        builder: (context) => Center(
-              child: CircularProgressIndicator(
-                color: const Color.fromARGB(255, 153, 151, 158),
-                backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-              ),
-            ));
+      context: context,
+      builder: (context) => Center(
+        child: CircularProgressIndicator(
+          color: const Color.fromARGB(255, 153, 151, 158),
+          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        ),
+      ),
+    );
     await _firebaseAuth
         .signInWithEmailAndPassword(email: email, password: password)
         .then((value) {
@@ -31,19 +32,20 @@ class Auth {
     });
   }
 
-  Future<void> createUserWithEmailAndPassword(
+  Future<void> crearUsuario(
       {required String email,
       required String password,
       required BuildContext context,
       snapshot}) async {
     showDialog(
-        context: context,
-        builder: (context) => Center(
-              child: CircularProgressIndicator(
-                color: const Color.fromARGB(255, 153, 151, 158),
-                backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-              ),
-            ));
+      context: context,
+      builder: (context) => Center(
+        child: CircularProgressIndicator(
+          color: const Color.fromARGB(255, 153, 151, 158),
+          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        ),
+      ),
+    );
     await _firebaseAuth
         .createUserWithEmailAndPassword(email: email, password: password)
         .then((value) {
@@ -52,27 +54,25 @@ class Auth {
     });
   }
 
-  Future<void> signOut(
+  Future<void> cierreSesion(
       {required BuildContext context,
       required navegacionPantallasAlCerrarSesion}) async {
     showDialog(
-        context: context,
-        builder: (context) => Center(
-              child: CircularProgressIndicator(
-                color: const Color.fromARGB(255, 153, 151, 158),
-                backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-              ),
-            ));
+      context: context,
+      builder: (context) => Center(
+        child: CircularProgressIndicator(
+          color: const Color.fromARGB(255, 153, 151, 158),
+          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        ),
+      ),
+    );
     await _firebaseAuth.signOut().then(navegacionPantallasAlCerrarSesion);
   }
 
-  Future<void> changePasswordEmail(
+  Future<void> enviarCorreoCambioContra(
       {required BuildContext context, required email}) async {
     await _firebaseAuth
         .sendPasswordResetEmail(email: email)
         .then((value) => Navigator.pop(context));
   }
-  // Future<void>senEmailVeraficationCode(required String email) async{
-  //   await _firebaseAuth.sendSignInLinkToEmail(email: email, actionCodeSettings: actionCodeSettings)
-  // }
 }

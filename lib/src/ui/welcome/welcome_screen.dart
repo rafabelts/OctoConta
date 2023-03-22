@@ -1,89 +1,92 @@
-import 'package:adaptive_components/adaptive_components.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:octoconta_final/src/ui/signup/signup_screen.dart';
+
+import '../../constants/colors.dart';
+import '../signup/sign_up_screen.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
 
+  /*
+    Creacion de la pantalla de bienvenida de la
+    aplicacion.
+  */
+
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery.of(context).size.width;
     return Scaffold(
-        body: SingleChildScrollView(
-      padding: const EdgeInsets.all(10.0),
-      child: AdaptiveColumn(
-        children: <AdaptiveContainer>[
-          AdaptiveContainer(
-            padding: const EdgeInsets.symmetric(vertical: 10.0),
-            columnSpan: 12,
-            child: SafeArea(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Image(
-                    image: const AssetImage('images/imageWelcome.png'),
-                    height: MediaQuery.of(context).size.height * 0.5,
-                  ),
-                  Text(
-                    'Bienvenido!',
-                    style: GoogleFonts.inter(
-                      color: const Color(0xFF2a195d),
-                      fontWeight: FontWeight.bold,
-                      fontSize: width <= 300
-                          ? 40
-                          : width <= 360
-                              ? 50
-                              : 56,
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 5.0),
-                    child: Text(
-                      'Soy Octo, tu nuevo consultor contable.',
-                      style: Theme.of(context).textTheme.titleMedium,
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                  buildContinuarButton(context),
-                ],
-              ),
+      body: Padding(
+        padding: EdgeInsets.symmetric(vertical: 15.0.h),
+        child: SafeArea(
+          child: SingleChildScrollView(
+            padding: EdgeInsets.only(
+                right: 15.0.w, left: 15.0.w, bottom: 15.0.h, top: 15.0.h),
+            physics: const BouncingScrollPhysics(),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Image(
+                  image: const AssetImage('images/imageWelcome.png'),
+                  height: MediaQuery.of(context).size.height * 0.5,
+                ),
+                Text(
+                  'Bienvenido!',
+                  style: Theme.of(context).textTheme.displayLarge,
+                  textAlign: TextAlign.center,
+                ),
+                Padding(
+                    padding: EdgeInsets.symmetric(vertical: 5.0.h),
+                    child: SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.7,
+                      child: Text(
+                        'Soy Octo, tu nuevo consultor contable.',
+                        style: Theme.of(context).textTheme.titleMedium,
+                        textAlign: TextAlign.center,
+                      ),
+                    )),
+                buildContinuarButton(context),
+              ],
             ),
-          )
-        ],
+          ),
+        ),
       ),
-    ));
+    );
   }
 
+  /*
+    Creamos el boton de continuar para poder pasar a la pantalla
+    de creacion de usuario
+   */
   Widget buildContinuarButton(BuildContext context) {
-    double width = MediaQuery.of(context).size.width;
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 30),
+      padding: EdgeInsets.symmetric(vertical: 30.h),
       child: SizedBox(
         width: double.infinity,
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
             shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(15.0)),
-            backgroundColor: const Color(0xff5E35B1),
+                borderRadius: BorderRadius.circular(15.0.r)),
+            backgroundColor: botonSecundarioColor,
             elevation: 10,
-            shadowColor: const Color(0xff2A195D),
-            padding:
-                const EdgeInsets.symmetric(vertical: 10.0, horizontal: 75.0),
+            shadowColor: primario,
+            padding: EdgeInsets.symmetric(vertical: 10.0.h, horizontal: 75.0.w),
           ),
           child: Text(
             'Continuar',
             style: GoogleFonts.poppins(
-              color: Theme.of(context).scaffoldBackgroundColor,
+              color: fondoColor,
               fontWeight: FontWeight.w700,
-              fontSize: width <= 360 ? 26 : 32,
+              fontSize: 28.sp,
             ),
           ),
           onPressed: () {
+            /*
+              Navegacion a la pantalla de creacion de cuenta
+            */
             Navigator.push(context,
                 MaterialPageRoute(builder: (context) => const SignUpScreen()));
-            // Navego a la siguiente pantalla
           },
         ),
       ),

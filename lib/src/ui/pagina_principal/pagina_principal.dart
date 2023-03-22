@@ -1,150 +1,110 @@
-import 'package:adaptive_components/adaptive_components.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:intl/intl.dart';
-import 'package:octoconta_final/src/ui/bitacora_gastos/categorias_y_cantidad.dart';
-import 'package:octoconta_final/src/ui/bitacora_gastos/division_gastos/categorias/suma_gastos_categorias.dart';
-import 'package:octoconta_final/src/ui/bitacora_gastos/finanzas/finanzas_screen.dart';
-import 'package:octoconta_final/src/ui/bitacora_gastos/ingresos/informacion_ingreso.dart';
-import 'package:octoconta_final/src/ui/pagina_principal/calculos_contables_items.dart';
-import 'package:octoconta_final/src/ui/screen_seleccionada/screens_appbar.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:octoconta_final/src/ui/settings_screens/items_settings.dart';
 import 'package:provider/provider.dart';
-import '../../models/tarjeta.dart';
-import '../bitacora_gastos/division_gastos/categorias/alimentos/informacion_gastos_alimentos.dart';
-import '../bitacora_gastos/division_gastos/categorias/otros/informacion_gastos_otros.dart';
-import '../bitacora_gastos/division_gastos/categorias/saluhigiene/informacion_gastos_saludhi.dart';
-import '../bitacora_gastos/division_gastos/categorias/servicios/informacion_gastos_servicios.dart';
-import '../bitacora_gastos/division_gastos/categorias/suscripciones/informacion_gastos_suscripciones.dart';
-import '../bitacora_gastos/editar_saldo/informacion_saldo.dart';
-import '../settings_screen/settings_screen.dart';
 
-class PaginaPrincipal extends StatefulWidget {
-  const PaginaPrincipal({super.key});
+import '../../constants/colors.dart';
+import '../../models/app_bar.dart';
+import '../../models/pagina_principal/bitacora_gastos/botones_navegacion_bitacora.dart';
+import '../../models/pagina_principal/bitacora_gastos/muestra_categorias.dart';
+import '../../models/pagina_principal/bitacora_gastos/tarjeta_info_saldo.dart';
+import '../../models/pagina_principal/calculos_contables/calculos_contables.dart';
+import '../../services/informacion_bitacora.dart';
+import '../gastos_ingresos/gastos_ingresos_screen.dart';
+import '../settings_screens/pagina_principal_settings.dart';
 
-  @override
-  State<PaginaPrincipal> createState() => _PaginaPrincipalState();
-}
+/* 
+  Creacion de la pantalla principal, en ella se muestra al usuario
+  el menu de los calculos contables y la parte de la bitacora de gastos. 
+*/
 
-class _PaginaPrincipalState extends State<PaginaPrincipal> {
+class PaginaPrincipalScreen extends StatelessWidget {
+  const PaginaPrincipalScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
-    double providerGastoAlimento =
-        Provider.of<InformacionGastosAlimentos>(context, listen: true)
-            .prepararTotalGastos();
+    double saldoUsuarioAgregado =
+        Provider.of<InformacionBitacora>(context, listen: false)
+            .prepararSaldo();
+    double gastoUsuario =
+        Provider.of<InformacionBitacora>(context, listen: true)
+            .prepararTotalGastos()[0];
 
-    double providerGastoSalud =
-        Provider.of<InformacionGastosSaludHigiene>(context, listen: true)
-            .prepararTotalGastos();
-
-    double providerGastoServicios =
-        Provider.of<InformacionGastosServicios>(context, listen: true)
-            .prepararTotalGastos();
-
-    double providerGastoSuscripciones =
-        Provider.of<InformacionGastosSuscripciones>(context, listen: true)
-            .prepararTotalGastos();
-
-    double providerGastoOtros =
-        Provider.of<InformacionGastosOtros>(context, listen: true)
-            .prepararTotalGastos();
-
-    double saldo = Provider.of<InformacionSaldoUsuario>(context, listen: true)
-        .prepararSaldoUsuario();
-    double saldoUsuario = saldo +
-        Provider.of<InformacionIngresos>(context, listen: true)
-            .prepararTotalIngresos() -
-        Provider.of<SumaTotalGastos>(context).obtenerGastoTotal(
-            providerGastoAlimento,
-            providerGastoSalud,
-            providerGastoServicios,
-            providerGastoSuscripciones,
-            providerGastoOtros);
-
+    double ingresoUsuario =
+        Provider.of<InformacionBitacora>(context, listen: true)
+            .prepararTotalIngresos();
+    double saldoTotal = saldoUsuarioAgregado + ingresoUsuario - gastoUsuario;
     return Scaffold(
-        appBar: ScreensAppBar(
-          titulo: '',
-          leadingIcon: const Icon(null),
-          icono: Icons.settings_outlined,
-          onPressed: () => Navigator.push(context,
-              MaterialPageRoute(builder: (context) => const SettingsScreen())),
-        ),
-        body: SingleChildScrollView(
-            controller: ScrollController(
-                keepScrollOffset: true, initialScrollOffset: 0),
-            physics: const BouncingScrollPhysics(),
-            child: AdaptiveColumn(children: [
-              AdaptiveContainer(
-                columnSpan: 12,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 10.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text(
-                        "Cálculos contables:",
-                        style: GoogleFonts.inter(
-                          color: const Color(0xFF2a195d),
-                          fontWeight: FontWeight.bold,
-                          fontSize: 32,
-                        ),
-                      ),
-                      const Padding(
-                          padding: EdgeInsets.only(top: 30.0, bottom: 10.0),
-                          child: ItemsCalculosContables()),
-                      const Padding(
-                        padding: EdgeInsets.symmetric(vertical: 20.0),
-                        child: Divider(
-                          thickness: 0.5,
-                          color: Color(0xFF2a195d),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 20.0),
-                        child: Text(
-                          "Gastos:",
-                          style: GoogleFonts.inter(
-                            color: const Color(0xFF2a195d),
-                            fontWeight: FontWeight.bold,
-                            fontSize: 32,
-                          ),
-                        ),
-                      ),
-                      TarjetaSaldoMensual(
-                        opcion: 'Saldo:',
-                        total:
-                            '\$${NumberFormat("#,###.##", "en_US").format(saldoUsuario < 0 ? saldoUsuario * -1 : saldoUsuario)}',
-                        colorTotal: saldoUsuario < 0
-                            ? const Color.fromARGB(255, 255, 16, 44)
-                            : Theme.of(context).scaffoldBackgroundColor,
-                      ),
-                      ListTile(
-                        onTap: () => Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const FinanzasScreen())),
-                        title: Text(
-                          'Agregar gasto o ingreso',
-                          style: GoogleFonts.inter(
-                            color: const Color(0xFF5E35B1),
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
-                          ),
-                        ),
-                        trailing: const Icon(
-                          Icons.arrow_forward_ios,
-                          size: 17,
-                          color: Color(0xFF5E35B1),
-                        ),
-                      ),
-                      const Padding(
-                        padding: EdgeInsets.symmetric(
-                            vertical: 30.0, horizontal: 10.0),
-                        child: CategoriasYCantidades(),
-                      ),
-                    ],
-                  ),
+      appBar: OctoAppBar(
+        titulo: '',
+        iconoPrincipal: const Icon(null),
+        iconoSecundario: const Icon(Icons.settings_outlined),
+        onPressed: () => Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => const PaginaPrincipalSettings(
+                      contenido: ElementosSettings(),
+                      tituloPantalla: 'Configuración',
+                    ))),
+      ),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          controller:
+              ScrollController(keepScrollOffset: true, initialScrollOffset: 0),
+          physics: const BouncingScrollPhysics(),
+          padding: EdgeInsets.only(
+            top: 10.0.h,
+            left: 15.w,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text(
+                "Cálculos contables:",
+                style: Theme.of(context).textTheme.displaySmall,
+                textAlign: TextAlign.justify,
+              ),
+              Padding(
+                padding: EdgeInsets.only(top: 30.h, bottom: 30.h),
+                child: const CalculosContables(),
+              ),
+              Divider(
+                thickness: 0.5,
+                color: primario,
+              ),
+              Padding(
+                padding: EdgeInsets.only(top: 25.h, bottom: 20.h),
+                child: Text(
+                  "Gastos:",
+                  style: Theme.of(context).textTheme.displaySmall,
+                  textAlign: TextAlign.justify,
                 ),
               ),
-            ])));
+              Padding(
+                padding: EdgeInsets.only(right: 15.w),
+                child: TarjetaInfoSaldo(
+                  opcion: 'Saldo',
+                  total: saldoTotal,
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(right: 15.w),
+                child: BotonNavegacionBitacora(
+                  onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const GastosEIngresosScreen())),
+                  pantallaAIr: 'Agregar gasto o ingreso',
+                ),
+              ),
+              Padding(
+                  padding: EdgeInsets.only(
+                      top: 20.w, bottom: 50.w, right: 30.w, left: 15.w),
+                  child: const MuestraDeCategoriaConCantidades()),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }

@@ -5,21 +5,30 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "octoconta_final",
+            "name": "OctoConta",
             "request": "launch",
             "type": "dart"
         },
         {
-            "name": "octoconta_final (profile mode)",
+            "name": "MiA1",
             "request": "launch",
             "type": "dart",
-            "flutterMode": "profile"
+            "deviceId": "28c72e330604"
         },
         {
-            "name": "octoconta_final (release mode)",
+            "name": "GooPixel",
             "request": "launch",
             "type": "dart",
-            "flutterMode": "release"
+            "deviceId": "emulator-5554"
+        },
+    ],
+    "compounds": [
+        {
+            "name": "All devices",
+            "configurations": [
+                "MiA1",
+                "GooPixel"
+            ]
         }
     ]
 }

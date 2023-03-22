@@ -1,34 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:hive_flutter/hive_flutter.dart';
-import 'package:octoconta_final/src/theme/theme.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:octoconta_final/src/ui/bitacora_gastos/division_gastos/categorias/alimentos/informacion_gastos_alimentos.dart';
-import 'package:octoconta_final/src/ui/bitacora_gastos/division_gastos/categorias/otros/informacion_gastos_otros.dart';
-import 'package:octoconta_final/src/ui/bitacora_gastos/division_gastos/categorias/saluhigiene/informacion_gastos_saludhi.dart';
-import 'package:octoconta_final/src/ui/bitacora_gastos/division_gastos/categorias/servicios/informacion_gastos_servicios.dart';
-import 'package:octoconta_final/src/ui/bitacora_gastos/division_gastos/categorias/suma_gastos_categorias.dart';
-import 'package:octoconta_final/src/ui/bitacora_gastos/division_gastos/categorias/suscripciones/informacion_gastos_suscripciones.dart';
-import 'package:octoconta_final/src/ui/bitacora_gastos/editar_saldo/informacion_saldo.dart';
-import 'package:octoconta_final/src/ui/bitacora_gastos/ingresos/informacion_ingreso.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:octoconta_final/src/services/informacion_bitacora.dart';
 import 'package:octoconta_final/src/widget_tree.dart';
 import 'package:provider/provider.dart';
+import 'src/themes/theme.dart';
 
 // import 'firebase_options.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  await Hive.initFlutter(); // Se inicia la base de datos
-
-  await Hive.openBox('base_datos_alimentos');
-  await Hive.openBox('base_datos_salud');
-  await Hive.openBox('base_datos_servicios');
-  await Hive.openBox('base_datos_suscripciones');
-
-  await Hive.openBox('base_datos_otros');
-  await Hive.openBox('base_datos_ingresos');
-
+  await Hive.initFlutter();
+  await Hive.openBox('base_datos_bitacora');
   //  Statusbar transparente
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarColor: Colors.transparent,
@@ -43,37 +29,15 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider<InformacionGastosAlimentos>(
-          create: (_) => InformacionGastosAlimentos(),
-        ),
-        ChangeNotifierProvider<InformacionGastosSaludHigiene>(
-          create: (_) => InformacionGastosSaludHigiene(),
-        ),
-        ChangeNotifierProvider<InformacionGastosServicios>(
-          create: (_) => InformacionGastosServicios(),
-        ),
-        ChangeNotifierProvider<InformacionGastosSuscripciones>(
-          create: (_) => InformacionGastosSuscripciones(),
-        ),
-        ChangeNotifierProvider<InformacionGastosOtros>(
-          create: (_) => InformacionGastosOtros(),
-        ),
-        ChangeNotifierProvider<InformacionIngresos>(
-          create: (_) => InformacionIngresos(),
-        ),
-        ChangeNotifierProvider<SumaTotalGastos>(
-          create: (_) => SumaTotalGastos(),
-        ),
-        ChangeNotifierProvider<InformacionSaldoUsuario>(
-            create: (_) => InformacionSaldoUsuario()),
-      ],
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        theme: OctoContaThemes.lightTheme,
-        home: const WidgetTree(),
-      ),
-    );
+    return ChangeNotifierProvider(
+        create: (_) => InformacionBitacora(),
+        child: ScreenUtilInit(
+          builder: (context, child) => MaterialApp(
+            debugShowCheckedModeBanner: false,
+            theme: OctoContaThemes.lightTheme,
+            home: const WidgetTree(),
+          ),
+          designSize: const Size(390, 844),
+        ));
   }
 }
