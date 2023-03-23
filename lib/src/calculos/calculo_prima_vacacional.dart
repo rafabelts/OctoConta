@@ -24,7 +24,7 @@ class CalculoPrimaVacacional {
 
   String periodoActual;
 
-  List<String> periodosPago = ['Anual', 'Mensual', 'Semanal', 'Diario'];
+  List<String> periodosPago = ['Anual', 'Mensual', 'Quincenal', 'Diario'];
 
   onChanged() {
     if (yearLlegada.text.isNotEmpty) {
@@ -63,7 +63,7 @@ class CalculoPrimaVacacional {
     Map<String, double> calculoSalarioPeriodo = {
       'Anual': (sueldoUsuario! / 360),
       'Mensual': (sueldoUsuario / 30),
-      'Semanal': (sueldoUsuario / 7),
+      'Quincenal': (sueldoUsuario / 15),
       'Diario': sueldoUsuario,
     };
     double? salarioConvertido = calculoSalarioPeriodo[periodoActual];
