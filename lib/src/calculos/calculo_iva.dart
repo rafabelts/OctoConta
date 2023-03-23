@@ -43,7 +43,7 @@ class CalculoIVA {
             Padding(
               padding: EdgeInsets.symmetric(vertical: 30.0.h),
               child: Text(
-                NumberFormat("#,##0.00").format(cantidadIVA),
+                "\$${NumberFormat("#,##0.00").format(cantidadIVA)} MXN",
                 style: GoogleFonts.inter(
                   color: botonSecundarioColor,
                   fontWeight: FontWeight.w600,
@@ -59,7 +59,7 @@ class CalculoIVA {
             Padding(
               padding: EdgeInsets.symmetric(vertical: 30.0.h),
               child: Text(
-                NumberFormat("#,##0.00").format(precioFinal),
+                "\$${NumberFormat("#,##0.00").format(precioFinal)} MXN",
                 style: GoogleFonts.inter(
                   color: botonSecundarioColor,
                   fontWeight: FontWeight.w600,

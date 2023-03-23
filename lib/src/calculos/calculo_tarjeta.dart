@@ -57,7 +57,8 @@ class CalculoInteresTarjeta {
     double interesMensual = (interesUsuario! / 100) / 12;
 
     double interesOrdinario = deudaDiaria * interesMensual;
-    double interesOrdinarioIVA = interesOrdinario + (interesOrdinario * .16);
+    double interesOrdinarioIVA =
+        (interesOrdinario + (interesOrdinario * .16)) * 30;
 
     return '\$${NumberFormat("#,##0.00").format(interesOrdinarioIVA)} MXN';
   }
