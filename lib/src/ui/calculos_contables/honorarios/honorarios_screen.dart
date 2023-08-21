@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../calculos/calculo_honorarios.dart';
 import '../../../models/pagina_principal/calculos_contables/entradas_calculos/botones_calculos.dart';
@@ -42,30 +41,26 @@ class _CalculoHonorariosScreenState extends State<CalculoHonorariosScreen> {
       contexto: context,
       importe: importe,
     );
-    return Padding(
-      padding: EdgeInsets.only(top: 120.h),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Text(
-            'Importe: (\$ MXN)',
-            style: Theme.of(context).textTheme.headlineMedium,
-            textAlign: TextAlign.left,
-          ),
-          EntradaCalculos(
-            controlador: importe,
-            onComplete: calculo.mostrarResultado,
-            onChanged: (value) => calculo.onChanged(),
-            hayValor: hayNumeroImporte,
-          ),
-          BotonesCalculos(
-            limpiar: calculo.limpiar,
-            calcular: calculo.mostrarResultado,
-            altoRegresar: 260.h,
-          )
-        ],
-      ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        Text(
+          'Importe: (\$ MXN)',
+          style: Theme.of(context).textTheme.headlineMedium,
+          textAlign: TextAlign.left,
+        ),
+        EntradaCalculos(
+          controlador: importe,
+          onComplete: calculo.mostrarResultado,
+          onChanged: (value) => calculo.onChanged(),
+          hayValor: hayNumeroImporte,
+        ),
+        BotonesCalculos(
+          limpiar: calculo.limpiar,
+          calcular: calculo.mostrarResultado,
+        )
+      ],
     );
   }
 }

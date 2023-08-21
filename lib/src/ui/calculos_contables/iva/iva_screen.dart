@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../calculos/calculo_iva.dart';
 import '../../../models/pagina_principal/calculos_contables/entradas_calculos/botones_calculos.dart';
@@ -42,29 +41,25 @@ class _CalculoIVAScreenState extends State<CalculoIVAScreen> {
       precio: precio,
     );
 
-    return Padding(
-      padding: EdgeInsets.only(top: 100.h),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Text(
-            "Precio del artículo: (\$ MXN)",
-            style: Theme.of(context).textTheme.headlineMedium,
-            textAlign: TextAlign.left,
-          ),
-          EntradaCalculos(
-            controlador: precio,
-            onChanged: (value) => calculo.onChanged(),
-            onComplete: calculo.mostrarModal,
-            hayValor: hayNumeroPrecio,
-          ),
-          BotonesCalculos(
-            calcular: calculo.mostrarModal,
-            altoRegresar: 260.h,
-          )
-        ],
-      ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        Text(
+          "Precio del artículo: (\$ MXN)",
+          style: Theme.of(context).textTheme.headlineMedium,
+          textAlign: TextAlign.left,
+        ),
+        EntradaCalculos(
+          controlador: precio,
+          onChanged: (value) => calculo.onChanged(),
+          onComplete: calculo.mostrarModal,
+          hayValor: hayNumeroPrecio,
+        ),
+        BotonesCalculos(
+          calcular: calculo.mostrarModal,
+        )
+      ],
     );
   }
 }

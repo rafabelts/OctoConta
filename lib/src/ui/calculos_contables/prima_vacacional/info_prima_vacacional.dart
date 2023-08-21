@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:octoconta_final/src/constants/colors.dart';
 
 /*
   Aqui ingreso la informacion acerca del calculo de la prima
@@ -54,6 +55,20 @@ class InfoPrimaVacacional extends StatelessWidget {
             'Es la cantidad de dinero que el empleado recibe todos los meses en la cuenta bancaria y que es el resultado de, justamente, hacer todas las retenciones y deducciones necesarias.',
             style: Theme.of(context).textTheme.bodySmall,
             textAlign: TextAlign.justify,
+          ),
+        ),
+        Align(
+          alignment: Alignment.topLeft,
+          child: Padding(
+            padding: EdgeInsets.only(top: 20.h),
+            child: TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: Text(
+                'Cerrar',
+                style: TextStyle(color: botonPrimarioColor, fontSize: 18.sp),
+                textAlign: TextAlign.left,
+              ),
+            ),
           ),
         )
       ],

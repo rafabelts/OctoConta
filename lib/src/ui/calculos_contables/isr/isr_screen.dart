@@ -51,42 +51,38 @@ class _CalculoISRScreenState extends State<CalculoISRScreen> {
         sueldo: sueldo,
         actualizarPeriodo: actualizarPeriodo,
         periodoActual: periodoActual);
-    return Padding(
-      padding: EdgeInsets.only(top: 120.h),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Text(
-            "Sueldo bruto: (\$ MXN)",
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        Text(
+          "Sueldo bruto: (\$ MXN)",
+          style: Theme.of(context).textTheme.headlineMedium,
+          textAlign: TextAlign.left,
+        ),
+        EntradaCalculos(
+            controlador: sueldo,
+            onChanged: (value) => calculo.onChanged(),
+            onComplete: calculo.onComplete,
+            hayValor: hayNumeroSueldo),
+        Padding(
+          padding: EdgeInsets.only(top: 75.h),
+          child: Text(
+            "Período de pago:",
             style: Theme.of(context).textTheme.headlineMedium,
-            textAlign: TextAlign.left,
+            textAlign: TextAlign.justify,
           ),
-          EntradaCalculos(
-              controlador: sueldo,
-              onChanged: (value) => calculo.onChanged(),
-              onComplete: calculo.onComplete,
-              hayValor: hayNumeroSueldo),
-          Padding(
-            padding: EdgeInsets.only(top: 75.h),
-            child: Text(
-              "Período de pago:",
-              style: Theme.of(context).textTheme.headlineMedium,
-              textAlign: TextAlign.justify,
-            ),
-          ),
-          DropdownPeriodoSalario(
-            periodos: calculo.periodosPago,
-            cambiarPeriodo: actualizarPeriodo,
-            periodoActual: periodoActual,
-          ),
-          BotonesCalculos(
-            calcular: calculo.mostrarResultado,
-            limpiar: calculo.limpiar,
-            altoRegresar: 260.h,
-          )
-        ],
-      ),
+        ),
+        DropdownPeriodoSalario(
+          periodos: calculo.periodosPago,
+          cambiarPeriodo: actualizarPeriodo,
+          periodoActual: periodoActual,
+        ),
+        BotonesCalculos(
+          calcular: calculo.mostrarResultado,
+          limpiar: calculo.limpiar,
+        )
+      ],
     );
   }
 }

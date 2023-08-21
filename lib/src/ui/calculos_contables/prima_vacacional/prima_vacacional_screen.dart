@@ -66,57 +66,53 @@ class _CalculoPrimaVacacionalScreenState
         actualizarPeriodo: actualizarPeriodo,
         periodoActual: periodoActual);
 
-    return Padding(
-      padding: EdgeInsets.only(top: 15.h),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Text(
-            'Año de llegada a la empresa:',
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        Text(
+          'Año de llegada a la empresa:',
+          style: Theme.of(context).textTheme.headlineMedium,
+          textAlign: TextAlign.justify,
+        ),
+        EntradaCalculos(
+          controlador: yearllegada,
+          onChanged: (value) => calculo.onChanged(),
+          onComplete: calculo.onCompleteYear,
+          hayValor: hayNumeroYear,
+        ),
+        Padding(
+          padding: EdgeInsets.only(top: 75.h),
+          child: Text(
+            'Sueldo neto:(\$ MXN)',
             style: Theme.of(context).textTheme.headlineMedium,
             textAlign: TextAlign.justify,
           ),
-          EntradaCalculos(
-            controlador: yearllegada,
-            onChanged: (value) => calculo.onChanged(),
-            onComplete: calculo.onCompleteYear,
-            hayValor: hayNumeroYear,
+        ),
+        EntradaCalculos(
+          controlador: sueldo,
+          onChanged: (value) => calculo.onChanged(),
+          onComplete: calculo.onCompleteSueldo,
+          hayValor: hayNumeroSueldo,
+        ),
+        Padding(
+          padding: EdgeInsets.only(top: 75.h),
+          child: Text(
+            "Período de pago:",
+            style: Theme.of(context).textTheme.headlineMedium,
+            textAlign: TextAlign.justify,
           ),
-          Padding(
-            padding: EdgeInsets.only(top: 75.h),
-            child: Text(
-              'Sueldo neto:(\$ MXN)',
-              style: Theme.of(context).textTheme.headlineMedium,
-              textAlign: TextAlign.justify,
-            ),
-          ),
-          EntradaCalculos(
-            controlador: sueldo,
-            onChanged: (value) => calculo.onChanged(),
-            onComplete: calculo.onCompleteSueldo,
-            hayValor: hayNumeroSueldo,
-          ),
-          Padding(
-            padding: EdgeInsets.only(top: 75.h),
-            child: Text(
-              "Período de pago:",
-              style: Theme.of(context).textTheme.headlineMedium,
-              textAlign: TextAlign.justify,
-            ),
-          ),
-          DropdownPeriodoSalario(
-            periodos: calculo.periodosPago,
-            cambiarPeriodo: actualizarPeriodo,
-            periodoActual: periodoActual,
-          ),
-          BotonesCalculos(
-            calcular: calculo.mostrarResultado,
-            limpiar: calculo.limpiar,
-            altoRegresar: 100.h,
-          )
-        ],
-      ),
+        ),
+        DropdownPeriodoSalario(
+          periodos: calculo.periodosPago,
+          cambiarPeriodo: actualizarPeriodo,
+          periodoActual: periodoActual,
+        ),
+        BotonesCalculos(
+          calcular: calculo.mostrarResultado,
+          limpiar: calculo.limpiar,
+        )
+      ],
     );
   }
 }

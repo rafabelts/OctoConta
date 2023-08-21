@@ -7,12 +7,7 @@ import '../../../../constants/colors.dart';
 class BotonesCalculos extends StatelessWidget {
   final VoidCallback calcular;
   final VoidCallback? limpiar;
-  final double altoRegresar;
-  const BotonesCalculos(
-      {required this.calcular,
-      this.limpiar,
-      required this.altoRegresar,
-      super.key});
+  const BotonesCalculos({required this.calcular, this.limpiar, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -58,23 +53,6 @@ class BotonesCalculos extends StatelessWidget {
               ),
             ],
           ),
-          Align(
-            alignment: Alignment.bottomLeft,
-            child: Padding(
-              padding: EdgeInsets.only(top: altoRegresar),
-              child: TextButton(
-                child: Text(
-                  'Regresar',
-                  style: GoogleFonts.inter(
-                    color: entradaUsuarioColor, //382872 //453a88
-                    fontSize: 20.sp,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-                onPressed: () => Navigator.pop(context),
-              ),
-            ),
-          )
         ],
       ),
     );

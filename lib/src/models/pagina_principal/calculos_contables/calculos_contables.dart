@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:octoconta_final/src/constants/colors.dart';
+import 'package:octoconta_final/src/models/app_bar.dart';
+import 'package:octoconta_final/src/models/pagina_principal/alert_dialogs.dart';
+import 'package:octoconta_final/src/ui/calculos_contables/honorarios/honorarios_screen.dart';
+import 'package:octoconta_final/src/ui/calculos_contables/honorarios/info_honorarios.dart';
+import 'package:octoconta_final/src/ui/calculos_contables/isr/info_isr.dart';
+import 'package:octoconta_final/src/ui/calculos_contables/isr/isr_screen.dart';
+import 'package:octoconta_final/src/ui/calculos_contables/iva/info_iva.dart';
+import 'package:octoconta_final/src/ui/calculos_contables/iva/iva_screen.dart';
+import 'package:octoconta_final/src/ui/calculos_contables/pago_prestamo/info_pago_prestamo.dart';
 import 'package:octoconta_final/src/ui/calculos_contables/pago_prestamo/pago_prestamo_screen.dart';
-// import 'package:octoconta_final/src/ui/settings_screens/items_settings.dart';
-// import 'package:provider/provider.dart';
-
-// import '../../constants/colors.dart';
-// import '../../models/app_bar.dart';
-// import '../../models/pagina_principal/bitacora_gastos/botones_navegacion_bitacora.dart';
-// import '../../models/pagina_principal/bitacora_gastos/muestra_categorias.dart';
-// import '../../models/pagina_principal/bitacora_gastos/tarjeta_info_saldo.dart';
-// import '../../models/pagina_principal/calculos_contables/calculos_contables.dart';
-// import '../../services/informacion_bitacora.dart';
-// import '../gastos_ingresos/gastos_ingresos_screen.dart';
-// import '../settings_screens/pagina_principal_settings.dart';
+import 'package:octoconta_final/src/ui/calculos_contables/prima_vacacional/info_prima_vacacional.dart';
+import 'package:octoconta_final/src/ui/calculos_contables/prima_vacacional/prima_vacacional_screen.dart';
 
 /* 
   Creacion de la pantalla principal, en ella se muestra al usuario
@@ -25,24 +24,29 @@ class CalculosContables extends StatelessWidget {
 
   static const listaDeCalculos = {
     'Prestamo': {
-      'calculo': 'Pago de un prestamo',
-      'pantalla': CalculoInteresPrestamoScreen()
+      'calculo': 'Pago de un préstamo',
+      'pantalla': CalculoInteresPrestamoScreen(),
+      'info': InfoPagoPrestamo(),
     },
     'Honorarios': {
       'calculo': 'Honorarios',
-      'pantalla': CalculoInteresPrestamoScreen()
+      'pantalla': CalculoHonorariosScreen(),
+      'info': InfoHonorarios(),
     },
     'Prima Vacacional': {
       'calculo': 'Prima Vacacional',
-      'pantalla': CalculoInteresPrestamoScreen()
+      'pantalla': CalculoPrimaVacacionalScreen(),
+      'info': InfoPrimaVacacional(),
     },
     'ISR': {
       'calculo': 'Impuesto Sobre Renta (ISR)',
-      'pantalla': CalculoInteresPrestamoScreen()
+      'pantalla': CalculoISRScreen(),
+      'info': InfoISR(),
     },
     'IVA': {
       'calculo': 'Impuesto al Valor Agregado (IVA)',
-      'pantalla': CalculoInteresPrestamoScreen()
+      'pantalla': CalculoIVAScreen(),
+      'info': InfoIVA(),
     },
   };
 
@@ -52,7 +56,7 @@ class CalculosContables extends StatelessWidget {
       child: Column(
         children: [
           Text(
-            'Calculos Contables:',
+            'Cálculos Contables:',
             style: Theme.of(context).textTheme.displayMedium,
           ),
           SizedBox(
@@ -77,7 +81,43 @@ class CalculosContables extends StatelessWidget {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(15),
                       ),
-                      onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context)=>listaDeCalculos[llave]?['pantalla'] as Widget))),
+                      onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => Scaffold(
+                            appBar: OctoAppBar(
+                              iconoPrincipal: IconButton(
+                                icon: Icon(Icons.arrow_back_ios, size: 30.sp),
+                                onPressed: () => Navigator.pop(context),
+                              ),
+                              titulo: (listaDeCalculos[llave]!['calculo'] ==
+                                          'Impuesto Sobre Renta (ISR)'
+                                      ? 'Cálculo ISR'
+                                      : listaDeCalculos[llave]!['calculo'] ==
+                                              'Impuesto al Valor Agregado (IVA)'
+                                          ? 'Cálculo IVA'
+                                          : listaDeCalculos[llave]!['calculo'])
+                                  as String,
+                              iconoSecundario: const Icon(Icons.info_outline),
+                              onPressed: () => showDialog(
+                                context: context,
+                                builder: (context) => OctoAlertDialogs(
+                                  contenidoDelDialog:
+                                      listaDeCalculos[llave]!['info'] as Widget,
+                                ),
+                              ),
+                            ),
+                            body: Center(
+                              child: SingleChildScrollView(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 20.w, vertical: 20.h),
+                                child: listaDeCalculos[llave]?['pantalla']
+                                    as Widget,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
                       splashColor: botonPrimarioColor,
                       title: Center(
                         child: Text(
@@ -95,79 +135,3 @@ class CalculosContables extends StatelessWidget {
     );
   }
 }
-
-
-// import 'package:flutter/material.dart';
-// import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-// import '../../../constants/colors.dart';
-// import 'calculo_seleccionado.dart';
-
-// List<dynamic> listaCalculos = [
-//   ['Pago de una tarjeta de crédito', 0],
-//   ['Pago de un préstamo', 1],
-//   ['Honorarios', 2],
-//   ['Prima vacacional', 3],
-//   ['Impuesto Sobre Renta (ISR)', 4],
-//   ['Impuesto al Valor Agregado (IVA)', 5],
-// ];
-
-// /* 
-//   Creacion del menu scrolleable de los calculos
-//   contables disponibles
-// */
-
-// class CalculosContables extends StatelessWidget {
-//   const CalculosContables({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     final decoracionTarjetaItem = BoxDecoration(
-//       borderRadius: BorderRadius.circular(14.0.r),
-//       gradient: LinearGradient(
-//         begin: Alignment(-0.300.w, -0.400.h),
-//         end: Alignment(-1.108.w, 1.800.h),
-//         colors: <Color>[
-//           primario,
-//           const Color.fromARGB(211, 111, 96, 150)
-//         ], //2a195d  //2a1861
-//         stops: const <double>[0, 1],
-//       ),
-//     );
-//     return SizedBox(
-//       width: 375.w,
-//       height: MediaQuery.of(context).size.height <= 640 ? 180.h : 150.h,
-//       child: PageView.builder(
-//         physics: const BouncingScrollPhysics(),
-//         controller: PageController(viewportFraction: 0.87.w),
-//         itemCount: listaCalculos.length,
-//         itemBuilder: (context, index) {
-//           return Container(
-//             decoration: decoracionTarjetaItem,
-//             margin: EdgeInsets.symmetric(horizontal: 8.0.w),
-//             child: ElevatedButton(
-//               style: ElevatedButton.styleFrom(
-//                   backgroundColor: Colors.transparent, elevation: 0),
-//               onPressed: () {
-//                 // Se hace la navegacion hacia la pantalla del calculo seleccionado
-//                 Navigator.push(
-//                   context,
-//                   MaterialPageRoute(
-//                     builder: (context) => CalculoSeleccionadoScreen(
-//                       calculoSeleccionado: listaCalculos[index][1],
-//                     ),
-//                   ),
-//                 );
-//               },
-//               child: Text(
-//                 listaCalculos[index][0],
-//                 style: Theme.of(context).textTheme.labelLarge,
-//                 textAlign: TextAlign.center,
-//               ),
-//             ),
-//           );
-//         },
-//       ),
-//     );
-//   }
-// }

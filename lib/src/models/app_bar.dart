@@ -30,7 +30,7 @@ class OctoAppBar extends StatelessWidget implements PreferredSizeWidget {
           onPressed: onPressed,
           icon: iconoSecundario,
           splashRadius: 1.0,
-          iconSize: 38.sp,
+          iconSize: 45.sp,
         )
       ],
     );

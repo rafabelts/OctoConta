@@ -89,7 +89,6 @@ class _CalculoInteresTarjetaScreenState
           BotonesCalculos(
             limpiar: calculo.limpiar,
             calcular: calculo.mostrarResultado,
-            altoRegresar: 100.h,
           )
         ],
       ),

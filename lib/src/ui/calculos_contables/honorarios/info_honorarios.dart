@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:octoconta_final/src/constants/colors.dart';
 
 /*
   Aqui ingreso la informacion acerca del calculo de honorarios.
@@ -27,6 +28,20 @@ class InfoHonorarios extends StatelessWidget {
             textAlign: TextAlign.justify,
           ),
         ),
+        Align(
+          alignment: Alignment.topLeft,
+          child: Padding(
+            padding: EdgeInsets.only(top: 20.h),
+            child: TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: Text(
+                'Cerrar',
+                style: TextStyle(color: botonPrimarioColor, fontSize: 18.sp),
+                textAlign: TextAlign.left,
+              ),
+            ),
+          ),
+        )
       ],
     );
   }

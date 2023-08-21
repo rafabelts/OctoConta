@@ -66,58 +66,54 @@ class _CalculoInteresPrestamoScreenState
       interes: interes,
       meses: meses,
     );
-    return Padding(
-      padding: EdgeInsets.only(top: 10.h),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Text(
-            'Monto requerido: (\$ MXN)',
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        Text(
+          'Monto requerido: (\$ MXN)',
+          style: Theme.of(context).textTheme.headlineMedium,
+          textAlign: TextAlign.justify,
+        ),
+        EntradaCalculos(
+          controlador: monto,
+          onChanged: (value) => calculo.onChanged(),
+          hayValor: hayNumeroMonto,
+          onComplete: calculo.onSubmittedMonto,
+        ),
+        Padding(
+          padding: EdgeInsets.only(top: 75.h),
+          child: Text(
+            'Tasa de interés anual (%) del banco:',
             style: Theme.of(context).textTheme.headlineMedium,
             textAlign: TextAlign.justify,
           ),
-          EntradaCalculos(
-            controlador: monto,
-            onChanged: (value) => calculo.onChanged(),
-            hayValor: hayNumeroMonto,
-            onComplete: calculo.onSubmittedMonto,
+        ),
+        EntradaCalculos(
+          controlador: interes,
+          onComplete: calculo.onCompleteInteres,
+          onChanged: (value) => calculo.onChanged(),
+          hayValor: hayNumeroInteres,
+        ),
+        Padding(
+          padding: EdgeInsets.only(top: 75.h),
+          child: Text(
+            'Cantidad de meses:',
+            style: Theme.of(context).textTheme.headlineMedium,
+            textAlign: TextAlign.justify,
           ),
-          Padding(
-            padding: EdgeInsets.only(top: 75.h),
-            child: Text(
-              'Tasa de interés anual (%) del banco:',
-              style: Theme.of(context).textTheme.headlineMedium,
-              textAlign: TextAlign.justify,
-            ),
-          ),
-          EntradaCalculos(
-            controlador: interes,
-            onComplete: calculo.onCompleteInteres,
-            onChanged: (value) => calculo.onChanged(),
-            hayValor: hayNumeroInteres,
-          ),
-          Padding(
-            padding: EdgeInsets.only(top: 75.h),
-            child: Text(
-              'Cantidad de meses:',
-              style: Theme.of(context).textTheme.headlineMedium,
-              textAlign: TextAlign.justify,
-            ),
-          ),
-          EntradaCalculos(
-            controlador: meses,
-            onComplete: calculo.onCompleteMeses,
-            onChanged: (value) => calculo.onChanged(),
-            hayValor: hayNumeroMeses,
-          ),
-          BotonesCalculos(
-            limpiar: calculo.limpiar,
-            calcular: calculo.mostrarResultado,
-            altoRegresar: 100.h,
-          )
-        ],
-      ),
+        ),
+        EntradaCalculos(
+          controlador: meses,
+          onComplete: calculo.onCompleteMeses,
+          onChanged: (value) => calculo.onChanged(),
+          hayValor: hayNumeroMeses,
+        ),
+        BotonesCalculos(
+          limpiar: calculo.limpiar,
+          calcular: calculo.mostrarResultado,
+        )
+      ],
     );
   }
 }
