@@ -1,12 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:octoconta_final/src/services/auth.dart';
-import 'package:octoconta_final/src/ui/pagina_principal/pagina_principal.dart';
+// import 'package:octoconta_final/src/ui/pagina_principal/pagina_principal.dart';
 import 'package:octoconta_final/src/ui/verificacion_correo/verificacion_correo_screen.dart';
 import 'package:octoconta_final/src/ui/welcome/welcome_screen.dart';
-import 'package:provider/provider.dart';
+// import 'package:provider/provider.dart';
 
-import 'services/informacion_bitacora.dart';
+// import 'services/informacion_bitacora.dart';
 
 class WidgetTree extends StatefulWidget {
   const WidgetTree({super.key});

@@ -1,17 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:octoconta_final/src/autentificacion/iniciar_sesion.dart';
-import 'package:octoconta_final/src/models/pagina_principal/botones_settings.dart';
 import 'package:octoconta_final/src/ui/olvido_contrasena/olvido_contrasena_screen.dart';
-import 'package:octoconta_final/src/ui/settings_screens/pagina_principal_settings.dart';
-import 'package:octoconta_final/src/ui/verificacion_correo/verificacion_correo_screen.dart';
-
-import '../../constants/colors.dart';
 import '../../models/app_bar.dart';
 import '../../models/entradas_autentificacion/botones/botones_inicio_sesion.dart';
 import '../../models/entradas_autentificacion/entradas_contrasena.dart';
 import '../../models/entradas_autentificacion/entradas_correo_nombre.dart';
-import '../pagina_principal/pagina_principal.dart';
 
 /* 
   Creacion de la pantalla del inicio de sesion, en la cual
@@ -114,17 +108,8 @@ class _LogInScreenState extends State<LogInScreen> {
                 padding: EdgeInsets.only(top: 20.h),
                 child: LogInButtons(
                   iniciarSesion: inicioSesion.iniciarSesionUsuario,
-                  olvidoContra: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const PaginaPrincipalSettings(
-                        tituloPantalla: '',
-                        contenido: const OlvidoContrasenaScreen(),
-                      ),
-                    ),
-                  ),
                 ),
-              ),
+              ), //Botones de inicio de sesion y olvido de contraseña
             ],
           ),
         ),

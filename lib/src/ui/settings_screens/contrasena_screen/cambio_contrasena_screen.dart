@@ -120,9 +120,7 @@ class _CambioPasswordScreenState extends State<CambioPasswordScreen> {
             largo1: 0.1,
             largo: 0.2,
             accion: 'Cambiar contraseña',
-            cancelar: 'Regresar',
-            calcular: cambiarContra.cambiarContrase,
-            limpiar: () => Navigator.pop(context),
+            funcion: cambiarContra.cambiarContrase,
           ),
         )
       ],

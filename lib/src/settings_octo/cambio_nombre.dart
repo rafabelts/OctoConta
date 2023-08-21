@@ -41,11 +41,10 @@ class CambioNombre {
         {
           MensajeScaffold(contexto: contexto, mensaje: 'Nombre actualizado.')
               .mostrar();
-          Navigator.pop(contexto);
+          usuario?.reload();
           Navigator.pop(contexto);
         }
       });
-      await usuario?.reload();
     } on FirebaseAuthException catch (e) {
       if (e.code == 'network-request-failed') {
         Future.microtask(() => MensajeScaffold(
@@ -66,8 +65,6 @@ class CambioNombre {
                     'Error desconocido. Por favor, inténtalo de nuevo más tarde')
             .mostrar());
       }
-    } finally {
-      Navigator.pop(contexto);
     }
   }
 

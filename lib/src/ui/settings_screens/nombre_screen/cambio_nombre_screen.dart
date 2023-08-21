@@ -53,9 +53,13 @@ class _CambioNombreScreenState extends State<CambioNombreScreen> {
         children: [
           Text(
             'Cambiar Nombre:',
-            style: Theme.of(context).textTheme.headlineMedium,
-            textAlign: TextAlign.justify,
+            style: Theme.of(context).textTheme.displayMedium,
           ),
+          // Text(
+          //   'Cambiar Nombre:',
+          //   style: Theme.of(context).textTheme.headlineMedium,
+          //   textAlign: TextAlign.justify,
+          // ),
           EntradaCorreoNombre(
             controlador: nuevoNombre,
             onChanged: (value) => cambiarNombre.onChanged(),
@@ -70,9 +74,8 @@ class _CambioNombreScreenState extends State<CambioNombreScreen> {
               largo1: 0.35,
               largo: 0.45,
               accion: 'Cambiar nombre',
-              cancelar: 'Regresar',
-              calcular: cambiarNombre.cambiarNombre,
-              limpiar: () => Navigator.pop(context),
+              // cancelar: 'Regresar',
+              funcion: cambiarNombre.cambiarNombre,
             ),
           )
         ],

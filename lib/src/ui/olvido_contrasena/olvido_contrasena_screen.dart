@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:octoconta_final/src/models/app_bar.dart';
 import 'package:octoconta_final/src/models/entradas_autentificacion/entradas_correo_nombre.dart';
 
 import '../../constants/colors.dart';
@@ -40,45 +41,58 @@ class _OlvidoContrasenaScreenState extends State<OlvidoContrasenaScreen> {
       correo: correo,
       validarCorreo: validarCorreo,
     );
-    return Column(
-      children: [
-        Text(
-          'Ingrese el correo asociado a su cuenta.',
-          style: GoogleFonts.inter(
-            color: primario,
-            fontWeight: FontWeight.bold,
-            fontSize: 26.sp,
+    return Scaffold(
+      appBar: OctoAppBar(
+          iconoSecundario: Icon(null),
+          onPressed: () {},
+          iconoPrincipal: IconButton(
+            icon: Icon(Icons.arrow_back_ios),
+            onPressed: () => Navigator.pop(context),
           ),
-          textAlign: TextAlign.justify,
-        ),
-        EntradaCorreoNombre(
-          controlador: correo,
-          hayValor: hayCorreo,
-          onChanged: (value) => olvidoContra.onChanged(),
-          onComplete: olvidoContra.onComplete,
-          error: hayCorreo == true ? null : correoError,
-          etiqueta: 'Correo electrónico',
-          icono: Icons.mail_outline_rounded,
-        ),
-        Padding(
-          padding: EdgeInsets.only(top: 15.h),
-          child: Text(
-            '* Le enviaremos un correo para establecer su nueva contraseña.',
-            style: GoogleFonts.inter(
-              color: botonSecundarioColor,
-              fontWeight: FontWeight.w500,
-              fontSize: 16.sp,
-            ),
-            textAlign: TextAlign.justify,
+          titulo: ''),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: EdgeInsets.symmetric(vertical: 20.w, horizontal: 20.w),
+          child: Column(
+            children: [
+              Text(
+                'Ingrese el correo asociado a su cuenta.',
+                style: GoogleFonts.inter(
+                  color: primario,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 26.sp,
+                ),
+                textAlign: TextAlign.justify,
+              ),
+              EntradaCorreoNombre(
+                controlador: correo,
+                hayValor: hayCorreo,
+                onChanged: (value) => olvidoContra.onChanged(),
+                onComplete: olvidoContra.onComplete,
+                error: hayCorreo == true ? null : correoError,
+                etiqueta: 'Correo electrónico',
+                icono: Icons.mail_outline_rounded,
+              ),
+              Padding(
+                padding: EdgeInsets.only(top: 15.h),
+                child: Text(
+                  '* Le enviaremos un correo para establecer su nueva contraseña.',
+                  style: GoogleFonts.inter(
+                    color: botonSecundarioColor,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 16.sp,
+                  ),
+                  textAlign: TextAlign.justify,
+                ),
+              ),
+              BotonesSettings(
+                accion: 'Enviar código',
+                funcion: olvidoContra.enviarCorreoRestablecimiento,
+              ),
+            ],
           ),
         ),
-        BotonesSettings(
-          accion: 'Enviar código',
-          cancelar: 'Cancelar',
-          calcular: olvidoContra.enviarCorreoRestablecimiento,
-          limpiar: () => Navigator.pop(context),
-        ),
-      ],
+      ),
     );
   }
 }

@@ -39,7 +39,7 @@ class Auth {
       snapshot}) async {
     showDialog(
       context: context,
-      builder: (context) => Center(
+      builder: (conext) => Center(
         child: CircularProgressIndicator(
           color: const Color.fromARGB(255, 153, 151, 158),
           backgroundColor: Theme.of(context).scaffoldBackgroundColor,

@@ -3,7 +3,10 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:octoconta_final/src/constants/colors.dart';
 import 'package:octoconta_final/src/models/mensaje_scaffold.dart';
+import 'package:octoconta_final/src/models/pagina_principal/calculos_contables/calculos_contables.dart';
 import 'package:octoconta_final/src/ui/pagina_principal/pagina_principal.dart';
 
 import '../../models/pagina_principal/botones_settings.dart';
@@ -26,10 +29,10 @@ class _VerificacionCorreoScreenState extends State<VerificacionCorreoScreen> {
     if (Auth().currentUser != null) {
       estaEmailVerificado = Auth().currentUser!.emailVerified;
       if (!estaEmailVerificado) {
-        enviarCorreoVerificacion();
+        sendEmail();
         timer = Timer.periodic(
           const Duration(seconds: 3),
-          (_) => checarCorreoVerificacion(),
+          (_) => checkEmail(),
         );
       }
     }
@@ -41,7 +44,7 @@ class _VerificacionCorreoScreenState extends State<VerificacionCorreoScreen> {
     timer?.cancel();
   }
 
-  Future<void> enviarCorreoVerificacion() async {
+  Future<void> sendEmail() async {
     final user = Auth().currentUser!;
 
     try {
@@ -69,7 +72,7 @@ class _VerificacionCorreoScreenState extends State<VerificacionCorreoScreen> {
     }
   }
 
-  Future<void> checarCorreoVerificacion() async {
+  Future<void> checkEmail() async {
     await Auth().currentUser!.reload();
     setState(() {
       if (Auth().currentUser != null) {
@@ -82,9 +85,8 @@ class _VerificacionCorreoScreenState extends State<VerificacionCorreoScreen> {
   }
 
   @override
-  Widget build(BuildContext context) => estaEmailVerificado
-      ? const PaginaPrincipalScreen()
-      : verificarCorreo(context);
+  Widget build(BuildContext context) =>
+      estaEmailVerificado ? const PaginaPrincipal() : verificarCorreo(context);
 
   Widget verificarCorreo(BuildContext context) {
     return Scaffold(
@@ -113,33 +115,43 @@ class _VerificacionCorreoScreenState extends State<VerificacionCorreoScreen> {
                       textAlign: TextAlign.justify,
                     ),
                   ),
-                  Align(
-                    child: BotonesSettings(
-                      largo: 0.25,
-                      largo1: 0.1,
-                      accion: 'Reenviar correo',
-                      cancelar: 'Cancelar',
-                      calcular: () {
-                        showDialog(
-                            context: context,
-                            builder: (context) => Center(
-                                  child: CircularProgressIndicator(
-                                    color: const Color.fromARGB(
-                                        255, 153, 151, 158),
-                                    backgroundColor: Theme.of(context)
-                                        .scaffoldBackgroundColor,
-                                  ),
-                                ));
-                        enviarCorreoVerificacion()
-                            .then((value) => Navigator.pop(context));
-                      },
-                      limpiar: () => Auth().cierreSesion(
+                  BotonesSettings(
+                    largo: 0.25,
+                    largo1: 0.1,
+                    accion: 'Reenviar correo',
+                    // cancelar: 'Cancelar',
+                    funcion: () {
+                      showDialog(
+                          context: context,
+                          builder: (context) => Center(
+                                child: CircularProgressIndicator(
+                                  color:
+                                      const Color.fromARGB(255, 153, 151, 158),
+                                  backgroundColor:
+                                      Theme.of(context).scaffoldBackgroundColor,
+                                ),
+                              ));
+                      sendEmail().then((value) => Navigator.pop(context));
+                    },
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(vertical: 30.w),
+                    child: TextButton(
+                      onPressed: () => Auth().cierreSesion(
                         context: context,
                         navegacionPantallasAlCerrarSesion: (_) =>
                             Navigator.pop(context),
                       ),
+                      child: Text(
+                        'Cancelar',
+                        style: GoogleFonts.inter(
+                          color: botonSecundarioColor,
+                          fontSize: 22.sp,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
                     ),
-                  )
+                  ),
                 ],
               ),
             )),

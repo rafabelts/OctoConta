@@ -111,6 +111,8 @@ class CreacionCuenta {
           email: correo.text.toLowerCase().trim(),
           password: confirmaContra.text,
           context: contexto);
+
+      await Auth().currentUser!.updateDisplayName(nombre.text);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'network-request-failed') {
         MensajeScaffold(
@@ -137,7 +139,7 @@ class CreacionCuenta {
       }
     } finally {
       FocusManager.instance.primaryFocus!.unfocus();
-      FocusScope.of(contexto).unfocus();
+      // FocusScope.of(contexto).unfocus();
     }
   }
 

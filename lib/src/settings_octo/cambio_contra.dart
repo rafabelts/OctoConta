@@ -120,8 +120,6 @@ class CambioContra {
                     'Error desconocido. Por favor, intente de nuevo más tarde.')
             .mostrar());
       }
-    } finally {
-      Navigator.pop(contexto);
     }
   }
 

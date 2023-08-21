@@ -102,9 +102,7 @@ class _CambioCorreoScreenState extends State<CambioCorreoScreen> {
             largo1: 0.13,
             largo: 0.25,
             accion: 'Cambiar correo',
-            cancelar: 'Regresar',
-            calcular: cambioCorreo.cambiarCorreo,
-            limpiar: () => Navigator.pop(context),
+            funcion: cambioCorreo.cambiarCorreo,
           ),
         )
       ],

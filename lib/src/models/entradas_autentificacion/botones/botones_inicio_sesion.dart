@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:octoconta_final/src/ui/olvido_contrasena/olvido_contrasena_screen.dart';
 
 import '../../../constants/colors.dart';
 
 class LogInButtons extends StatelessWidget {
   final VoidCallback iniciarSesion;
-  final VoidCallback olvidoContra;
 
-  const LogInButtons(
-      {required this.iniciarSesion, required this.olvidoContra, super.key});
+  const LogInButtons({required this.iniciarSesion, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +43,10 @@ class LogInButtons extends StatelessWidget {
             child: SizedBox(
               // width: MediaQuery.of(context).size.width * 0.78,
               child: TextButton(
-                onPressed: olvidoContra,
+                onPressed: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const OlvidoContrasenaScreen())),
                 child: Text(
                   'Haz olvidado tu contraseña?',
                   style: GoogleFonts.inter(

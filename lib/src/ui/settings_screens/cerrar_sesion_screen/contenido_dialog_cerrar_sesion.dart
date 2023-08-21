@@ -33,7 +33,7 @@ class ContenidoDialogCerrarSesion extends StatelessWidget {
                     navegacionPantallasAlCerrarSesion: (_) {
                       Navigator.pop(context);
                       Navigator.pop(context);
-                      Navigator.pop(context);
+                      // Navigator.pop(context);
                     }),
                 style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
