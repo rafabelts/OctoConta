@@ -42,7 +42,9 @@ class GastosEIngresos extends StatelessWidget {
 class GastosCategorias extends StatelessWidget {
   const GastosCategorias({super.key});
 
-  static const categorias = {'Comida': '../../images/categorias/alimentos.png'};
+  static const categorias = {
+    'Comida': 'images/categorias/alimentosNoSeleccionado.png'
+  };
 
   @override
   Widget build(BuildContext context) {
@@ -52,10 +54,26 @@ class GastosCategorias extends StatelessWidget {
           'Gastos',
           style: Theme.of(context).textTheme.displaySmall,
         ),
-        // GridView.builder(
-        //     gridDelegate:
-        //         SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
-        //     itemBuilder: itemBuilder),
+        GridView.builder(
+          shrinkWrap: true,
+          gridDelegate:
+              SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+          itemCount: categorias.length,
+          itemBuilder: (context, index) {
+            return Card(
+              child: Column(
+                children: [
+                  Image.asset(
+                    categorias["Comida"] ?? "",
+                    height: 100.h,
+                    width: 100.w,
+                  ),
+                  Text(categorias.keys.elementAt(index)),
+                ],
+              ),
+            );
+          },
+        ),
       ],
     );
   }
